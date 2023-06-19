@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<title>Add Route</title>
+</head>
+<body>
+<h1>Add a new route</h1>
+<form action="/submit_route" method="POST">
+    <label for="climbing_type">Climbing Type:</label>
+    <select id="climbing_type" name="climbing_type">
+        <option value="bouldering">Bouldering</option>
+        <option value="rock_climbing">Rock Climbing</option>
+    </select>
+
+    
+        {% if climbing_type == 'bouldering' %}
+        <label for="rating_system">Rating system:</label>
+        <select id="rating_system" name="rating_system">
+            <select name="bouldering">
+                {% for rating in bouldering_ratings %}
+                <option value="{{ route }}">{{ bouldering_ratings}}</option>
+                {% endfor %}
+            </select>
+        {% elif climbing_type == 'rock_climbing' %}
+            <select name="rock_climbing">
+                {% for rating in bouldering_ratings %}
+                <option value="{{ route }}">{{ bouldering_ratings}}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+
+    </select>
+
+
+
+
+        <button type="submit">Add route</button>
+
+
+
+
+
+    </form>
+</body>
+</html>
