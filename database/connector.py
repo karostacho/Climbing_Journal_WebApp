@@ -1,6 +1,9 @@
 import psycopg2
 import getpass
 from logger import Logger
+from password import password
+import psycopg2.extras
+
 
 class Connector():
     def __init__(self):
@@ -14,8 +17,9 @@ class Connector():
             port='5432',
             database='qpgrmemq',
             user='qpgrmemq',
-            password=getpass.getpass(prompt='Enter the database password: ')
+            password=password
             )
+            #cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
             cursor = conn.cursor()
             self.logger.log_message("Connected to database succesfully")
             return cursor

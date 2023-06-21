@@ -1,34 +1,37 @@
-from flask import Flask, render_template, abort, request, redirect, url_for
-from connector import column_names
+from flask import Flask, render_template, jsonify, url_for, request, redirect
+from sql_data import SqlData
 
 app = Flask(__name__)
 
-@app.route("/")
+#sql_data = SqlData()
+
+@app.route("/", methods= ["GET", "POST"])
 def welcome():
-    return render_template("home_page.html")
+    if request.method == "POST":
+        return redirect(url_for("add_route"))
+    else:
+        return render_template("home_page.html")
 
 
-@app.route("/card/<int:index>")
-def routes_view(index):
-    try:
-        card = db[index]
-        return render_template("card.html", card=card, index=index, max_index=(len(db)-1))
-    except IndexError:
-        abort(404)
 
-
-@app.route("/add_route", methods=["GET"])
+@app.route("/add_route")
 def add_route():
-    bouldering_ratings = column_names
-    climbing_types = ['bouldering', 'rock_climbing']
-    routes = {
-        'bouldering': bouldering_ratings,
-        'rock_climbing': bouldering_ratings
-    }
-    return render_template('add_route.html', routes=routes, climbing_types=climbing_types)
+    return render_template("add_route.html")
 
-@app.route('/submit_route', methods=['POST'])
-def submit_route():
-    selected_climbing_type = request.form.get('climbing_type')
-    selected_rating = request.form.get('bouldering_ratings')
-    return 'Route added successfully!'
+
+@app.route("/climbing_types")
+def get_climbing_types():
+    climbing_types = ['Bouldering', 'Rock Climbing']
+    return jsonify(climbing_types)
+
+@app.route("/rating_systems/<climbing_type>")
+def get_rating_systems(climbing_type):
+    rating_systems = {
+        'Bouldering': ['V-scale', 'Fontainebleau'],
+        'Rock Climbing': ['YDS', 'French', 'UIAA']
+    }
+    return jsonify(rating_systems.get(climbing_type, []))
+
+
+    
+
