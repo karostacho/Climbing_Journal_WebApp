@@ -1,4 +1,6 @@
-from password import password
+from database.password import password
+from database.sql_data import SqlData
+
 
 import psycopg2
 import itertools
@@ -12,15 +14,22 @@ conn = psycopg2.connect(
             )
             #cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCurso
 cursor = conn.cursor()
-climbing_type_table = 'rock_climbing_grades'
-cursor.execute((f'SELECT * FROM {climbing_type_table} LIMIT 0'))
-rating_systems = [desc[0] for desc in cursor.description[1:]]
+#climbing_type_table = 'rock_climbing_grades'
+#cursor.execute((f'SELECT * FROM {climbing_type_table} LIMIT 0'))
+#rating_systems = [desc[0] for desc in cursor.description[1:]]
 #print(rating_systems)
 
-cursor.execute(f'SELECT * FROM {climbing_type_table}')
-data = [dict(zip(rating_systems, row)) for row in cursor.fetchall()]
+#cursor.execute(f'SELECT * FROM {climbing_type_table}')
+#data = [dict(zip(rating_systems, row)) for row in cursor.fetchall()]
 
-cursor.close()
-conn.close()
+#cursor.close()
+#conn.close()
 # Print the resulting list of dictionaries
-print(data)
+#print(data)
+
+
+
+sql = SqlData()
+routes = (sql.get_routes_of_user(1))
+
+print(routes)

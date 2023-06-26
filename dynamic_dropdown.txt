@@ -1,0 +1,76 @@
+
+@app.route("/climbing_types")
+def get_climbing_types():
+    climbing_types = ['Bouldering', 'Rock Climbing']
+    return jsonify(climbing_types)
+
+@app.route("/rating_systems/<climbing_type>")
+def get_rating_systems(climbing_type):
+    rating_systems = {
+        'Bouldering': ['V-scale', 'Fontainebleau'],
+        'Rock Climbing': ['YDS', 'French', 'UIAA']
+    }
+    return jsonify(rating_systems.get(climbing_type, []))
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Route</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+</head>
+<body>
+    <h1>Add a route</h1>
+
+    <label>Climbing Type</label>
+    <select name="climbing_type" id="climbing_type" class="selectpicker">
+        <option value=""></option>
+    </select>
+
+    <label>Rating System</label>
+    <select name="rating_system" id="rating_system" class="form-control" >
+    </select>
+
+    <script>
+        $(document).ready(function() {
+            function loadClimbingTypes() {
+                $.ajax({
+                    url: '/climbing_types',
+                    type: 'GET',
+                    success: function(data) {
+                        $('#climbing_type').empty();
+                        $('#climbing_type').append('<option value=""></option>');
+                        $.each(data, function(index, value) {
+                            $('#climbing_type').append('<option value="' + value + '">' + value + '</option>');
+                        });
+                    }
+                });
+            }
+
+            function loadRatingSystems(climbingType) {
+                $.ajax({
+                    url: '/rating_systems/' + climbingType,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#rating_system').empty();
+                        $.each(data, function(index, value) {
+                            $('#rating_system').append('<option>' + value + '</option>');
+                        });
+                    }
+                });
+            }
+
+            $('#climbing_type').click(function() {
+                loadClimbingTypes();
+            });
+
+            $(document).on('change', '#climbing_type', function() {
+                var climbingType = $(this).val();
+                loadRatingSystems(climbingType);
+            });
+        });
+    </script>
+</body>
+</html>
