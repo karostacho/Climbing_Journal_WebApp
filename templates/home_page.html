@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<link rel="stylesheet" href="{{ url_for('static',filename='styles/my_style.css') }}">
+<body>
+<div class = navbar>
+        <div class="dropdown">
+            <button class="dropbtn">Climbing Journal</button>
+              <div class="dropdown-content">
+                <a href="view_routes">Rock Climbing</a>
+                <a href="view_routes">Bouldering</a>
+            </div>
+        </div>
+    <li><a href="xxx.pl">Log in</a></li>
+</div>
+
+<div class="titles">
+    <h1>Rock Climbing</h1>
+</div>
+
+    <table class="converter">
+    <tr>
+    <form method="POST" class ="grade_dropdowns">
+        <th>
+            <label for="french">French</label>
+                <select id="french" name="french" onchange="this.form.submit()">
+                    <option value="">-- Select Grade --</option>
+                    {% for grade in french %}
+                        <option value="{{ grade }}">{{ grade }}</option>
+                    {% endfor %}
+                </select>
+                <noscript><button type="submit">Submit</button></noscript>
+        </th>
+        <th>
+            <label for="kurtyka">Kurtyka</label>
+                <select id="kurtyka" name="kurtyka" onchange="this.form.submit()">
+                    <option value="">-- Select Grade --</option>
+                    {% for grade in kurtyka %}
+                        <option value="{{ grade }}">{{ grade }}</option>
+                    {% endfor %}
+                </select>
+                <noscript><button type="submit">Submit</button></noscript>
+        </th>
+        <th>
+            <label for="uiaa">UIAA</label>
+                <select id="uiaa" name="uiaa" onchange="this.form.submit()">
+                    <option value="">-- Select Grade --</option>
+                    {% for grade in uiaa %}
+                        <option value="{{ grade }}">{{ grade }}</option>
+                    {% endfor %}
+                </select>
+                <noscript><button type="submit">Submit</button></noscript>
+        </th>
+        <th>
+            <label for="usa">USA</label>
+                <select id="usa" name="usa" onchange="this.form.submit()">
+                    <option value="">-- Select Grade --</option>
+                    {% for grade in usa %}
+                        <option value="{{ grade }}">{{ grade }}</option>
+                    {% endfor %}
+                </select>
+                <noscript><button type="submit">Submit</button></noscript>
+        </th>
+        <th>
+            <label for="british">British</label>
+            <select id="british" name="british" onchange="this.form.submit()">
+                <option value="">-- Select Grade --</option>
+                {% for grade in british %}
+                    <option value="{{ grade }}">{{ grade }}</option>
+                {% endfor %}
+            </select>
+            <noscript><button type="submit">Submit</button></noscript>
+        </th>
+    </form>
+    </tr>
+    
+    
+    {% if data %}
+        {% for row in data %}
+        <tr>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+    </table>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

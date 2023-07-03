@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Route</title>
+</head>
+<body>
+    <h1>Add a route</h1>
+    <br>
+    <form method="POST">
+        <label for="climbing_type">Climbing Type:</label>
+        <select id="climbing_type" name="climbing_type">   
+            {% for climbing_type in climbing_types %}
+                <option value="{{ climbing_type }}">{{ climbing_type }}</option>
+            {% endfor %}
+        </select>
+
+        <output class="output-result" for ="climbing_type" ></output>
+        <br>
+        <br>
+        <label for="rating_system">Rating System:</label>
+        <select id="rating_system" name="rating_system">
+            {% for rating_system in rating_systems %}
+                <option value="{{ rating_system }}">{{ rating_system }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="grade">Grade:</label>
+        <select id="grade" name="grade">
+            {% for grade in grades %}
+                <option value="{{ grade }}">{{ grade }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="route_name">Route name:</label>
+        <input type="text" id="route_name" name="route_name"><br><br>
+        <input type="submit" value="Add">
+    </form>
+</body>
+</html>
