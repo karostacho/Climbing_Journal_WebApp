@@ -5,6 +5,7 @@ class RockClimbing:
         self.french = french
         self.uiaa = uiaa
         self.british = british
+<<<<<<< HEAD
         self.kurtyka = kurtyka
 
 
@@ -16,3 +17,6 @@ class RockClimbing:
             if item not in unique_grades:
                 unique_grades.append(item)
         return unique_grades
+=======
+        self.kurtyka = kurtyka
+>>>>>>> e6c276d64157b8bb2104ce3b12a07a3996fcd3d5

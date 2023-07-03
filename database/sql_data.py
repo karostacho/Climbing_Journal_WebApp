@@ -34,8 +34,11 @@ class SqlData():
                                                 ON rock_climbing_grades."Index" = routes.grade_index
                                                 WHERE routes.user_id = {user_id};'''))
         #routes = [row[0] for row in rows]
+<<<<<<< HEAD
         return rows
 
     def get_grades_by_index(self, grade_index):
         rows = self.connector.execute_sql_query(f"""SELECT "French", "Kurtyka(Poland)", "UIAA", "USA","British"  FROM rock_climbing_grades WHERE "Index" = '{grade_index}'""")
+=======
+>>>>>>> e6c276d64157b8bb2104ce3b12a07a3996fcd3d5
         return rows
