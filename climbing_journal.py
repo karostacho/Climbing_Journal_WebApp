@@ -20,13 +20,17 @@ kurtyka = sql_data.get_grades('Kurtyka(Poland)')
 def get_index_by_grade(rating_system, grade):
     return sql_data.get_index_by_grade(rating_system, grade)
 
-def converter():
+
+
+@app.route("/", methods= ["GET", "POST"])
+def welcome():
     f_grade = request.form.get("french")
     uiaa_grade = request.form.get("uiaa")
     usa_grade = request.form.get("usa")
     british_grade = request.form.get("british")
     kurtyka_grade = request.form.get("kurtyka")
     grade_index = None
+
 
     if request.method == "POST":
         if f_grade:
@@ -42,31 +46,6 @@ def converter():
     data = sql_data.get_grades_by_index(grade_index) if grade_index else None
 
     return render_template("home_page.html", french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, data=data)
-
-@app.route("/", methods= ["GET", "POST"])
-def welcome():
-    f_grade = request.form.get("french")
-    uiaa_grade = request.form.get("uiaa")
-    usa_grade = request.form.get("usa")
-    british_grade = request.form.get("british")
-    kurtyka_grade = request.form.get("kurtyka")
-    grade_index = None
-    headings = ( "French", "Kurtyka (Poland)", "UIAA", "USA","British" )
-
-    if request.method == "POST":
-        if f_grade:
-            grade_index = get_index_by_grade("French", f_grade)
-        elif kurtyka_grade:
-            grade_index = get_index_by_grade("Kurtyka(Poland)", kurtyka_grade)
-        elif uiaa_grade:
-            grade_index = get_index_by_grade("UIAA", uiaa_grade)
-        elif usa_grade:
-            grade_index = get_index_by_grade("USA", usa_grade)
-        elif british_grade:
-            grade_index = get_index_by_grade("British", british_grade)
-    data = sql_data.get_grades_by_index(grade_index) if grade_index else None
-
-    return render_template("home_page.html", french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, headings=headings, data=data)
 
 
 
