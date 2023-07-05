@@ -22,13 +22,13 @@
     <form method="POST" class ="grade_dropdowns">
         <th>
             <label for="french">French</label>
-                <select id="french" name="french" onchange="this.form.submit()">
+                <select id="french" name="french" onchange="this.form.submit()"> 
                     <option value="">-- Select Grade --</option>
                     {% for grade in french %}
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
                 </select>
-                <noscript><button type="submit">Submit</button></noscript>
+                
         </th>
         <th>
             <label for="kurtyka">Kurtyka</label>
@@ -38,7 +38,7 @@
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
                 </select>
-                <noscript><button type="submit">Submit</button></noscript>
+               
         </th>
         <th>
             <label for="uiaa">UIAA</label>
@@ -48,7 +48,7 @@
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
                 </select>
-                <noscript><button type="submit">Submit</button></noscript>
+           
         </th>
         <th>
             <label for="usa">USA</label>
@@ -58,7 +58,7 @@
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
                 </select>
-                <noscript><button type="submit">Submit</button></noscript>
+         
         </th>
         <th>
             <label for="british">British</label>
@@ -68,7 +68,7 @@
                     <option value="{{ grade }}">{{ grade }}</option>
                 {% endfor %}
             </select>
-            <noscript><button type="submit">Submit</button></noscript>
+          
         </th>
     </form>
     </tr>
