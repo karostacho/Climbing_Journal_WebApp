@@ -1,5 +1,4 @@
 import psycopg2
-import getpass
 from logger import Logger
 from database.password import password
 import psycopg2.extras
@@ -11,34 +10,30 @@ class Connector():
    
     def connect_to_database(self):
         try:
-            conn = psycopg2.connect(
-            host='snuffleupagus.db.elephantsql.com',
-            port='5432',
-            database='qpgrmemq',
-            user='qpgrmemq',
-            password=password
+            connector = psycopg2.connect(
+                host='snuffleupagus.db.elephantsql.com',
+                port='5432',
+                database='qpgrmemq',
+                user='qpgrmemq',
+                password=password
             )
-            #cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-
             
             self.logger.log_message("Connected to database succesfully")
-            return conn
+            return connector
         except psycopg2.OperationalError as error:
-            self.logger.log_error(error,"Wrong password" )
+            self.logger.log_error(f"Something went wrong with the connection: {error}")
             return self.connect_to_database()
-        
-
         
 
     def execute_sql_query(self, message):
         try:
-            conn = self.connect_to_database()
-            cursor = conn.cursor()
+            connector = self.connect_to_database()
+            cursor = connector.cursor()
             cursor.execute(message)
             return cursor.fetchall()
         except psycopg2.errors.UndefinedColumn as error:
-            self.logger.log_error(error,"Column not found")
+            self.logger.log_error(f"Column not found: {error}")
             quit()
         except psycopg2.errors.SyntaxError as error:
-            self.logger.log_error(error, "Syntax Error")
+            self.logger.log_error(f"Syntax Error: {error}")
             quit()

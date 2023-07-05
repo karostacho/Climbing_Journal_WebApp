@@ -1,25 +1,29 @@
 <!doctype html>
 <html>
-<link rel="stylesheet" href="{{ url_for('static',filename='styles/my_style.css') }}">
+<head>
+    <meta charset="utf-8" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/my_style.css') }}">
+</head>
 <body>
-<div class = navbar>
-        <div class="dropdown">
-            <button class="dropbtn">Climbing Journal</button>
-              <div class="dropdown-content">
-                <a href="view_routes">Rock Climbing</a>
-                <a href="view_routes">Bouldering</a>
+    <div class="navbar">
+            <div class="dropdown">
+                <button class="dropdown-button">Climbing Journal</button>
+                <div class="dropdown-content">
+                    <a href="view_routes">Rock Climbing</a>
+                    <a href="view_routes">Bouldering</a>
+                </div>
             </div>
-        </div>
-    <li><a href="xxx.pl">Log in</a></li>
-</div>
+            <a href="xxx.pl">Log in</a>
+    </div>
 
-<div class="titles">
-    <h1>Rock Climbing</h1>
-</div>
+    <div class="titles">
+        <h1>Rock Climbing</h1>
+    </div>
 
     <table class="converter">
     <tr>
-    <form method="POST" class ="grade_dropdowns">
+    <form method="POST" class ="grade-dropdowns">
         <th>
             <label for="french">French</label>
                 <select id="french" name="french" onchange="this.form.submit()"> 
@@ -28,7 +32,6 @@
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
                 </select>
-                
         </th>
         <th>
             <label for="kurtyka">Kurtyka</label>
@@ -38,7 +41,6 @@
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
                 </select>
-               
         </th>
         <th>
             <label for="uiaa">UIAA</label>
@@ -48,7 +50,6 @@
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
                 </select>
-           
         </th>
         <th>
             <label for="usa">USA</label>
@@ -58,7 +59,6 @@
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
                 </select>
-         
         </th>
         <th>
             <label for="british">British</label>
@@ -68,24 +68,19 @@
                     <option value="{{ grade }}">{{ grade }}</option>
                 {% endfor %}
             </select>
-          
         </th>
     </form>
-    </tr>
+    </tr>  
     
-    
-    {% if data %}
-        {% for row in data %}
+    {% if grades_by_index %}
+        {% for row in grades_by_index %}
         <tr>
             {% for cell in row %}
             <td>{{ cell }}</td>
             {% endfor %}
         </tr>
         {% endfor %}
-
+    {% endif %}
     </table>
-        {% endif %}
-    </div>
-</div>
 </body>
 </html>
