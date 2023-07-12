@@ -9,11 +9,8 @@ class SqlData():
     def get_grades(self, rating_system):
         rows = self.connector.execute_sql_query(f'''SELECT "{rating_system}" FROM rock_climbing_grades''')
         grades = [row[0] for row in rows]
-        unique_grades = []
-        for item in grades:
-            if item not in unique_grades:
-                unique_grades.append(item)
-        return unique_grades  
+        grades = SqlData.remove_duplicates(grades)
+        return grades 
 
 
     def get_index_by_grade(self, rating_system, grade):
@@ -47,3 +44,11 @@ class SqlData():
     def get_middle_value(indexes):
         return indexes[len(indexes) // 2]
     
+
+    @staticmethod
+    def remove_duplicates(grades):
+        unique_grades = []
+        for item in grades:
+            if item not in unique_grades:
+                unique_grades.append(item)
+        return unique_grades 
