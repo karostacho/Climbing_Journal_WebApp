@@ -3,41 +3,46 @@
 <head>
     <meta charset="utf-8" />
     <title>Home Page</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/my_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/my_style.css') }}"  >
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="navbar">
-            <div class="dropdown">
-                <button class="dropdown-button">Climbing Journal</button>
-                <div class="dropdown-content">
-                    <a href="view_routes">Rock Climbing</a>
-                    <a href="view_routes">Bouldering</a>
-                </div>
-            </div>
-            <a href="xxx.pl">Log in</a>
+    <div class = navbar>
+        <ul>
+            <li><img class = "logo" src = "{{ url_for('static',filename='styles/logo.png') }}"></li>
+            <li><a class ="login" href="xxx.pl">Log in</a></li>
+            <li><a class ="journal_tab" href="{{ url_for('view_routes') }}">Journal</a></li>
+            <li><a class ="grade_converter_tab" href="{{ url_for('home_page') }}">Grade converter</a></li>
+        </ul>
     </div>
 
-    <div class="titles">
-        <h1>Lead Climbing</h1>
+
+    <div class="section_1">
+    <img src="{{ url_for('static',filename='styles/background_image.jpg') }}" >
+    <div class = "main_title">
+        <h1>Interactive grade converter</h1>
     </div>
-    <form method="POST">
-        <div class="grade-dropdowns">
-            
-            <label for="french">French</label>
-            
+    </div>
+
+    <div class = "climbing_drop">
+        <div class="titles">
+            <h1>Lead Climbing</h1>
+        </div>
+    
+        <form method="POST" >
+        
+            <div class="grade-dropdowns">
+                <label for="french">French</label>
                 <select id="french" name="french" onchange="this.form.submit()">
-                    
                     <option value="">{{rock_grades_by_index[2] }} </option>
-                
                     {% for grade in french %}
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
                 </select>
-                
             </div>
+
             <div class="grade-dropdowns">
             <label for="kurtyka">Kurtyka</label>
-            
                 <select id="kurtyka" name="kurtyka" onchange="this.form.submit()">
                     <option value="">{{rock_grades_by_index[5] }} </option>
                     {% for grade in kurtyka %}
@@ -45,9 +50,9 @@
                     {% endfor %}
                 </select>
             </div>
+
             <div class="grade-dropdowns">
             <label for="uiaa">UIAA</label>
-             
                 <select id="uiaa" name="uiaa" onchange="this.form.submit()">
                     <option value="">{{rock_grades_by_index[3] }}</option>
                     {% for grade in uiaa %}
@@ -55,19 +60,19 @@
                     {% endfor %}
                 </select>
             </div>
+
             <div class="grade-dropdowns">
             <label for="usa">USA</label>
-            
-                <select id="usa" name="usa" onchange="this.form.submit()">
+                <select class ='grade' id="usa" name="usa" onchange="this.form.submit()">
                     <option value="">{{rock_grades_by_index[1] }} </option>
                     {% for grade in usa %}
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="grade-dropdowns">
+
+            <div class="grade-dropdowns-last">
             <label for="british">British</label>
-             
             <select id="british" name="british" onchange="this.form.submit()">
                 <option value="">{{rock_grades_by_index[4] }}</option>
                 {% for grade in british %}
@@ -75,40 +80,36 @@
                 {% endfor %}
             </select>
             </div>
-    </form>
+        </form>
 
     <div class="titles">
         <h1>Bouldering</h1>
     </div>
-
+   
         <form method="POST" class='bouldering' >
              <div class="grade-dropdowns">
-            <label for="v_scale">V_scale</label>
-             
+            <label for="v_scale">V-scale</label>
             <select id="v_scale" name="v_scale" onchange="this.form.submit()">
                 <option value="">{{bouldering_grades_by_index[1] }}</option>
                 {% for grade in v_scale %}
                     <option value="{{ grade }}">{{ grade }}</option>
                 {% endfor %}
-                
             </select>
             </div>
-            <div class="grade-dropdowns">
-                <label for="font_scale">Font_scale</label>
-                 
+
+            <div class="grade-dropdowns-last">
+                <label for="font_scale">Font Scale</label>
                 <select id="font_scale" name="font_scale" onchange="this.form.submit()">
                     <option value="">{{bouldering_grades_by_index[2] }}</option>
                     {% for grade in font_scale %}
                         <option value="{{ grade }}">{{ grade }}</option>
                     {% endfor %}
-                    
                 </select>
-                </div>
-        </form>
-    
+            </div>
 
-    
-    
+        </form>
+
+    </div>
 
 </body>
 </html>

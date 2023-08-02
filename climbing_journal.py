@@ -70,7 +70,7 @@ def home_page():
         for row in all_bouldering_grades:
             if row[0] == bouldering_grade_index:
                 bouldering_grades_by_index = row
-    
+        
     #grades_by_index = sql_data.get_grades_by_index(grade_index) if grade_index else None
     return render_template("home_page.html", french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, v_scale=v_scale, font_scale=font_scale, rock_grades_by_index=rock_grades_by_index, bouldering_grade_index=bouldering_grade_index, bouldering_grades_by_index=bouldering_grades_by_index, rock_grade_index=rock_grade_index)
 
