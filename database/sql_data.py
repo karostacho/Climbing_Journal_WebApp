@@ -4,24 +4,27 @@ from database.connector import Connector
 class SqlData():
     def __init__(self):
         self.connector = Connector()
-    
 
-    def get_grades(self, rating_system):
-        rows = self.connector.execute_sql_query(f'''SELECT "{rating_system}" FROM rock_climbing_grades''')
+    def get_grades(self, rating_system, climbing_type):
+        rows = self.connector.execute_sql_query(f'''SELECT "{rating_system}" FROM {climbing_type}''')
         grades = [row[0] for row in rows]
         grades = SqlData.remove_duplicates(grades)
         return grades 
 
+    def get_all_records(self, climbing_type):
+        rows = self.connector.execute_sql_query(f'''SELECT * FROM {climbing_type}''')
+        grades = [list(row) for row in rows]
+        return grades
 
-    def get_index_by_grade(self, rating_system, grade):
-        rows = self.connector.execute_sql_query(f"""SELECT "Index" FROM rock_climbing_grades WHERE "{rating_system}" = '{grade}'""")
+    def get_index_by_grade(self, climbing_type, rating_system, grade):
+        rows = self.connector.execute_sql_query(f"""SELECT "Index" FROM {climbing_type} WHERE "{rating_system}" = '{grade}'""")
         possible_indexes = [row[0] for row in rows]
         index = SqlData.get_middle_value(possible_indexes)
         return index
     
 
-    def get_grade_by_index(self, rating_system, index):
-        rows = self.connector.execute_sql_query(f"""SELECT "{rating_system}" FROM rock_climbing_grades WHERE "Index" = {index}""")
+    def get_grade_by_index(self, climbing_type, rating_system, index):
+        rows = self.connector.execute_sql_query(f"""SELECT "{rating_system}" FROM {climbing_type} WHERE "Index" = {index}""")
         grade = [row[0] for row in rows]
         return grade
 
@@ -34,11 +37,6 @@ class SqlData():
                                                 WHERE routes.user_id = {user_id};'''))
         return rows
 
-
-    def get_grades_by_index(self, grade_index):
-        rows = self.connector.execute_sql_query(f"""SELECT "French", "Kurtyka(Poland)", "UIAA", "USA","British"  FROM rock_climbing_grades WHERE "Index" = '{grade_index}'""")
-        return rows
-    
 
     @staticmethod
     def get_middle_value(indexes):
