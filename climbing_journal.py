@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request
 from model.route import Route
 from database.route_db import add_route_to_db
 from database.sql_data import SqlData
@@ -22,9 +22,6 @@ v_scale = sql_data.get_grades('V_scale', bouldering)
 font_scale = sql_data.get_grades('Font_scale', bouldering)
 
 
-def get_index_by_grade(climbing_type,rating_system, grade):
-    return sql_data.get_index_by_grade(climbing_type, rating_system, grade)
-
 
 @app.route("/", methods= ["GET", "POST"])
 def home_page():
@@ -46,15 +43,15 @@ def home_page():
         if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
         
             if french_grade:
-                rock_grade_index = get_index_by_grade(rock_climbing, "French", french_grade)
+                rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "French", french_grade)
             elif kurtyka_grade:
-                rock_grade_index = get_index_by_grade(rock_climbing, "Kurtyka(Poland)", kurtyka_grade)
+                rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "Kurtyka(Poland)", kurtyka_grade)
             elif uiaa_grade:
-                rock_grade_index = get_index_by_grade(rock_climbing, "UIAA", uiaa_grade)
+                rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "UIAA", uiaa_grade)
             elif usa_grade:
-                rock_grade_index = get_index_by_grade(rock_climbing, "USA", usa_grade)
+                rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "USA", usa_grade)
             elif british_grade:
-                rock_grade_index = get_index_by_grade(rock_climbing, "British", british_grade)
+                rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "British", british_grade)
         
             if rock_grade_index:
                 for row in all_rock_grades:
@@ -62,9 +59,9 @@ def home_page():
                             rock_grades_by_index = row
         else:
             if v_scale_grade:
-                bouldering_grade_index = get_index_by_grade(bouldering, "V_scale", v_scale_grade)
+                bouldering_grade_index = sql_data.get_index_by_grade(bouldering, "V_scale", v_scale_grade)
             elif font_scale_grade:
-                bouldering_grade_index = get_index_by_grade(bouldering, "Font_scale", font_scale_grade) 
+                bouldering_grade_index = sql_data.get_index_by_grade(bouldering, "Font_scale", font_scale_grade) 
             if bouldering_grade_index:
                 for row in all_bouldering_grades:
                     if row[0] == bouldering_grade_index:

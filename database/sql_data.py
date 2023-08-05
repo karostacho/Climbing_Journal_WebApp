@@ -38,13 +38,6 @@ class SqlData():
         return rows
 
 
-    def get_grades_by_index(self, climbing_type, grade_index):
-        rows = self.connector.execute_sql_query(f"""SELECT "French", "Kurtyka(Poland)", "UIAA", "USA","British"  FROM {climbing_type} WHERE "Index" = '{grade_index}'""")
-        tuple = rows[0]
-        grades = list(tuple)
-        return grades 
-    
-
     @staticmethod
     def get_middle_value(indexes):
         return indexes[len(indexes) // 2]

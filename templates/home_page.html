@@ -9,22 +9,22 @@
 <body>
     <div class = navbar>
         <ul>
-            <li><img class = "logo" src = "{{ url_for('static',filename='styles/logo.png') }}"></li>
+            <li><img class = "logo" src = "{{ url_for('static',filename='logo.png') }}"></li>
             <li><a class ="login" href="xxx.pl">Log in</a></li>
-            <li><a class ="journal_tab" href="{{ url_for('view_routes') }}">Journal</a></li>
-            <li><a class ="grade_converter_tab" href="{{ url_for('home_page') }}">Grade converter</a></li>
+            <li><a class ="journal-tab" href="{{ url_for('view_routes') }}">Journal</a></li>
+            <li><a class ="grade-converter-tab" href="{{ url_for('home_page') }}">Grade converter</a></li>
         </ul>
     </div>
 
 
-    <div class="section_1">
-        <img src="{{ url_for('static',filename='styles/background_image.jpg') }}" >
-        <div class = "main_title">
+    <div class="graphic-section">
+        <img src="{{ url_for('static',filename='background_image.jpg') }}" >
+        <div class = "main-title">
             <h1>Interactive grade converter</h1>
         </div>
     </div>
 
-    <div class = "climbing_drop">
+    <div class = "climbing-drop">
         <div class="titles">
             <h1>Lead Climbing</h1>
         </div>
