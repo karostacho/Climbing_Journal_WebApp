@@ -18,10 +18,10 @@
 
 
     <div class="section_1">
-    <img src="{{ url_for('static',filename='styles/background_image.jpg') }}" >
-    <div class = "main_title">
-        <h1>Interactive grade converter</h1>
-    </div>
+        <img src="{{ url_for('static',filename='styles/background_image.jpg') }}" >
+        <div class = "main_title">
+            <h1>Interactive grade converter</h1>
+        </div>
     </div>
 
     <div class = "climbing_drop">
@@ -80,14 +80,14 @@
                 {% endfor %}
             </select>
             </div>
-        </form>
+        
 
-    <div class="titles">
-        <h1>Bouldering</h1>
-    </div>
+            <div class="titles">
+                <h1>Bouldering</h1>
+            </div>
    
-        <form method="POST" class='bouldering' >
-             <div class="grade-dropdowns">
+       
+            <div class="grade-dropdowns">
             <label for="v_scale">V-scale</label>
             <select id="v_scale" name="v_scale" onchange="this.form.submit()">
                 <option value="">{{bouldering_grades_by_index[1] }}</option>
@@ -106,9 +106,7 @@
                     {% endfor %}
                 </select>
             </div>
-
         </form>
-
     </div>
 
 </body>

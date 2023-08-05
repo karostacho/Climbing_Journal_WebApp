@@ -4,7 +4,6 @@ from database.connector import Connector
 class SqlData():
     def __init__(self):
         self.connector = Connector()
-    
 
     def get_grades(self, rating_system, climbing_type):
         rows = self.connector.execute_sql_query(f'''SELECT "{rating_system}" FROM {climbing_type}''')

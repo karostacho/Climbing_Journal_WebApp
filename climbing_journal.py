@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from model.route import Route
 from database.route_db import add_route_to_db
 from database.sql_data import SqlData
@@ -7,9 +7,6 @@ from database.sql_data import SqlData
 app = Flask(__name__)
 app.debug = True
 
-
-climbing_types = ['Bouldering', "Rock_Climbing"]
-rating_systems = ['French']
 rock_climbing = 'rock_climbing_grades'
 bouldering = 'bouldering_grades'
 
@@ -25,54 +22,57 @@ v_scale = sql_data.get_grades('V_scale', bouldering)
 font_scale = sql_data.get_grades('Font_scale', bouldering)
 
 
-
 def get_index_by_grade(climbing_type,rating_system, grade):
     return sql_data.get_index_by_grade(climbing_type, rating_system, grade)
 
 
 @app.route("/", methods= ["GET", "POST"])
 def home_page():
-    french_grade = request.form.get("french")
-    uiaa_grade = request.form.get("uiaa")
-    usa_grade = request.form.get("usa")
-    british_grade = request.form.get("british")
-    kurtyka_grade = request.form.get("kurtyka")
-    v_scale_grade = request.form.get("v_scale")
-    font_scale_grade = request.form.get("font_scale")
+
     rock_grades_by_index = all_rock_grades[24]
     bouldering_grades_by_index = all_bouldering_grades[18]
     bouldering_grade_index= None
     rock_grade_index= None
- 
-    
-    if request.method == "POST":
-        
-        if french_grade:
-            rock_grade_index = get_index_by_grade(rock_climbing, "French", french_grade)
-        elif kurtyka_grade:
-            rock_grade_index = get_index_by_grade(rock_climbing, "Kurtyka(Poland)", kurtyka_grade)
-        elif uiaa_grade:
-            rock_grade_index = get_index_by_grade(rock_climbing, "UIAA", uiaa_grade)
-        elif usa_grade:
-            rock_grade_index = get_index_by_grade(rock_climbing, "USA", usa_grade)
-        elif british_grade:
-            rock_grade_index = get_index_by_grade(rock_climbing, "British", british_grade)
-        
-        for row in all_rock_grades:
-            if row[0] == rock_grade_index:
-                    rock_grades_by_index = row
-    
-        if v_scale_grade:
-            bouldering_grade_index = get_index_by_grade(bouldering, "V_scale", v_scale_grade)
-        elif font_scale_grade:
-            bouldering_grade_index = get_index_by_grade(bouldering, "Font_scale", font_scale_grade) 
 
-        for row in all_bouldering_grades:
-            if row[0] == bouldering_grade_index:
-                bouldering_grades_by_index = row
+    if request.method == "POST":
+        french_grade = request.form.get("french")
+        uiaa_grade = request.form.get("uiaa")
+        usa_grade = request.form.get("usa")
+        british_grade = request.form.get("british")
+        kurtyka_grade = request.form.get("kurtyka")
+        v_scale_grade = request.form.get("v_scale")
+        font_scale_grade = request.form.get("font_scale")
         
-    #grades_by_index = sql_data.get_grades_by_index(grade_index) if grade_index else None
+        if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
+        
+            if french_grade:
+                rock_grade_index = get_index_by_grade(rock_climbing, "French", french_grade)
+            elif kurtyka_grade:
+                rock_grade_index = get_index_by_grade(rock_climbing, "Kurtyka(Poland)", kurtyka_grade)
+            elif uiaa_grade:
+                rock_grade_index = get_index_by_grade(rock_climbing, "UIAA", uiaa_grade)
+            elif usa_grade:
+                rock_grade_index = get_index_by_grade(rock_climbing, "USA", usa_grade)
+            elif british_grade:
+                rock_grade_index = get_index_by_grade(rock_climbing, "British", british_grade)
+        
+            if rock_grade_index:
+                for row in all_rock_grades:
+                    if row[0] == rock_grade_index:
+                            rock_grades_by_index = row
+        else:
+            if v_scale_grade:
+                bouldering_grade_index = get_index_by_grade(bouldering, "V_scale", v_scale_grade)
+            elif font_scale_grade:
+                bouldering_grade_index = get_index_by_grade(bouldering, "Font_scale", font_scale_grade) 
+            if bouldering_grade_index:
+                for row in all_bouldering_grades:
+                    if row[0] == bouldering_grade_index:
+                        bouldering_grades_by_index = row
+   
     return render_template("home_page.html", french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, v_scale=v_scale, font_scale=font_scale, rock_grades_by_index=rock_grades_by_index, bouldering_grade_index=bouldering_grade_index, bouldering_grades_by_index=bouldering_grades_by_index, rock_grade_index=rock_grade_index)
+
+
 
 
 @app.route("/add_route", methods=["GET", "POST"])
