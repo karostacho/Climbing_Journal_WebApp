@@ -1,0 +1,244 @@
+/* Navbar*/
+body{
+  margin: 0 ;
+  padding:0px;
+}
+.navbar{
+  height: 73px;
+  box-shadow: 0px,20px,0,20px
+rgba(0, 0, 0, 0.08);
+margin-top: 1.7%;
+margin-bottom: 0.5%;
+margin-left: 3%;
+margin-right: 3%;
+}
+
+.navbar ul li{
+  float: right;
+  width: 183px;
+  height: 51px;
+  border-radius: 8px;
+  gap:20px;
+  color: white;
+  text-align: center;
+  list-style-type: none;
+  margin-right: 2%;
+ }
+ 
+ .navbar ul li:first-child {
+  float: left;
+ }
+
+.navbar img {
+  left:121px;
+  height: 62px;
+  width: 142px;
+  top:15px;
+  float: left;
+}
+
+ .navbar a.login{
+  width: 108px;
+  height: 56px;
+  top:18px;
+  padding: 17px 30px 17px 30px;
+  border-radius: 8px;
+  border: 1px solid rgba(98, 77, 227, 1);
+  gap: 10px
+
+}
+
+.navbar a.grade-converter-tab{
+  width: 108px;
+  height: Fixed (56px);
+  gap: 10px
+}
+
+.navbar a.login:hover{
+  background-color: rgba(151, 71, 255, 0.07);
+   color: rgba(98, 77, 227, 1);
+}
+
+.navbar .grade-converter-tab a:hover{
+  background-color: rgba(151, 71, 255, 0.07);
+  color: rgba(98, 77, 227, 1);
+}
+
+ .navbar a {
+  color: black;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Poppins';
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.05px;
+  text-align: center;
+  font-size: 20px; 
+ }
+
+
+ 
+ .navbar li.grade-converter-tab {
+  border-bottom: 3px solid transparent;
+   border-bottom-color: rgba(98, 77, 227, 1);
+   border-radius: 0px;
+ }
+
+
+ .journal-dropdown {
+  position: relative;
+  display: inline-block;
+  }
+
+
+  .journal-tab {
+  color: black;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.05px;
+  text-align: center;
+  font-size: 20px; 
+  border: none;
+  background-color: white;
+  }
+
+  .journal-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border-radius:8px;
+    z-index: 4;
+  }
+
+.journal-dropdown:hover .journal-tab{
+  background-color: rgba(151, 71, 255, 0.07);
+   color: rgba(98, 77, 227, 1);
+   
+}
+
+
+.journal-dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+
+
+.journal-dropdown:hover .journal-dropdown-content {display:list-item; }
+  
+.journal-dropdown-content a:hover{border-left: 3px solid transparent;
+  border-left-color: rgba(98, 77, 227, 1);}
+
+/* Graphic section */
+
+.graphic-section{
+  position: relative;
+  
+}
+
+.graphic-section img{
+  width: 100%;
+  height:158px;
+  top: 93px;
+  left:-1px;
+}
+
+.main-title{
+  background-color: rgba(255, 255, 255, 0.5);
+  top: 129px;
+  top:30%;
+  left: 530px;
+  left:50%;
+  transform: translate(-50%, -50%);
+  padding:10px;
+  border-radius: 8px;
+  position: absolute;
+  text-align: center;
+
+}
+
+.main-title h1{
+  font-family: 'Poppins',sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.05px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 30px;
+  margin:0
+}
+
+/* Converter*/
+
+.climbing-drop  {
+  text-align: center;
+  width: 100%;
+  height: 441px;
+  height: auto;
+  top: 216px;
+  border-radius: 20px 20px 0px 0px;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 1)
+  
+}
+
+.titles h1{
+  font-family:'Poppins'  ;
+  font-size: 32px;
+  line-height: 48px;
+  letter-spacing: 0.05px;
+  font-weight: 400;
+  text-align: center;
+  color:black
+}
+
+.grade-dropdowns{
+  display:inline-block;
+  margin-right: 102px;
+}
+
+.grade-dropdowns-last{
+  display:inline-block;
+
+}
+
+.grade-dropdowns label, .grade-dropdowns-last label {
+  display: block; 
+  font-family: 'Poppins',sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.grade-dropdowns select, .grade-dropdowns-last select{
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+} 
+
+
+
+#french, #kurtyka, #uiaa, #usa, #british, #v_scale, #font_scale{
+  width:90px;
+  height:36px;
+  border-radius: 8px;
+  border-color: rgba(0, 0, 0, 0.1);
+  padding: 8px, 16px, 8px, 16px;
+  border: 1px,1px,1px,1px;
+  gap:8px
+}
+
+.grade-dropdowns:hover select{
+  background-color:rgba(245, 244, 251, 1);
+}
+
+
+
+
+
