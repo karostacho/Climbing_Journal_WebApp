@@ -1,26 +1,170 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <head>
-    <title>View Routes</title>
-</head>
-
-<body>
-    <table class="table table-sm">
-        <tr>
-            {% for header in headings %}
-            <th>{{ header }}</th>
-            {% endfor %}
-        </tr>
-        {% for row in data %}
-        <tr>
-            {% for cell in row %}
-            <td>{{ cell }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-
-    </table>
+    <meta charset="utf-8" />
+    <title>Lead climbing journal</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/journal_style.css') }}"  >
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Inter:wght@500&family=Montserrat+Alternates:wght@500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b8d2cdc1ae.js" crossorigin="anonymous"></script>
     
+</head>
+<body>
+   
+
+    <div class = navbar>
+        <ul>
+            <li><img class = "logo" src = "{{ url_for('static',filename='logo.gif') }}"></li>
+            <li><a class ="login" href="{{ url_for('logout') }}">Log out</a></li>
+            <li class="journal-dropdown">
+                <button class ="journal-tab" >Journal <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="journal-dropdown-content">
+                    <a href="{{ url_for('view_routes') }}">Lead Climbing</a>
+                    <a href="{{ url_for('view_routes') }}">Bouldering</a>
+                    </div>
+            </li>
+            <li class ="grade-converter-tab" ><a class ="grade-converter-tab"  href="{{ url_for('home_page') }}" >Grade converter</a></li>
+        </ul>
+    </div>
+
+
+    <div class="graphic-section">
+        <img src="{{ url_for('static',filename='background_image.jpg') }}" >
+        <div class = "title-journal">
+            <h1>Lead climbing journal</h1>
+        </div>
+    </div>
+    
+    <div class="button-route-section">
+        <button class = "add-route-btn" id="openModalBtn" >Add new route <i class="fa-solid fa-plus" style="color: #ffffff;"></i></button>
+    </div>
+    
+    <div class="routes-section">
+        <div class="table-section">
+            <table id="routes">
+                <thead>
+                <tr class="headers">
+                    <th ><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Name</th>
+                    <th><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Grade</th>
+                    <th><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Date</th>
+                    <th>Comment</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in data %}
+                
+                <tr>
+                  <td scope=row>{{ row[0] }}</td>
+                  <td scope=row>{{ row[1] }}</td>
+                  <td scope=row>{{ row[2] }}</td>
+                  <td scope=row >{{ row[3] }}</td>
+                  <td scope=row>
+                    <div class="icons-container">
+                        <div class = "icons">
+                        <i class="fa-regular fa-pen-to-square fa-xl" style="color: #624de3;"></i><i class="fa-regular fa-trash-can fa-xl" style="color: #a30d11;"></i>
+                        </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                
+                </tbody>
+                
+            </table>
+         </div>
+         
+        <div class = "modal-section">
+        <div class="modal" id="addRouteWindow" >
+            <span class="close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></span>
+            
+            <div class="add-route">
+              <form method="POST">
+                <h2>Add new route to your journal</h2>
+                    <div class="fields-section">
+                    <div class="route-and-date-fields">
+                        <div class="field">
+                        <label class="fields-name" for="route_name">Route name:</label><br>
+                            <input class="box" type="text" placeholder="Eg. Perfecto Mundo" id="route_name" name="route_name">
+                        </div>
+                        <div class="field">
+                        <label class="fields-name" for="date">Date:</label><br>
+                            <input class="box" type="date" id="date" name="date" class="datepicker-input">
+                        </div>
+                    </div>
+                    <div class="comment-and-dropdowns">
+                    <div class="comment">
+                        <div class="field">
+                        <label class="fields-name" for="route_name">Comment:</label><br>
+                            <input class="box" type="text" id="comment" name="comment" placeholder="Eg. Rather soft for the grade">
+                        </div>
+                    </div>
+                    </div>
+                    
+            
+                  <div class="dropdown-section">
+                    <div class="grade-dropdowns">
+                      <label for="french">French</label><br>
+                      <select id="french" name="french" >
+                          <option value=""></option>
+                          {% for grade in french %}
+                              <option value="{{ grade }}">{{ grade }}</option>
+                          {% endfor %}
+                      </select>
+                    </div>
+
+                    <div class="grade-dropdowns">
+                    <label for="kurtyka">Kurtyka</label><br>
+                        <select id="kurtyka" name="kurtyka"  >
+                            <option value=""> </option>
+                            {% for grade in kurtyka %}
+                                <option value="{{ grade }}">{{ grade }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="grade-dropdowns">
+                    <label for="uiaa">UIAA</label><br>
+                        <select id="uiaa" name="uiaa" >
+                            <option value=""></option>
+                            {% for grade in uiaa %}
+                                <option value="{{ grade }}">{{ grade }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="grade-dropdowns">
+                    <label for="usa">USA</label><br>
+                        <select id="usa" name="usa">
+                            <option value=""></option>
+                            {% for grade in usa %}
+                                <option value="{{ grade }}">{{ grade }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="grade-dropdowns">
+                    <label for="british">British</label><br>
+                    <select  id="british" name="british" >
+                        <option value=""></option>
+                        {% for grade in british %}
+                            <option value="{{ grade }}">{{ grade }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                  </div>
+
+                <div class="submit-btn">
+                  <button class="submit-btn" type="submit" name="add">Submit</button>
+                </div>
+              </form>
+
+            </div>
+            </div>
+        </div>
+  
+    </div>
+</div>
+
+<script src="../static/journal.js"></script>
 </body>
 </html>

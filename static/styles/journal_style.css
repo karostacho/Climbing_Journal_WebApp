@@ -1,0 +1,441 @@
+body{
+    margin: 0 ;
+    padding:0px;
+  }
+
+/* Navbar*/
+.navbar{
+  height: 73px;
+  box-shadow: 0px,20px,0,20px
+  rgba(0, 0, 0, 0.08);
+  margin-top: 1.7%;
+  margin-bottom: 0.5%;
+  margin-left: 3%;
+  margin-right: 3%;
+  }
+
+
+/* Setting for all buttons on navbar */
+
+.navbar ul li{
+  float: right;
+  width: 183px;
+  height: 51px;
+  border-radius: 8px;
+  gap:20px;
+  color: white;
+  text-align: center;
+  list-style-type: none;
+  margin-right: 2%;
+ }
+
+.navbar a {
+    color: black;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Poppins';
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0.05px;
+    text-align: center;
+    font-size: 20px; 
+   }
+     
+  /* Logo */
+.navbar ul li:first-child {
+    float: left;
+   }
+
+.navbar img {
+    left:121px;
+    height: 62px;
+    width: 142px;
+    top:15px;
+    float: left;
+  }
+  
+
+/* Login button */
+
+.navbar a.login{
+  width: 108px;
+  height: 56px;
+  top:18px;
+  padding: 17px 30px 17px 30px;
+  border-radius: 8px;
+  border: 1px solid rgba(98, 77, 227, 1);
+  gap: 10px
+}
+
+.navbar a.login:hover{
+  background-color: rgba(151, 71, 255, 0.07);
+    color: rgba(98, 77, 227, 1);
+}
+ 
+/* Converter button */
+.navbar a.grade-converter-tab{
+  width: 108px;
+  height: Fixed (56px);
+  gap: 10px
+}
+  
+
+.navbar .grade-converter-tab a:hover{
+  background-color: rgba(151, 71, 255, 0.07);
+  color: rgba(98, 77, 227, 1);
+}
+  
+/* Journal button */
+.navbar li.journal-dropdown {
+  border-bottom: 3px solid transparent;
+ border-bottom-color: rgba(98, 77, 227, 1);
+ border-radius: 0px;
+ }
+
+.journal-dropdown {
+  position: relative;
+  display: inline-block;
+  }
+
+.journal-tab {
+  color: black;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.05px;
+  text-align: center;
+  font-size: 20px; 
+  border: none;
+  background-color: white;
+  }
+
+.journal-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border-radius:8px;
+    z-index: 4;
+  }
+
+.journal-dropdown:hover .journal-tab{
+  background-color: rgba(151, 71, 255, 0.07);
+   color: rgba(98, 77, 227, 1);  
+}
+
+.journal-dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.journal-dropdown:hover .journal-dropdown-content {display:list-item; }
+  
+.journal-dropdown-content a:hover{border-left: 3px solid transparent;
+  border-left-color: rgba(98, 77, 227, 1);}
+
+
+/* Graphic section */
+  
+  .graphic-section{
+    position: relative;
+    z-index: 0; 
+  }
+  
+  .graphic-section img{
+    width: 100%;
+    height:158px;
+    top: 93px;
+    left:-1px;
+  }
+  
+.title-journal{
+    background-color: rgba(255, 255, 255, 0.5);
+    top: 129px;
+    top:30%;
+    left: 530px;
+    left:50%;
+    transform: translate(-50%, -50%);
+    padding:10px;
+    border-radius: 8px;
+    position: absolute;
+    text-align: center;
+  
+  }
+  
+.title-journal h1{
+    font-family: 'Poppins',sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.05px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 30px;
+    margin:0
+  }
+  
+/* Routes section*/
+  
+.routes-section  {
+  text-align: center;
+  width: 100%;
+  height: 441px;
+  height: auto;
+  top: 216px;
+  border-radius: 20px 20px 0px 0px;
+  background-color: rgba(255, 255, 255, 1);
+  position: absolute;
+  z-index: 0;
+}
+
+.button-route-section{
+  display: flex;
+  justify-content: center;
+}
+
+.add-route-btn{
+  width: 204px;
+  height: 44px;
+  top:256px;
+  border-radius: 8px;
+  border-color: rgba(98, 77, 227, 1);
+  padding: 17px, 30px, 17px, 30px;
+  gap:10px;
+  background-color:rgba(98, 77, 227, 1);
+  color: rgba(255, 255, 255, 1);
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Inter';
+  line-height: 21.78px;
+  position: absolute;
+  z-index: 100;
+  display: block;
+}
+
+/* Modal window*/
+
+.modal {
+  display: none;
+  position:fixed;
+  z-index: 100;
+  width: 85%;
+  height: 85%;
+  background-color: white;
+  left: 50%; 
+  top: 50%; 
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  padding: 20px 50px 20px 20px;
+  overflow: auto;
+}
+
+/* Close button */
+.close {
+  color: black;
+  float: right;
+  font-size: 34px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top:  18px;
+  margin-right: 18px;
+}
+
+/* Text fields*/
+
+.fields-section{
+  margin-left:5%;
+  margin-right: 5%;
+  margin-top:5%
+}
+
+.fields-name {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19.6px;
+}
+
+::placeholder{
+  color:rgba(207, 208, 215, 1);
+}
+
+.field{
+  float: left;
+  text-align: left;
+  margin-right: 5%;
+}
+
+.box{
+  width:365px;
+  height: 42px;
+  border-radius: 8px;
+  border:1px;
+  border-style: solid;
+  border-color: rgba(207, 208, 215, 1); ;
+  color: black
+}
+
+.route-and-date-fields{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ }
+
+.comment{
+  margin-top:4%;
+  margin-bottom:5%
+}
+
+
+.comment .box{
+  width:700px;
+}
+
+
+input[type="date"] {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19.6px;
+  color: rgba(207, 208, 215, 1);
+}
+
+
+
+
+/* Grade dropdowns */
+
+.dropdown-section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap:102px
+}
+
+#french, #kurtyka, #uiaa, #usa, #british, #v_scale, #font_scale{
+  width:90px;
+  height:36px;
+  border-radius: 8px;
+  border-color: rgba(0, 0, 0, 0.1);
+  padding: 8px, 16px, 8px, 16px;
+  border: 1px,1px,1px,1px;
+  gap:8px
+}
+
+.comment-and-dropdowns{
+  display: flex;
+    flex-direction: row;
+    align-items: flex-start; 
+}
+
+.grade-dropdowns label {
+  font-family: 'Poppins',sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.grade-dropdowns select{
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+} 
+
+
+
+/* Submit button*/
+
+.submit-btn{
+  margin-top:5%
+}
+
+.add-route button{
+  width:365px;
+  height: 56px;
+  border-radius:8px;
+  padding: 17px, 30px, 17px, 30px;
+  gap:10px;
+  background-color:rgba(98, 77, 227, 1) ;
+  color:  rgba(255, 255, 255, 1);
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Inter';
+  line-height: 21.78px;
+}
+
+  
+ 
+/* Table */
+
+
+.table-section table {
+  width: 1052.96px;
+  max-height: 300px;
+  margin: 0 auto; 
+  border-collapse: collapse;
+  
+}
+  
+
+.table-section{
+  overflow-y:auto ;
+  max-height: 280px;
+  background-color: #fff;
+  padding-right: 16px;
+  margin-top:8%
+}
+
+th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  height: 46px;
+  
+}
+
+th[scope=row] {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+.headers th {
+  font-size: 14px;
+  font-family: "Montserrat";
+  font-weight: 700;
+  line-height: 17.07px;
+}
+
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  height: 46px;
+  font-size: 14px;
+  font-family: "Montserrat";
+  font-weight: 500;
+  line-height: 17.07px;
+}
+
+  
+tr:nth-child(odd) {
+  background-color:  rgba(247, 246, 254, 1)
+}
+  
+th {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.icons-container {
+  position: relative;
+}
+
+.icons .fa-pen-to-square:hover{
+  color:black
+}
