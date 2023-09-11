@@ -9,46 +9,46 @@
  </head>
  <body >
   <div class="login-page">
-  <div class="login-box" >
-    <div class="logo-container">
-      <img class = "logo" src = "{{ url_for('static',filename='logo.gif') }}">
-    </div>
-    <div class="login-container">
-    <div class="login-body">
-      <h1>Sign in</h1>
-    
-      <p>Please fill in your details to access your account</p>
-      <form action="{{ url_for('login') }}" method="post">
-        <div class="email">
-          <label>E-mail</label><br>
-            <input class="box" type="text" name="email" id="email" required >
+    <div class="login-box" >
+        <div class="logo-container">
+          <img class = "logo" src = "{{ url_for('static',filename='logo.gif') }}">
         </div>
-        <label>Password</label><br>
-          <input class="box" type="password" name="password" id="password" required>
+      <div class="login-container">
+        <div class="login-body">
+          <h1>Sign in</h1>
         
-      
-      {% with messages = get_flashed_messages()  %}
-      {% if messages %}
-      {% for message in messages %}
-      <div class="flash-message" role="alert">
-        {{ message }}
+          <p>Please fill in your details to access your account</p>
+          <form action="{{ url_for('login') }}" method="post">
+            <div class="email">
+              <label>E-mail</label><br>
+                <input class="box" type="text" name="email" id="email" required >
+            </div>
+            <label>Password</label><br>
+              <input class="box" type="password" name="password" id="password" required>
+          
+        
+            {% with messages = get_flashed_messages()  %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="flash-message" role="alert">
+              {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="submit-btn-container">
+              <button class="submit-btn" type="submit" name="submit">Login</button>
+            </div>
+          </form>
+          <h2 class="second-p"> Don't have account? <a href="{{ url_for('register') }}">Create new account</a></h2>
+        </div>
       </div>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
-      <div class="submit-btn-container">
-        <button class="submit-btn" type="submit" name="submit">Login</button>
-      </div>
-    </form>
-      <h2 class="second-p"> Don't have account? <a href="{{ url_for('register') }}">Create new account</a></h2>
     </div>
- </div>
-</div>
- 
-  <div class="graphic">
-    <img src="{{ url_for('static',filename='log_in.jpg') }}" >
+  
+    <div class="graphic">
+      <img src="{{ url_for('static',filename='log_in.jpg') }}" >
+    </div>
   </div>
-</div>
 
 </body>
 </html>
