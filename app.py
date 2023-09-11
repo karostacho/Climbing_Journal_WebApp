@@ -147,7 +147,7 @@ def register():
         elif not name or not password or not email:
             flash('Please fill out the form!')
         elif not repeat_password == password:
-            flash("Passwords don't matach")
+            flash("Passwords don't match")
         else:
 
             user = User(None,name,hashed_password,email)
@@ -183,8 +183,12 @@ def login():
  
     return render_template('login.html')
 
-
-
+@app.route('/logout')
+def logout():
+   session.pop('loggedin', None)
+   session.pop('id', None)
+   return redirect(url_for('home_page'))
+   
 
 if __name__ == "__main__":
     app.run()
