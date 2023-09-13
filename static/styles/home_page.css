@@ -112,48 +112,57 @@ body{
   display: none;
   position:fixed;
   z-index: 100;
-  width: 45%;
-  height: 52%;
+  width: 720px;
+  height: 380px;
   background-color: white;
   left: 50%; 
   top: 50%; 
   transform: translate(-50%, -50%);
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(98, 77, 227, 1);
-  padding: 20px 50px 20px 20px;
+  border-radius: 15px;
+  border:0.25px;
+  border-style: solid;
+  border-color: rgba(98, 77, 227, 1);
+  margin:0;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);  /* Overlay*/
   }
 
 
 .not-logged-in-window h1{
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 150%;
   line-height: 36px;
   text-align: center;
+  margin-top: 5%;
 }
 .text-container{
-  width: 75%;
-  height: 30%;
-  display: flex; /* Enable flexbox layout */
-  flex-direction: column; /* Stack children vertically */
-  justify-content: center; /* Center vertically */
-  align-items: center;
-  margin: 0;
-  padding: 0;
   
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  margin-right:12%;
+  margin-left: 12%;
+  padding: 0;
 }
 
 
 .not-logged-in-window p{
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 120%;
   line-height: 30px;
+}
+
+.buttons{
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .sign-up-button {
   width: 352px;
-  height: 38px;
+  height: 25px;
   border-radius: 8px;
   padding:10px;
   gap:10px;
@@ -161,24 +170,29 @@ body{
   border-style: solid;
   border-color:  rgba(98, 77, 227, 1);
   background-color:rgba(255, 255, 255, 1);
-  
+  margin-bottom:2%;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
-
-.sign-up-button a{
+.not-logged-in-window a{
+  text-align: center;
+}
+.not-logged-in-window a.sign_up{
   font-family: "Inter";
   font-size: 15px;
   font-weight: 500;
   line-height: 22px;
-  letter-spacing: 0em;
-  text-align: center;
-  justify-content: center;
   color: rgba(0, 0, 0, 1);
-  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  
 }
 
 .log-in-button {
   width: 352px;
-  height: 38px;
+  height: 25px;
   border-radius: 8px;
   padding:10px;
   gap:10px;
@@ -187,6 +201,9 @@ body{
   border-color:  rgba(98, 77, 227, 1);
   background-color: rgba(98, 77, 227, 1);
   cursor: pointer;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
 }
 
 .log-in-button a{
@@ -198,14 +215,16 @@ body{
   text-align: center;
   justify-content: center;
   color: rgba(255, 255, 255, 1);
-  
+  width: 100%;
+  height: 100%;
 }
   
 /* Close button */
 .close-window {
   color: black;
   float: right;
-  margin-right:0%;
+  margin-right:2%;
+  margin-top:2%;
   font-size: 34px;
   cursor: pointer;
   
@@ -311,6 +330,7 @@ border-left-color: rgba(98, 77, 227, 1);}
 }
 
 .titles h1{
+  margin-top:4%;
   font-family:'Poppins'  ;
   font-size: 32px;
   line-height: 48px;
