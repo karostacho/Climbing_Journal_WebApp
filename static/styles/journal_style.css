@@ -85,6 +85,12 @@ body{
   color: rgba(98, 77, 227, 1);
 }
   
+.navbar li.grade-converter-tab:hover{
+  border-bottom: 3px solid transparent;
+  border-bottom-color: rgba(98, 77, 227, 1);
+  border-radius: 0px;
+}
+
 /* Journal button */
 .navbar li.journal-dropdown {
   border-bottom: 3px solid transparent;
@@ -212,6 +218,7 @@ body{
   position: absolute;
   z-index: 100;
   display: block;
+  cursor: pointer;
 }
 
 /* Modal window*/
@@ -230,6 +237,7 @@ body{
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   padding: 20px 50px 20px 20px;
   overflow: auto;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5); 
 }
 
 /* Close button */
@@ -365,6 +373,7 @@ input[type="date"] {
   font-weight: 500;
   font-family: 'Inter';
   line-height: 21.78px;
+  cursor: pointer;
 }
 
   
