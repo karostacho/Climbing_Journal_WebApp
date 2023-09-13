@@ -26,14 +26,22 @@
                 <li class="journal-dropdown-inactive">
                 <button class ="journal-tab-inactive" id="openNotLoggedIn">Journal <i class="fa-solid fa-chevron-down"></i></button>
                 </li>
-                <div class="not-logged-in-window" id="notLoggedInWindow" >
-                    <span class="close-window" id="closeLoggedIn"><i class="fa-solid fa-xmark"></i></span>
-                    <h1>You are not logged in</h1>
-                    <div class="text-container">
-                        <p>Log in to your profile or sign up to add new routes and boulders to your climbing journal, and keep an eye on your progress!</p>
+                <div class="pop-up-window">
+                    <div class="not-logged-in-window" id="notLoggedInWindow" >
+                        <span class="close-window" id="closeLoggedIn"><i class="fa-solid fa-xmark"></i></span>
+                        <h1>You are not logged in</h1>
+                        <div class="text-container">
+                            <p>Log in to your profile or sign up to add new routes and boulders to your climbing journal, and keep an eye on your progress!</p>
+                        </div>
+                        <div class="buttons">
+                            <div class="sign-up-button" >
+                                <a href="{{ url_for('register') }}" class ="sign_up" >Sign up</a>
+                            </div>
+                            <div class="log-in-button">
+                                <a class ="log_in" href="{{ url_for('login') }}">Have account? Log in</a>
+                            </div>
+                        </div>
                     </div>
-                    <li class="sign-up-button"><a class ="sign_up" href="{{ url_for('register') }}">Sign up</a></li>
-                    <li class="log-in-button"><a class ="log_in" href="{{ url_for('login') }}">Have account? Log in</a></li>
                 </div>
             {% endif %}
             <li class ="grade-converter-tab"><a class ="grade-converter-tab"  href="{{ url_for('home_page') }}" >Grade converter</a></li>
