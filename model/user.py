@@ -1,5 +1,3 @@
-
-
 class User:
     def __init__(self, id, name, password, e_mail):
         self.id = id

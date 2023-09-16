@@ -38,9 +38,6 @@ class SqlData():
                                                 ORDER BY {routes_type}.date DESC;'''))
         return rows
 
-
-    
-
     @staticmethod
     def get_middle_value(indexes):
         return indexes[len(indexes) // 2]

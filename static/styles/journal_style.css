@@ -4,6 +4,7 @@ body{
   }
 
 /* Navbar*/
+
 .navbar{
   height: 73px;
   box-shadow: 0px,20px,0,20px
@@ -12,10 +13,9 @@ body{
   margin-bottom: 0.5%;
   margin-left: 3%;
   margin-right: 3%;
-  }
+}
 
-
-/* Setting for all buttons on navbar */
+/* Settings for all buttons on navbar */
 
 .navbar ul li{
   float: right;
@@ -30,29 +30,30 @@ body{
  }
 
 .navbar a {
-    color: black;
-    list-style: none;
-    text-decoration: none;
-    font-family: 'Poppins';
-    font-weight: 400;
-    line-height: 30px;
-    letter-spacing: 0.05px;
-    text-align: center;
-    font-size: 20px; 
-   }
+  color: black;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Poppins';
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.05px;
+  text-align: center;
+  font-size: 20px; 
+}
      
-  /* Logo */
+/* Logo */
+
 .navbar ul li:first-child {
-    float: left;
-   }
+  float: left;
+}
 
 .navbar img {
-    left:121px;
-    height: 62px;
-    width: 142px;
-    top:15px;
-    float: left;
-  }
+  left:121px;
+  height: 62px;
+  width: 142px;
+  top:15px;
+  float: left;
+}
   
 
 /* Login button */
@@ -69,7 +70,7 @@ body{
 
 .navbar a.login:hover{
   background-color: rgba(151, 71, 255, 0.07);
-    color: rgba(98, 77, 227, 1);
+  color: rgba(98, 77, 227, 1);
 }
  
 /* Converter button */
@@ -79,26 +80,23 @@ body{
   gap: 10px;
 }
   
-
 .navbar .grade-converter-tab a:hover{
   background-color: rgba(151, 71, 255, 0.07);
   color: rgba(98, 77, 227, 1);
-  
 }
   
-
-
 /* Journal button */
+
 .navbar li.journal-dropdown {
   border-bottom: 3px solid transparent;
- border-bottom-color: rgba(98, 77, 227, 1);
- border-radius: 0px;
- }
+  border-bottom-color: rgba(98, 77, 227, 1);
+  border-radius: 0px;
+}
 
 .journal-dropdown {
   position: relative;
   display: inline-block;
-  }
+}
 
 .journal-tab {
   color: black;
@@ -112,19 +110,19 @@ body{
   font-size: 20px; 
   border: none;
   background-color: white;
-  }
+}
 
 .journal-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    border-radius:8px;
-    z-index: 4;
-  }
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-radius:8px;
+  z-index: 4;
+}
 
 .journal-dropdown:hover .journal-tab{
   background-color: rgba(151, 71, 255, 0.07);
-   color: rgba(98, 77, 227, 1);  
+  color: rgba(98, 77, 227, 1);  
 }
 
 .journal-dropdown-content a {
@@ -135,49 +133,52 @@ body{
   text-align: left;
 }
 
-.journal-dropdown:hover .journal-dropdown-content {display:list-item; }
+.journal-dropdown:hover .journal-dropdown-content {
+  display:list-item;
+}
   
-.journal-dropdown-content a:hover{border-left: 3px solid transparent;
-  border-left-color: rgba(98, 77, 227, 1);}
+.journal-dropdown-content a:hover{
+  border-left: 3px solid transparent;
+  border-left-color: rgba(98, 77, 227, 1);
+}
 
 
 /* Graphic section */
   
-  .graphic-section{
-    position: relative;
-    z-index: 0; 
-  }
+.graphic-section{
+  position: relative;
+  z-index: 0; 
+}
   
-  .graphic-section img{
-    width: 100%;
-    height:158px;
-    top: 93px;
-    left:-1px;
-  }
+.graphic-section img{
+  width: 100%;
+  height:158px;
+  top: 93px;
+  left:-1px;
+}
   
 .title-journal{
-    background-color: rgba(255, 255, 255, 0.5);
-    top: 129px;
-    top:30%;
-    left: 530px;
-    left:50%;
-    transform: translate(-50%, -50%);
-    padding:10px;
-    border-radius: 8px;
-    position: absolute;
-    text-align: center;
-  
-  }
+  background-color: rgba(255, 255, 255, 0.5);
+  top: 129px;
+  top:30%;
+  left: 530px;
+  left:50%;
+  transform: translate(-50%, -50%);
+  padding:10px;
+  border-radius: 8px;
+  position: absolute;
+  text-align: center;
+}
   
 .title-journal h1{
-    font-family: 'Poppins',sans-serif;
-    font-size: 20px;
-    letter-spacing: 0.05px;
-    font-weight: 700;
-    text-align: center;
-    line-height: 30px;
-    margin:0
-  }
+  font-family: 'Poppins',sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.05px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 30px;
+  margin:0
+}
   
 /* Routes section*/
   
@@ -192,6 +193,8 @@ body{
   position: absolute;
   z-index: 0;
 }
+
+/* Add new route button */
 
 .button-route-section{
   display: flex;
@@ -237,7 +240,8 @@ body{
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5); 
 }
 
-/* Close button */
+/* Close modal button */
+
 .close {
   color: black;
   float: right;
@@ -248,7 +252,7 @@ body{
   margin-right: 18px;
 }
 
-/* Text fields*/
+/* Text fields */
 
 .fields-section{
   margin-left:5%;
@@ -294,11 +298,9 @@ body{
   margin-bottom:5%
 }
 
-
 .comment .box{
   width:700px;
 }
-
 
 input[type="date"] {
   font-family: 'Inter';
@@ -307,9 +309,6 @@ input[type="date"] {
   line-height: 19.6px;
   color: rgba(207, 208, 215, 1);
 }
-
-
-
 
 /* Grade dropdowns */
 
@@ -332,8 +331,8 @@ input[type="date"] {
 
 .comment-and-dropdowns{
   display: flex;
-    flex-direction: row;
-    align-items: flex-start; 
+  flex-direction: row;
+  align-items: flex-start; 
 }
 
 .grade-dropdowns label {
@@ -351,8 +350,7 @@ input[type="date"] {
 } 
 
 
-
-/* Submit button*/
+/* Submit route button*/
 
 .submit-btn{
   margin-top:5%
@@ -373,20 +371,15 @@ input[type="date"] {
   cursor: pointer;
 }
 
-  
- 
 /* Table */
-
 
 .table-section table {
   width: 1052.96px;
   max-height: 300px;
   margin: 0 auto; 
   border-collapse: collapse;
-  
 }
   
-
 .table-section{
   overflow-y:auto ;
   max-height: 280px;
@@ -401,7 +394,6 @@ th {
   top: 0;
   z-index: 2;
   height: 46px;
-  
 }
 
 th[scope=row] {
@@ -418,7 +410,6 @@ th[scope=row] {
   line-height: 17.07px;
 }
 
-
 th, td {
   text-align: left;
   padding: 8px;
@@ -429,7 +420,6 @@ th, td {
   line-height: 17.07px;
 }
 
-  
 tr:nth-child(odd) {
   background-color:  rgba(247, 246, 254, 1)
 }

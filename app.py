@@ -94,7 +94,6 @@ climbing_type = 'rock_climbing_grades'
 routes_type = 'lead_climbing_routes'
 
 
-
 @app.route("/view_routes", methods=["GET", "POST"])
 def view_routes():
     rock_grade_index= None
@@ -112,15 +111,13 @@ def view_routes():
         
         if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
             rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
-    
-    
+
         route_name = request.form.get("route_name")
         
         route = Route(user_id, route_name, rock_grade_index, date, comment)
         add_route_to_db(route, "lead_climbing_routes")
     data = sql_data.get_routes_of_user( climbing_type, routes_type, user_id)
    
-    
     return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka,rock_grades_by_index=rock_grades_by_index, rock_grade_index=rock_grade_index, user_id=user_id )
 
 
@@ -132,7 +129,6 @@ def register():
         email = request.form['email']
         repeat_password = request.form['repeat_password']
         hashed_password = generate_password_hash(password)
-        
         account = check_if_user_in_db(email)
     
         if account:
@@ -150,7 +146,6 @@ def register():
         elif not repeat_password == password:
             flash("Passwords don't match", 'error')
         else:
-
             user = User(None,name,hashed_password,email)
             add_user_to_db(user)
             flash('You have successfully registered!', 'success')
@@ -175,13 +170,11 @@ def login():
             if check_password_hash(password_rs, password):
                 session['loggedin'] = True
                 session['id'] = find_user_id(email)
-            
                 return redirect(url_for('view_routes'))
             else:
                 flash('Incorrect username or password')
         else:
             flash('Incorrect username or password')
- 
     return render_template('login.html')
 
 @app.route('/logout')
@@ -190,6 +183,5 @@ def logout():
    session.pop('id', None)
    return redirect(url_for('home_page'))
    
-
 if __name__ == "__main__":
     app.run()

@@ -19,43 +19,52 @@
             <div class="first-p">
               <p>Please fill in your details to create your account</p>
             </div>
+
             <form action="{{ url_for('register') }}" method="post"> 
               <div class="field">
               <label for="name">Name</label><br>
                 <input class="box" type="text" name="name" id="name" required>
               </div>
+
               <div class="field">
               <label for="email">E-mail</label><br>
                 <input class="box" type="text"  name="email" id="email" required>
               </div>
+
               <div class="field">
               <label for="password" >Password</label><br>
                 <input class="box" type="password" name="password" id="password" required >
               </div>
+
               <div>
               <label for="repeat_password" >Repeat Password</label><br>
                 <input class="box" type="password" class="form-control" name="repeat_password" id="repeat_password" required >
               </div>
-              <div class="flash-container">
-              {% with messages = get_flashed_messages(with_categories=true)  %}
-                {% if messages %}
-                  {% for category, message in messages %}
-                    <div class="flash-message {% if category == 'success' %}success{% else %}error{% endif %}" role="alert">
-                    {{ message }}
-                    </div>
-                  {% endfor %}
-                {% endif %}
-              {% endwith %}
-            </div>
-              <div class="submit-btn-container">
-                <button class="submit-btn" type="submit" name="submit">Sign up</button>
-              </div>
-          </form>
-          <h2 class="second-p">Already have account? <a href="{{ url_for('login') }}">Log in</a></h2>
 
+              <div class="flash-container">
+                {% with messages = get_flashed_messages(with_categories=true)  %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="flash-message {% if category == 'success' %}success{% else %}error{% endif %}" role="alert">
+                      {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+              </div>
+
+                <div class="submit-btn-container">
+                  <button class="submit-btn" type="submit" name="submit">Sign up</button>
+                </div>
+
+            </form>
+
+            <h2 class="second-p">Already have account? <a href="{{ url_for('login') }}">Log in</a></h2>
+
+          </div>
         </div>
-      </div>
     </div>
+    
     <div class="graphic">
       <img src="{{ url_for('static',filename='sign_up.jpg') }}" >
     </div>

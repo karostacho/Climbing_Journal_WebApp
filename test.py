@@ -1,6 +1,6 @@
 from database.password import password
 from database.sql_data import SqlData
-
+from database.user_db import add_user_to_db, check_if_user_in_db, find_user_password
 
 import psycopg2
 import itertools
@@ -27,9 +27,94 @@ cursor = conn.cursor()
 # Print the resulting list of dictionaries
 #print(data)
 
-
+climbing_type = 'rock_climbing_grades'
+routes_type = 'lead_climbing_routes'
 
 sql = SqlData()
-routes = (sql.get_routes_of_user(1))
+user = find_user_password('tomek@test.pl')
 
-print(routes)
+print(user[0])
+
+
+// Not logged in window when user is not logged and click on "Journal"
+
+  const modal = document.getElementById('notLoggedInWindow');
+  const openBtn = document.getElementById('openNotLoggedIn');
+  const closeBtn = document.getElementById('closeLoggedIn');
+
+// Open modal
+  openBtn.addEventListener('click', () => {
+  modal.style.display = 'block';
+  openBtn.style.display = 'none';
+});
+
+// Close modal
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+  openBtn.style.display = 'block';
+});
+// Close on outside click 
+window.addEventListener('click', (e) => {
+  if (e.target === modal && !modal.contains(e.target)) {
+    modal.style.display = 'none';
+  }
+});
+
+// Stop propagation on inner clicks
+modal.addEventListener('click', e => {
+  e.stopPropagation();
+});
+
+
+
+// Add route modal window  
+  
+  const modal = document.getElementById('addRouteWindow');
+  const openBtn = document.getElementById('openModalBtn');
+  const closeBtn = document.getElementById('closeModalBtn');
+
+// Open modal
+  openBtn.addEventListener('click', () => {
+  modal.style.display = 'block';
+  openBtn.style.display = 'none';
+});
+
+// Close modal
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+  openBtn.style.display = 'block';
+  
+  // Reset form
+  document.querySelector('form').reset(); 
+});
+
+// Close on outside click 
+window.addEventListener('click', (e) => {
+  if (e.target === modal && !modal.contains(e.target)) {
+    modal.style.display = 'none';
+    
+    // Reset form 
+    document.querySelector('form').reset();
+  }
+});
+
+// Stop propagation on inner clicks
+modal.addEventListener('click', e => {
+  e.stopPropagation();
+});
+
+
+
+// Dropdown selection reset
+  const dropdowns = document.querySelectorAll('.grade-dropdowns select');
+  
+  dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('change', () => {
+          // Reset all other dropdowns
+          dropdowns.forEach(otherDropdown => {
+              if (otherDropdown !== dropdown) {
+                  otherDropdown.selectedIndex = 0;
+              }
+          });
+      });
+  });

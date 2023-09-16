@@ -1,8 +1,8 @@
 // Add route modal window  
   
-  const modal = document.getElementById('addRouteWindow');
-  const openBtn = document.getElementById('openModalBtn');
-  const closeBtn = document.getElementById('closeModalBtn');
+const modal = document.getElementById('addRouteWindow');
+const openBtn = document.getElementById('openModalBtn');
+const closeBtn = document.getElementById('closeModalBtn');
 
 // Open modal
 openBtn.addEventListener('click', () => {
@@ -19,15 +19,6 @@ closeBtn.addEventListener('click', () => {
   document.querySelector('form').reset(); 
 });
 
-// Close on outside click 
-window.addEventListener('click', (e) => {
-  if (e.target === modal && !modal.contains(e.target)) {
-    modal.style.display = 'none';
-    
-    // Reset form 
-    document.querySelector('form').reset();
-  }
-});
 
 // Stop propagation on inner clicks
 modal.addEventListener('click', e => {
@@ -36,7 +27,7 @@ modal.addEventListener('click', e => {
 
 
 
-// Dropdown selection reset
+// Dropdown selection reset in add route window
   const dropdowns = document.querySelectorAll('.grade-dropdowns select');
   
   dropdowns.forEach(dropdown => {
