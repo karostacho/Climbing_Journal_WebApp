@@ -1,30 +1,24 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 import re
+import os
 from model.route import Route
 from model.user import User
 from database.route_db import add_route_to_db
 from database.sql_data import SqlData
 from database.user_db import check_if_user_in_db, add_user_to_db, find_user_password, find_user_id
 from werkzeug.security import check_password_hash, generate_password_hash
+from variables import all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale
+from dotenv import load_dotenv
 
 
 app = Flask(__name__)
 app.debug = True
-app.secret_key = 'rXuJPVsj3BLmH8npV_Hl7Q'
+load_dotenv()
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 rock_climbing = 'rock_climbing_grades'
 bouldering = 'bouldering_grades'
 
 sql_data = SqlData()
-all_rock_grades = sql_data.get_all_records(rock_climbing)
-all_bouldering_grades = sql_data.get_all_records(bouldering)
-french = sql_data.get_grades('French', rock_climbing)
-uiaa = sql_data.get_grades('UIAA', rock_climbing)
-usa = sql_data.get_grades('USA', rock_climbing)
-british = sql_data.get_grades('British', rock_climbing)
-kurtyka = sql_data.get_grades('Kurtyka(Poland)', rock_climbing)
-v_scale = sql_data.get_grades('V_scale', bouldering)
-font_scale = sql_data.get_grades('Font_scale', bouldering)
-
 
  
 def find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade):
@@ -166,7 +160,6 @@ def login():
  
         if account:
             password_rs = find_user_password(email)
-          
             if check_password_hash(password_rs, password):
                 session['loggedin'] = True
                 session['id'] = find_user_id(email)
