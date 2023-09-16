@@ -30,11 +30,12 @@ class SqlData():
 
     #TODO: in final version remove rock_climbing_grades."French"
     def get_routes_of_user(self, climbing_type, routes_type, user_id):
-        rows = self.connector.execute_sql_query((f'''SELECT {routes_type}.route_name, {climbing_type}."French", {routes_type}.date, {routes_type}.comment 
+        rows = self.connector.execute_sql_query((f'''SELECT {routes_type}."id", {routes_type}.route_name, {climbing_type}."French", {routes_type}.date, {routes_type}.comment 
                                                 FROM {routes_type}
                                                 LEFT JOIN {climbing_type}
                                                 ON {climbing_type}."Index" = {routes_type}.grade_index
-                                                WHERE {routes_type}.user_id = {user_id};'''))
+                                                WHERE {routes_type}.user_id = {user_id}
+                                                ORDER BY {routes_type}.date DESC;'''))
         return rows
 
 
