@@ -70,6 +70,7 @@ body{
 .navbar a.login:hover{
   background-color: rgba(151, 71, 255, 0.07);
   color: rgba(98, 77, 227, 1);
+  
 }
 
 /* Converter button */
@@ -85,9 +86,11 @@ body{
   border-radius: 0px;
  }
 
+
 .navbar .grade-converter-tab a:hover{
   background-color: rgba(151, 71, 255, 0.07);
   color: rgba(98, 77, 227, 1);
+  
 }
 /* Journal button inactive - if logged out*/
 
@@ -126,7 +129,11 @@ body{
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);  /* Overlay*/
   }
 
-
+.pop-up-window{
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
 .not-logged-in-window h1{
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
@@ -140,8 +147,8 @@ body{
   display: flex; 
   justify-content: center;
   align-items: center;
-  margin-right:12%;
-  margin-left: 12%;
+  margin-right:16%;
+  margin-left: 16%;
   padding: 0;
 }
 
@@ -158,11 +165,12 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top:4%;
 }
 
 .sign-up-button {
   width: 352px;
-  height: 25px;
+  height: 20px;
   border-radius: 8px;
   padding:10px;
   gap:10px;
@@ -192,7 +200,7 @@ body{
 
 .log-in-button {
   width: 352px;
-  height: 25px;
+  height: 20px;
   border-radius: 8px;
   padding:10px;
   gap:10px;
@@ -250,6 +258,7 @@ body{
   font-size: 20px; 
   border: none;
   background-color: white;
+  
 }
 
 .journal-dropdown-content {
@@ -258,11 +267,13 @@ body{
   background-color: white;
   border-radius:8px;
   z-index: 4;
+  
 }
 
 .journal-dropdown:hover .journal-tab{
   background-color: rgba(151, 71, 255, 0.07);
   color: rgba(98, 77, 227, 1);  
+  
 }
 
 .journal-dropdown-content a {
