@@ -119,6 +119,7 @@ def view_routes():
         route = Route(user_id, route_name, rock_grade_index, date, comment)
         add_route_to_db(route, "lead_climbing_routes")
     data = sql_data.get_routes_of_user( climbing_type, routes_type, user_id)
+   
     
     return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka,rock_grades_by_index=rock_grades_by_index, rock_grade_index=rock_grade_index, user_id=user_id )
 
@@ -137,22 +138,22 @@ def register():
         if account:
             flash('Account already exists!')
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-            flash('Invalid email address!')
+            flash('Invalid email address!', 'error')
         elif not re.match(r'[A-Za-z0-9]+', name):
-            flash('Name must contain only characters and numbers!')
+            flash('Name must contain only characters and numbers!', 'error')
         elif len(password) < 8:
             flash('Password must be at least 8 characters in length')
         elif not re.match(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$', password):
-            flash('Password must contain at least: 1 lower case letter [a-z], 1 upper case letter [A-Z], 1 numeric character [0-9] and 1 special character: ~`!@#$%^&*()-_+={}[]|\;:"<>,./?')
+            flash('Password must contain at least: 1 lower case letter [a-z], 1 upper case letter [A-Z], 1 numeric character [0-9] and 1 special character: ~`!@#$%^&*()-_+={}[]|\;:"<>,./?', 'error')
         elif not name or not password or not email:
-            flash('Please fill out the form!')
+            flash('Please fill out the form!', 'error')
         elif not repeat_password == password:
-            flash("Passwords don't match")
+            flash("Passwords don't match", 'error')
         else:
 
             user = User(None,name,hashed_password,email)
             add_user_to_db(user)
-            flash('You have successfully registered!')
+            flash('You have successfully registered!', 'success')
 
     elif request.method == 'POST':
         flash('Please fill out the form!')
