@@ -76,20 +76,17 @@ body{
 .navbar a.grade-converter-tab{
   width: 108px;
   height: Fixed (56px);
-  gap: 10px
+  gap: 10px;
 }
   
 
 .navbar .grade-converter-tab a:hover{
   background-color: rgba(151, 71, 255, 0.07);
   color: rgba(98, 77, 227, 1);
+  
 }
   
-.navbar li.grade-converter-tab:hover{
-  border-bottom: 3px solid transparent;
-  border-bottom-color: rgba(98, 77, 227, 1);
-  border-radius: 0px;
-}
+
 
 /* Journal button */
 .navbar li.journal-dropdown {
