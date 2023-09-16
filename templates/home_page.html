@@ -10,7 +10,7 @@
 <body>
     <div class = navbar>
         <ul>
-            <li><img class = "logo" src = "{{ url_for('static',filename='logo.gif') }}"></li>
+            <li><a  href="{{ url_for('home_page') }}" ><img class = "logo" src = "{{ url_for('static',filename='logo.gif') }}"></a></li>
             {% if session.loggedin %}
                 <li><a class ="login" href="{{ url_for('logout') }}">Log out</a></li>
                     <li class="journal-dropdown">
