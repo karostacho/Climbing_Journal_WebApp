@@ -5,16 +5,16 @@ from model.route import Route
 from model.user import User
 from database.route_db import add_route_to_db
 from database.sql_data import SqlData
-from database.user_db import check_if_user_in_db, add_user_to_db, find_user_password, find_user_id
+from database.user_db import check_if_user_in_db, add_user_to_db, find_user_password, find_user_id, get_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from variables import all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale
-from dotenv import load_dotenv
+from database.password import secret_key
 
 
 app = Flask(__name__)
 app.debug = True
-load_dotenv()
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+
+app.config['SECRET_KEY'] = secret_key
 rock_climbing = 'rock_climbing_grades'
 bouldering = 'bouldering_grades'
 
@@ -142,7 +142,11 @@ def register():
         else:
             user = User(None,name,hashed_password,email)
             add_user_to_db(user)
-            flash('You have successfully registered!', 'success')
+            new_user = get_user(email)
+            if new_user:
+                flash('You have successfully registered!', 'success')
+            else:
+                flash('Something went wrong', 'error')
 
     elif request.method == 'POST':
         flash('Please fill out the form!')
