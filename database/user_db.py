@@ -1,10 +1,7 @@
-from database.connector import Connector
-
+from database.connector import Connector, get_cursor
 
 def check_if_user_in_db(email):
-    connector = Connector()
-    db_connector = connector.connect_to_database()
-    cursor = db_connector.cursor()
+    cursor = get_cursor()
     cursor.execute((f"SELECT * FROM users WHERE email = '{email}'"))
     account = cursor.fetchone()
     return account
@@ -19,19 +16,21 @@ def add_user_to_db(user):
 
 
 def find_user_password(email):
-    connector = Connector()
-    db_connector = connector.connect_to_database()
-    cursor = db_connector.cursor()
+    cursor = get_cursor()
     cursor.execute(f"""SELECT "password" from users where email = '{email}'""")
     tuple = cursor.fetchone()
     password = tuple[0]
     return password
 
 def find_user_id(email):
-    connector = Connector()
-    db_connector = connector.connect_to_database()
-    cursor = db_connector.cursor()
+    cursor = get_cursor()
     cursor.execute(f"""SELECT "id" from users where email = '{email}'""")
     tuple = cursor.fetchone()
     id = tuple[0]
     return id
+
+def get_user(email):
+    cursor = get_cursor()
+    cursor.execute(f"""SELECT * from users where email = '{email}'""")
+    user = cursor.fetchall()
+    return user
