@@ -1,11 +1,11 @@
 from database.connector import Connector
 
 
-def add_route_to_db(route):
+def add_route_to_db(route, table_name):
     connector = Connector()
     db_connector = connector.connect_to_database()
     cursor = db_connector.cursor()
-    cursor.execute((f'''INSERT INTO routes ("id", user_id, route_name, grade_index, rating_system, "date") VALUES (DEFAULT, {route.user_id}, '{route.route_name}', {route.grade_index},'{route.rating_system}', '{route.date}')'''))
+    cursor.execute((f'''INSERT INTO {table_name} ("id", user_id, route_name, grade_index, "date", comment) VALUES (DEFAULT, {route.user_id}, '{route.route_name}', {route.grade_index}, '{route.date}', '{route.comment}')'''))
     db_connector.commit()
 
 

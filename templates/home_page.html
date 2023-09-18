@@ -3,16 +3,48 @@
 <head>
     <meta charset="utf-8" />
     <title>Home Page</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/my_style.css') }}"  >
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/home_page.css') }}"  >
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Inter:wght@500&family=Montserrat+Alternates:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b8d2cdc1ae.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class = navbar>
         <ul>
-            <li><img class = "logo" src = "{{ url_for('static',filename='logo.png') }}"></li>
-            <li><a class ="login" href="xxx.pl">Log in</a></li>
-            <li><a class ="journal-tab" href="{{ url_for('view_routes') }}">Journal</a></li>
-            <li><a class ="grade-converter-tab" href="{{ url_for('home_page') }}">Grade converter</a></li>
+            <li><a  href="{{ url_for('home_page') }}" ><img class = "logo" src = "{{ url_for('static',filename='logo.gif') }}"></a></li>
+            {% if session.loggedin %}
+                <li><a class ="login" href="{{ url_for('logout') }}">Log out</a></li>
+                    <li class="journal-dropdown">
+                        <button class ="journal-tab" >Journal <i class="fa-solid fa-chevron-down"></i></button>
+                            <div class="journal-dropdown-content">
+                            <a href="{{ url_for('view_routes') }}">Lead Climbing</a>
+                            <a href="{{ url_for('view_routes') }}">Bouldering</a>
+                            </div>
+                    </li>
+                    
+            {% else %}
+                <li><a class ="login" href="{{ url_for('login') }}">Log in</a></li>
+                <li class="journal-dropdown-inactive">
+                <button class ="journal-tab-inactive" id="openNotLoggedIn">Journal <i class="fa-solid fa-chevron-down"></i></button>
+                </li>
+                <div class="pop-up-window">
+                    <div class="not-logged-in-window" id="notLoggedInWindow" >
+                        <span class="close-window" id="closeLoggedIn"><i class="fa-solid fa-xmark"></i></span>
+                        <h1>You are not logged in</h1>
+                        <div class="text-container">
+                            <p>Log in to your profile or sign up to add new routes and boulders to your climbing journal, and keep an eye on your progress!</p>
+                        </div>
+                        <div class="buttons">
+                            <div class="sign-up-button" >
+                                <a href="{{ url_for('register') }}" class ="sign_up" >Sign up</a>
+                            </div>
+                            <div class="log-in-button">
+                                <a class ="log_in" href="{{ url_for('login') }}">Have account? Log in</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <li class ="grade-converter-tab"><a class ="grade-converter-tab"  href="{{ url_for('home_page') }}" >Grade converter</a></li>
         </ul>
     </div>
 
@@ -20,7 +52,7 @@
     <div class="graphic-section">
         <img src="{{ url_for('static',filename='background_image.jpg') }}" >
         <div class = "main-title">
-            <h1>Interactive grade converter</h1>
+            <h1>Climbing grade converter</h1>
         </div>
     </div>
 
@@ -81,12 +113,10 @@
             </select>
             </div>
         
-
             <div class="titles">
                 <h1>Bouldering</h1>
             </div>
    
-       
             <div class="grade-dropdowns">
             <label for="v_scale">V-scale</label>
             <select id="v_scale" name="v_scale" onchange="this.form.submit()">
@@ -106,8 +136,12 @@
                     {% endfor %}
                 </select>
             </div>
+
         </form>
+
     </div>
+
+    <script src="../static/home_page.js" defer="defer"></script>
 
 </body>
 </html>

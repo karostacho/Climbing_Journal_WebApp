@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Inter:wght@500&family=Montserrat+Alternates:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles/register.css') }}"  >
+ </head>
+ <body>
+  <div class="register-page">
+    <div class="register-box">
+    
+      <div class="logo-container">
+        <a  href="{{ url_for('home_page') }}" ><img class = "logo" src = "{{ url_for('static',filename='logo.gif') }}"></a>
+      </div>
+        <div class="register-container">
+          <div class="register-body">
+            <h1>Sign up</h1>
+            <div class="first-p">
+              <p>Please fill in your details to create your account</p>
+            </div>
+
+            <form action="{{ url_for('register') }}" method="post"> 
+              <div class="field">
+              <label for="name">Name</label><br>
+                <input class="box" type="text" name="name" id="name" required>
+              </div>
+
+              <div class="field">
+              <label for="email">E-mail</label><br>
+                <input class="box" type="text"  name="email" id="email" required>
+              </div>
+
+              <div class="field">
+              <label for="password" >Password</label><br>
+                <input class="box" type="password" name="password" id="password" required >
+              </div>
+
+              <div>
+              <label for="repeat_password" >Repeat Password</label><br>
+                <input class="box" type="password" class="form-control" name="repeat_password" id="repeat_password" required >
+              </div>
+
+              <div class="flash-container">
+                {% with messages = get_flashed_messages(with_categories=true)  %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="flash-message {% if category == 'success' %}success{% else %}error{% endif %}" role="alert">
+                      {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+              </div>
+
+                <div class="submit-btn-container">
+                  <button class="submit-btn" type="submit" name="submit">Sign up</button>
+                </div>
+
+            </form>
+
+            <h2 class="second-p">Already have account? <a href="{{ url_for('login') }}">Log in</a></h2>
+
+          </div>
+        </div>
+    </div>
+    
+    <div class="graphic">
+      <img src="{{ url_for('static',filename='sign_up.jpg') }}" >
+    </div>
+  </div>
+ </body>
+</html>

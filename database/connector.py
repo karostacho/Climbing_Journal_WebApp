@@ -37,3 +37,10 @@ class Connector():
         except psycopg2.errors.SyntaxError as error:
             self.logger.log_error(f"Syntax Error: {error}")
             quit()
+
+
+def get_cursor():
+    connector = Connector()
+    db_connector = connector.connect_to_database()
+    cursor = db_connector.cursor()
+    return cursor
