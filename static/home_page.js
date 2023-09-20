@@ -4,10 +4,7 @@ window.onload=function(){
 	const notLoggedInWindow = document.getElementById("notLoggedInWindow");
 	const openNotLoggedIn = document.getElementById("openNotLoggedIn");
 	const closeLoggedIn = document.getElementById("closeLoggedIn");
-	// For Mobile navbar
-	const navbar_menu_btn = document.getElementById("navbar-menu-btn");
-	const menu_mobile = document.getElementById("menu-mobile");
-
+	
 	// Open modal
 	openNotLoggedIn.addEventListener("click", () => {
 		notLoggedInWindow.style.display = "block";
@@ -22,6 +19,11 @@ window.onload=function(){
 	notLoggedInWindow.addEventListener("click", (e) => {
 		e.stopPropagation();
 	});
+  
+
+  // For Mobile navbar
+	const navbar_menu_btn = document.getElementById("navbar-menu-btn");
+	const menu_mobile = document.getElementById("menu-mobile");
 
 	// JavaScript to toggle navbar open/close
 	navbar_menu_btn.addEventListener("click", () => {
