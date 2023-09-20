@@ -108,6 +108,11 @@ def view_routes():
 
         route_name = request.form.get("route_name")
         
+        if not date:
+            flash("Please fill in date", "error")
+        if not route_name:
+            flash("Please fill in route name", "error")
+        if not french_grade or kurtyka_grade or 
         route = Route(user_id, route_name, rock_grade_index, date, comment)
         add_route_to_db(route, "lead_climbing_routes")
     data = sql_data.get_routes_of_user( climbing_type, routes_type, user_id)
