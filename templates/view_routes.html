@@ -73,7 +73,7 @@
                 <span class="close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></span>
             
                 <div class="add-route">
-                    <form method="POST">
+                    <form method="POST" name="addRouteForm">
                         <h2>Add new route to your journal</h2>
                         <div class="fields-section">
                             <div class="route-and-date-fields">
@@ -148,8 +148,20 @@
                             </div>
                         </div>
 
-                        <div class="submit-btn">
-                            <button class="submit-btn" type="submit" name="add">Submit</button>
+                        <div class="flash-container" >
+                            {% with messages = get_flashed_messages(with_categories=true)  %}
+                              {% if messages %}
+                                {% for category, message in messages %}
+                                  <div class="flash-message {% if category == 'success' %}success{% else %}error{% endif %}" role="alert">
+                                  {{ message }}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            {% endwith %}
+                          </div>
+
+                        <div class="submit-btn" >
+                            <button class="submit-btn" type="submit" name="add" id="submitBtn">Submit</button>
                         </div>
                     </form>
                 </div>

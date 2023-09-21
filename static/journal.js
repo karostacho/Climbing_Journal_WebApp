@@ -3,11 +3,24 @@
 const modal = document.getElementById('addRouteWindow');
 const openBtn = document.getElementById('openModalBtn');
 const closeBtn = document.getElementById('closeModalBtn');
+const submitBtn = document.getElementById('submitBtn');
+
 
 // Open modal
 openBtn.addEventListener('click', () => {
   modal.style.display = 'block';
   openBtn.style.display = 'none';
+});
+
+submitBtn.addEventListener('click', () => {
+  const date = document.querySelector('input[name="date"]').value;
+  const routeName = document.querySelector('input[name="route_name"]').value;
+  const gradeFields = document.querySelectorAll('input[name="french"], input[name="kurtyka"], input[name="uiaa"], input[name="usa"], input[name="british"]');
+
+  if (!date || !routeName || [...gradeFields].some(field => !field.value)){
+    modal.style.display = 'block';
+    openBtn.style.display = 'none';
+  }
 });
 
 // Close modal
@@ -24,6 +37,12 @@ closeBtn.addEventListener('click', () => {
 modal.addEventListener('click', e => {
   e.stopPropagation();
 });
+
+
+
+
+
+
 
 
 
