@@ -13,6 +13,7 @@ var date = document.getElementById("date");
 openBtn.addEventListener('click', () => {
   modal.style.display = 'block';
   openBtn.style.display = 'none';
+  date.value = currentDate;
 });
 
 
@@ -33,7 +34,7 @@ modal.addEventListener('click', e => {
   e.stopPropagation();
 });
 
-date.value = currentDate;
+
 
 
 function validationForm(){
