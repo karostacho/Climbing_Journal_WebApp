@@ -20,7 +20,7 @@
               <p>Please fill in your details to create your account</p>
             </div>
 
-            <form action="{{ url_for('register') }}" method="post"> 
+            <form action="{{ url_for('register') }}" method="post" onsubmit="return validationForm()" > 
               <div class="field">
               <label for="name">Name</label><br>
                 <input class="box" type="text" name="name" id="name" required>
@@ -69,5 +69,6 @@
       <img src="{{ url_for('static',filename='sign_up.jpg') }}" >
     </div>
   </div>
+  <script src="../static/register.js"></script>
  </body>
 </html>
