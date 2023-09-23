@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, session, redirect, url
 import re
 from model.route import Route
 from model.user import User
-from database.route_db import add_route_to_db
+from database.route_db import add_route_to_db, remove_route_from_db
 from database.sql_data import SqlData
 from database.user_db import check_if_user_in_db, add_user_to_db, find_user_password, find_user_id, get_user
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -114,6 +114,17 @@ def view_routes():
     return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka,rock_grades_by_index=rock_grades_by_index, rock_grade_index=rock_grade_index, user_id=user_id )
 
 
+
+
+
+@app.route("/delete_route/<int:route_id>")
+def delete_route(route_id):
+    #create delete query as string
+    remove_route_from_db(routes_type, route_id)
+    return redirect(url_for('view_routes'))
+
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form and 'repeat_password' in request.form:
@@ -181,3 +192,5 @@ def logout():
    
 if __name__ == "__main__":
     app.run()
+
+

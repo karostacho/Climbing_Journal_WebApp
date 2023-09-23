@@ -40,6 +40,7 @@
             <table id="routes">
                 <thead>
                 <tr class="headers">
+                    <th>No</th>
                     <th ><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Name</th>
                     <th><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Grade</th>
                     <th><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Date</th>
@@ -49,21 +50,22 @@
                 </thead>
 
                 <tbody>
-                {% for row in data %}
-                <tr>
-                  <td scope=row>{{ row[1] }}</td>
-                  <td scope=row>{{ row[2] }}</td>
-                  <td scope=row>{{ row[3] }}</td>
-                  <td scope=row >{{ row[4] }}</td>
-                  <td scope=row>
-                    <div class="icons-container">
-                        <div class = "icons">
-                        <i class="fa-regular fa-trash-can fa-xl" style="color: #a30d11;"></i>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                {% endfor %}
+                    {% for row in data %}
+                    <tr>
+                        <td scope="row">{{ loop.index }}</td>
+                        <td scope=row>{{ row[1] }}</td>
+                        <td scope=row>{{ row[2] }}</td>
+                        <td scope=row>{{ row[3] }}</td>
+                        <td scope=row >{{ row[4] }}</td>
+                        <td scope=row>
+                            <div class="icons-container">
+                                <div class = "icons">
+                                <a  href="{{url_for('delete_route', route_id=row[0])}}" onclick="return confirm('Are you sure you want to delete this route?');" class="fa-regular fa-trash-can fa-xl" style="color: #a30d11;" ></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
