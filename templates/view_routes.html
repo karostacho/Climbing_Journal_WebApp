@@ -73,17 +73,17 @@
                 <span class="close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></span>
             
                 <div class="add-route">
-                    <form method="POST" name="addRouteForm">
+                    <form method="POST" name="addRouteForm"  onsubmit="return validationForm()">
                         <h2>Add new route to your journal</h2>
                         <div class="fields-section">
                             <div class="route-and-date-fields">
                                 <div class="field">
                                     <label class="fields-name" for="route_name">Route name:</label><br>
-                                    <input class="box" type="text" placeholder="Eg. Perfecto Mundo" id="route_name" name="route_name">
+                                    <input class="box" type="text" placeholder="Eg. Perfecto Mundo" id="route_name" name="route_name" required>
                                 </div>
                                 <div class="field">
                                     <label class="fields-name" for="date">Date:</label><br>
-                                    <input class="box" type="date" id="date" name="date" class="datepicker-input">
+                                    <input class="box" type="date" id="date" name="date" class="datepicker-input" required>
                                 </div>
                             </div>
                             <div class="comment-and-dropdowns">
