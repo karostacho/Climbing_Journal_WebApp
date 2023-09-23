@@ -17,8 +17,6 @@ openBtn.addEventListener('click', () => {
 });
 
 
-     
-
 // Close modal
 closeBtn.addEventListener('click', () => {
   modal.style.display = 'none';
@@ -33,7 +31,6 @@ closeBtn.addEventListener('click', () => {
 modal.addEventListener('click', e => {
   e.stopPropagation();
 });
-
 
 
 
@@ -60,8 +57,6 @@ function validationForm(){
     return true
   }
 }
-
-
 
 
 
