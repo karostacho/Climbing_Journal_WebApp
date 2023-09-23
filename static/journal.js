@@ -4,7 +4,10 @@ const modal = document.getElementById('addRouteWindow');
 const openBtn = document.getElementById('openModalBtn');
 const closeBtn = document.getElementById('closeModalBtn');
 const submitBtn = document.getElementById('submitBtn');
-
+var currentDate = new Date().toISOString().split('T')[0];
+var date = document.getElementById("date");
+  
+  date.setAttribute("max", currentDate);
 
 // Open modal
 openBtn.addEventListener('click', () => {
@@ -12,16 +15,8 @@ openBtn.addEventListener('click', () => {
   openBtn.style.display = 'none';
 });
 
-submitBtn.addEventListener('click', () => {
-  const date = document.querySelector('input[name="date"]').value;
-  const routeName = document.querySelector('input[name="route_name"]').value;
-  const gradeFields = document.querySelectorAll('input[name="french"], input[name="kurtyka"], input[name="uiaa"], input[name="usa"], input[name="british"]');
 
-  if (!date || !routeName || [...gradeFields].some(field => !field.value)){
-    modal.style.display = 'block';
-    openBtn.style.display = 'none';
-  }
-});
+     
 
 // Close modal
 closeBtn.addEventListener('click', () => {
@@ -38,8 +33,32 @@ modal.addEventListener('click', e => {
   e.stopPropagation();
 });
 
+date.value = currentDate;
 
 
+function validationForm(){
+  var french = document.getElementById("french");
+  var kurtyka = document.getElementById("kurtyka");
+  var british = document.getElementById("british");
+  var uiaa = document.getElementById("uiaa");
+  var usa = document.getElementById("usa");
+  
+  var frenchValue = french.value;
+  var kurtykaValue = kurtyka.value;
+  var britishValue = british.value;
+  var uiaaValue = uiaa.value;
+  var usaValue = usa.value;
+
+
+  if (!frenchValue && !britishValue && !kurtykaValue && !uiaaValue && !usaValue)  {
+    alert ("Grade must be selected")
+    return false
+  }
+ 
+  else{
+    return true
+  }
+}
 
 
 
