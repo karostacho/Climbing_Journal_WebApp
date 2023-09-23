@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 import re
-import os
 from model.route import Route
 from model.user import User
 from database.route_db import add_route_to_db
@@ -93,7 +92,7 @@ def view_routes():
     rock_grade_index= None
     rock_grades_by_index = all_rock_grades[24]
     user_id = session.get('id')
-
+    
     if request.method == "POST":
         date = request.form.get("date")
         comment = request.form.get("comment")
@@ -107,15 +106,9 @@ def view_routes():
             rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
 
         route_name = request.form.get("route_name")
-        if not route_name:
-            flash("Route name must be filled out")
-        if not date:
-            flash("Date must be filled out")
-        if not french_grade and not kurtyka_grade and not uiaa_grade and not usa_grade and not british_grade:
-            flash("Grade must be elected")
-        else:
-            route = Route(user_id, route_name, rock_grade_index, date, comment)
-            add_route_to_db(route, "lead_climbing_routes")
+       
+        route = Route(user_id, route_name, rock_grade_index, date, comment)
+        add_route_to_db(route, "lead_climbing_routes")
     data = sql_data.get_routes_of_user( climbing_type, routes_type, user_id)
    
     return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka,rock_grades_by_index=rock_grades_by_index, rock_grade_index=rock_grade_index, user_id=user_id )
