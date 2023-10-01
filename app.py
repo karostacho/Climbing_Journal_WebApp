@@ -140,7 +140,7 @@ def sort_by_grade(sort_order):
 def delete_route(route_id):
     #create delete query as string
     remove_route_from_db(routes_type, route_id)
-    return redirect(url_for('view_routes'))
+    return redirect(request.referrer or url_for('view_routes'))
 
 
 
