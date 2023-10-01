@@ -42,14 +42,20 @@
             <table id="routes">
                 <thead>
                 <tr class="headers">
-                    <th>No</th>
-                    <th ><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Name</th>
-                    <th><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Grade</th>
+                    <th>#</th>
+                    <th >Name</th>
                     <th>
                         {% if sort_order == 'desc' %}
-                        <a href="{{ url_for('sort_by_date', sort_order='asc') }}" style="color: rgba(158, 158, 158, 1)">Date</a>
+                        <a class="fa-solid fa-sort" href="{{ url_for('sort_by_grade', sort_order='asc') }}" style="color: rgba(158, 158, 158, 1)"></a><a> Grade</a>
                         {% else %}
-                        <a href="{{ url_for('sort_by_date', sort_order='desc') }}" style="color: rgba(158, 158, 158, 1)">Date</a>
+                        <a class="fa-solid fa-sort" href="{{ url_for('sort_by_grade', sort_order='desc') }}" style="color: rgba(158, 158, 158, 1)"></a><a> Grade</a>
+                        {% endif %}
+                    </th>
+                    <th>
+                        {% if request.path == "/view_routes" or sort_order == 'desc' %}
+                        <a class="fa-solid fa-sort" href="{{ url_for('sort_by_date', sort_order='asc') }}" style="color: rgba(158, 158, 158, 1)"></a><a> Date</a>
+                        {% else %}
+                        <a class="fa-solid fa-sort" href="{{ url_for('sort_by_date', sort_order='desc') }}" style="color: rgba(158, 158, 158, 1)"></a><a> Date</a>
                         {% endif %}
                     </th>
                     <th>Comment</th>

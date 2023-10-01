@@ -109,21 +109,32 @@ def view_routes():
        
         route = Route(user_id, route_name, rock_grade_index, date, comment)
         add_route_to_db(route, "lead_climbing_routes")
-    data = sql_data.get_routes_of_user_by_date( climbing_type, routes_type, user_id, 'DESC')
+    data = sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC')
    
     return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka,rock_grades_by_index=rock_grades_by_index, rock_grade_index=rock_grade_index, user_id=user_id )
 
 
 @app.route("/sortByDate/<sort_order>")
 def sort_by_date(sort_order):
-    sort_order = 'desc'
     user_id = session.get('id')
-    if sort_order == 'asc':
-        data = sql_data.get_routes_of_user_by_date(climbing_type, routes_type, user_id, 'DESC')
+    if sort_order == 'desc':
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','DESC')
     else:
-        data = sql_data.get_routes_of_user_by_date(climbing_type, routes_type, user_id, 'ASC')
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','ASC')
 
     return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, user_id=user_id, sort_order=sort_order)
+
+
+@app.route("/sortByGrade/<sort_order>")
+def sort_by_grade(sort_order):
+    user_id = session.get('id')
+    if sort_order == 'desc':
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'rock_climbing_grades."Index"','DESC')
+    else:
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'rock_climbing_grades."Index"','ASC')
+
+    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, user_id=user_id, sort_order=sort_order)
+
 
 @app.route("/delete_route/<int:route_id>")
 def delete_route(route_id):

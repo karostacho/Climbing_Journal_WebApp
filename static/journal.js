@@ -79,26 +79,26 @@ function validationForm(){
 
   function updateData() {
     // Prevent the default link behavior
-    event.preventDefault();
+    
 
     // Get the link element by its id
-    const link = document.getElementById('sortLink');
+    
 
     // Get the current href attribute value
     let href = link.getAttribute('href');
+    if (href.includes('sort_order=asc')) {
+      // Replace 'asc' with 'desc' in the href attribute
+      href = href.replace('sort_order=asc', 'sort_order=desc');
+    }
 
     // Check if the current sort_order is 'desc' or 'asc'
     if (href.includes('sort_order=desc')) {
       // Replace 'desc' with 'asc' in the href attribute
       href = href.replace('sort_order=desc', 'sort_order=asc');
-    } else if (href.includes('sort_order=asc')) {
-      // Replace 'asc' with 'desc' in the href attribute
-      href = href.replace('sort_order=asc', 'sort_order=desc');
-    }
+    } 
 
     // Update the href attribute
     link.setAttribute('href', href);
 
-    // Optionally, you can navigate to the new URL
-    window.location.href = href;
+    
   }

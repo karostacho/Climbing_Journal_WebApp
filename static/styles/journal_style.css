@@ -304,8 +304,6 @@ body{
   width:905px
  }
 
- 
-
 .comment{
   margin-top:4%;
   margin-bottom:5%;
@@ -420,9 +418,9 @@ th[scope=row] {
 
 .headers th {
   font-size: 14px;
-  font-family: "Montserrat";
+  font-family: "Poppins";
   font-weight: 700;
-  line-height: 17.07px;
+  line-height: 21px;
 }
 
 th, td {
@@ -430,9 +428,9 @@ th, td {
   padding: 8px;
   height: 46px;
   font-size: 14px;
-  font-family: "Montserrat";
-  font-weight: 500;
-  line-height: 17.07px;
+  font-family: "Poppins";
+  font-weight: 400;
+  line-height: 21px;
 }
 
 tr:nth-child(odd) {
@@ -443,10 +441,10 @@ th {
   background-color: rgba(255, 255, 255, 1);
 }
 
-.icons-container {
-  position: relative;
+
+.fa-sort{
+  color:rgba(158, 158, 158, 1);
+  text-decoration: none;
 }
 
-.icons .fa-pen-to-square:hover{
-  color:black
-}
+
