@@ -240,6 +240,16 @@ body{
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5); 
 }
 
+/* Title in modal window */
+
+.add-route h2{
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 20px;
+  text-align: center;
+}
+
 /* Close modal button */
 
 .close {
@@ -255,14 +265,14 @@ body{
 /* Text fields */
 
 .fields-section{
-  margin-left:5%;
+  margin-left:10%;
   margin-right: 5%;
   margin-top:5%
 }
 
 .fields-name {
   font-family: 'Inter';
-  font-weight: 400;
+  font-weight: 500;
   font-size: 14px;
   line-height: 19.6px;
 }
@@ -274,7 +284,7 @@ body{
 .field{
   float: left;
   text-align: left;
-  margin-right: 5%;
+
 }
 
 .box{
@@ -291,20 +301,24 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width:905px
  }
+
+ 
 
 .comment{
   margin-top:4%;
-  margin-bottom:5%
+  margin-bottom:5%;
+  width: 100%;
 }
 
 .comment .box{
-  width:700px;
+  width:905px;
 }
 
-input[type="date"] {
+input {
   font-family: 'Inter';
-  font-weight: 500;
+  font-weight: 400;
   font-size: 14px;
   line-height: 19.6px;
   color: black
@@ -316,7 +330,7 @@ input[type="date"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap:102px
+  width:905px
 }
 
 #french, #kurtyka, #uiaa, #usa, #british, #v_scale, #font_scale{
@@ -326,7 +340,7 @@ input[type="date"] {
   border-color: rgba(0, 0, 0, 0.1);
   padding: 8px, 16px, 8px, 16px;
   border: 1px,1px,1px,1px;
-  gap:8px
+ 
 }
 
 .comment-and-dropdowns{
@@ -353,7 +367,8 @@ input[type="date"] {
 /* Submit route button*/
 
 .submit-btn{
-  margin-top:5%
+  margin-top:3%;
+  margin-right: 5%;
 }
 
 .add-route button{
