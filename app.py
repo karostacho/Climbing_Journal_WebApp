@@ -90,7 +90,6 @@ routes_type = 'lead_climbing_routes'
 @app.route("/view_routes", methods=["GET", "POST"])
 def view_routes():
     rock_grade_index= None
-    rock_grades_by_index = all_rock_grades[24]
     user_id = session.get('id')
     
     if request.method == "POST":
@@ -111,29 +110,66 @@ def view_routes():
         add_route_to_db(route, "lead_climbing_routes")
     data = sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC')
    
-    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka,rock_grades_by_index=rock_grades_by_index, rock_grade_index=rock_grade_index, user_id=user_id )
+    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id )
 
 
-@app.route("/sortByDate/<sort_order>")
+@app.route("/sortByDate/<sort_order>", methods=["GET", "POST"] )
 def sort_by_date(sort_order):
+    rock_grade_index= None
     user_id = session.get('id')
+
+    if request.method == "POST":
+        date = request.form.get("date")
+        comment = request.form.get("comment")
+        french_grade = request.form.get("french")
+        kurtyka_grade = request.form.get("kurtyka")
+        uiaa_grade = request.form.get("uiaa")
+        usa_grade = request.form.get("usa")
+        british_grade = request.form.get("british")
+        
+        if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
+            rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
+
+        route_name = request.form.get("route_name")
+       
+        route = Route(user_id, route_name, rock_grade_index, date, comment)
+        add_route_to_db(route, "lead_climbing_routes")
+ 
     if sort_order == 'desc':
         data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','DESC')
-    else:
+    if sort_order == 'asc':
         data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','ASC')
+    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , sort_order=sort_order)
 
-    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, user_id=user_id, sort_order=sort_order)
 
-
-@app.route("/sortByGrade/<sort_order>")
+@app.route("/sortByGrade/<sort_order>", methods=["GET", "POST"] )
 def sort_by_grade(sort_order):
+    rock_grade_index= None
     user_id = session.get('id')
+    
+    if request.method == "POST":
+        date = request.form.get("date")
+        comment = request.form.get("comment")
+        french_grade = request.form.get("french")
+        kurtyka_grade = request.form.get("kurtyka")
+        uiaa_grade = request.form.get("uiaa")
+        usa_grade = request.form.get("usa")
+        british_grade = request.form.get("british")
+        
+        if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
+            rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
+
+        route_name = request.form.get("route_name")
+       
+        route = Route(user_id, route_name, rock_grade_index, date, comment)
+        add_route_to_db(route, "lead_climbing_routes")
+
     if sort_order == 'desc':
         data = sql_data.get_rock_routes_of_user_by(user_id, 'rock_climbing_grades."Index"','DESC')
-    else:
+    if sort_order == 'asc':
         data = sql_data.get_rock_routes_of_user_by(user_id, 'rock_climbing_grades."Index"','ASC')
 
-    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, user_id=user_id, sort_order=sort_order)
+    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , sort_order=sort_order)
 
 
 @app.route("/delete_route/<int:route_id>")
