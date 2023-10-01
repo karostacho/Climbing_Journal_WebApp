@@ -28,13 +28,13 @@ class SqlData():
         grade = [row[0] for row in rows]
         return grade
 
-    def get_routes_of_user(self, climbing_type, routes_type, user_id):
+    def get_routes_of_user_by_date(self, climbing_type, routes_type, user_id, order):
         rows = self.connector.execute_sql_query((f'''SELECT {routes_type}."id", {routes_type}.route_name, {climbing_type}."French", {routes_type}.date, {routes_type}.comment 
                                                 FROM {routes_type}
                                                 LEFT JOIN {climbing_type}
                                                 ON {climbing_type}."Index" = {routes_type}.grade_index
                                                 WHERE {routes_type}.user_id = {user_id}
-                                                ORDER BY {routes_type}.date DESC;'''))
+                                                ORDER BY {routes_type}.date {order};'''))
         return rows
 
     @staticmethod

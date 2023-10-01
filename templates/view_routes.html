@@ -43,7 +43,13 @@
                     <th>No</th>
                     <th ><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Name</th>
                     <th><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Grade</th>
-                    <th><i class="fa-solid fa-sort" style = "color:rgba(158, 158, 158, 1)" onclick="updateData()"></i> Date</th>
+                    <th>
+                        {% if sort_order == 'desc' %}
+                        <a href="{{ url_for('sort_by_date', sort_order='asc') }}" style="color: rgba(158, 158, 158, 1)">Date</a>
+                        {% else %}
+                        <a href="{{ url_for('sort_by_date', sort_order='desc') }}" style="color: rgba(158, 158, 158, 1)">Date</a>
+                        {% endif %}
+                    </th>
                     <th>Comment</th>
                     <th>Action</th>
                 </tr>
