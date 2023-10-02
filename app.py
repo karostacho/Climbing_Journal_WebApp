@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
-import re
 from model.route import Route
 from model.user import User
 from database.route_db import add_route_to_db, remove_route_from_db
@@ -81,10 +80,6 @@ def home_page():
             bouldering_grades_by_index = covert_bouldering_grades(bouldering_grade_index)
    
     return render_template("home_page.html", french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, v_scale=v_scale, font_scale=font_scale, rock_grades_by_index=rock_grades_by_index, bouldering_grade_index=bouldering_grade_index, bouldering_grades_by_index=bouldering_grades_by_index, rock_grade_index=rock_grade_index)
-
-
-climbing_type = 'rock_climbing_grades'
-routes_type = 'lead_climbing_routes'
 
 
 @app.route("/view_routes", methods=["GET", "POST"])
@@ -174,10 +169,8 @@ def sort_by_grade(sort_order):
 
 @app.route("/delete_route/<int:route_id>")
 def delete_route(route_id):
-    #create delete query as string
     remove_route_from_db(routes_type, route_id)
     return redirect(request.referrer or url_for('view_routes'))
-
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -203,7 +196,6 @@ def register():
     return render_template('register.html')
 
 
-
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST' :
@@ -223,13 +215,13 @@ def login():
             flash('Incorrect username or password')
     return render_template('login.html')
 
+
 @app.route('/logout')
 def logout():
    session.pop('loggedin', None)
    session.pop('id', None)
    return redirect(url_for('home_page'))
    
+
 if __name__ == "__main__":
     app.run()
-
-
