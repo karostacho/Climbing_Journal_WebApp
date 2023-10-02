@@ -4,6 +4,7 @@ const notLoggedInWindow = document.getElementById("notLoggedInWindow");
 const openNotLoggedIn = document.getElementById("openNotLoggedIn");
 const closeLoggedIn = document.getElementById("closeLoggedIn");
 
+if (notLoggedInWindow) {
 // Open modal
 openNotLoggedIn.addEventListener("click", () => {
 	notLoggedInWindow.style.display = "block";
@@ -28,3 +29,4 @@ const menu_mobile = document.getElementById("menu-mobile");
 navbar_menu_btn.addEventListener("click", () => {
 	menu_mobile.classList.toggle("open");
 });
+}
