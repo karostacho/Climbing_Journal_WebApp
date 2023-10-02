@@ -28,17 +28,20 @@
 
               <div class="field">
               <label for="email">E-mail</label><br>
-                <input class="box" type="text"  name="email" id="email" required>
+                <input class="box" type="text"  name="email" id="email" required><br>
+                <p3 id="invalidEmail"></p3>
               </div>
 
               <div class="field">
               <label for="password" >Password</label><br>
-                <input class="box" type="password" name="password" id="password" required >
+                <input class="box" type="password" name="password" id="password" required ><br>
+                <p3 id="invalidPassword"></p3>
               </div>
 
-              <div>
+              <div class="field">
               <label for="repeat_password" >Repeat Password</label><br>
-                <input class="box" type="password" class="form-control" name="repeat_password" id="repeat_password" required >
+                <input class="box" type="password" class="form-control" name="repeat_password" id="repeat_password" required ><br>
+                <p3 id="passwordsMismatch"></p3>
               </div>
 
               <div class="flash-container">
@@ -54,7 +57,7 @@
               </div>
 
                 <div class="submit-btn-container">
-                  <button class="submit-btn" type="submit" name="submit">Sign up</button>
+                  <button id="submitBtn" class="submit-btn" type="submit" name="submit">Sign up</button>
                 </div>
 
             </form>

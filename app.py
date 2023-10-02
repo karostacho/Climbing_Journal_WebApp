@@ -175,7 +175,7 @@ def delete_route(route_id):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form and 'repeat_password' in request.form:
+    if request.method == 'POST' :
         name = request.form['name']
         password = request.form['password']
         email = request.form['email']
@@ -190,6 +190,7 @@ def register():
             new_user = get_user(email)
             if new_user:
                 flash('You have successfully registered!', 'success')
+                return render_template('login.html')
             else:
                 flash('Something went wrong', 'error')
 
@@ -210,9 +211,9 @@ def login():
                 session['id'] = find_user_id(email)
                 return redirect(url_for('view_routes'))
             else:
-                flash('Incorrect username or password')
+                flash('Incorrect username or password', 'error')
         else:
-            flash('Incorrect username or password')
+            flash('Incorrect username or password', 'error')
     return render_template('login.html')
 
 

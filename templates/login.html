@@ -32,15 +32,17 @@
                 <input class="box" type="password" name="password" id="password" required>
               </div>
           
-              {% with messages = get_flashed_messages()  %}
-                {% if messages %}
-                  {% for message in messages %}
-                    <div class="flash-message" role="alert">
+              <div class="flash-container">
+                {% with messages = get_flashed_messages(with_categories=true)  %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="flash-message {% if category == 'success' %}success{% else %}error{% endif %}" role="alert">
                       {{ message }}
-                    </div>
-                  {% endfor %}
-                {% endif %}
-              {% endwith %}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+              </div>
 
               <div class="submit-btn-container">
                 <button class="submit-btn" type="submit" name="submit">Login</button>
