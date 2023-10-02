@@ -169,7 +169,7 @@ def sort_by_grade(sort_order):
 
 @app.route("/delete_route/<int:route_id>")
 def delete_route(route_id):
-    remove_route_from_db(routes_type, route_id)
+    remove_route_from_db("lead_climbing_routes", route_id)
     return redirect(request.referrer or url_for('view_routes'))
 
 
