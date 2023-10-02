@@ -28,4 +28,3 @@ const menu_mobile = document.getElementById("menu-mobile");
 navbar_menu_btn.addEventListener("click", () => {
 	menu_mobile.classList.toggle("open");
 });
-
