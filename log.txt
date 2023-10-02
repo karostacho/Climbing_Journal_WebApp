@@ -65,3 +65,7 @@
 2023-10-02 11:18:18.142103 Message: Connected to database succesfully
 2023-10-02 11:26:39.321584 Message: Connected to database succesfully
 2023-10-02 11:26:39.321584 Message: Connected to database succesfully
+2023-10-02 11:38:22.570503 Message: Connected to database succesfully
+2023-10-02 11:38:22.925257 Message: Connected to database succesfully
+2023-10-02 11:38:23.834396 Message: Connected to database succesfully
+2023-10-02 11:38:24.202545 Message: Connected to database succesfully
