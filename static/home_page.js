@@ -1,6 +1,5 @@
 // Not logged in window when user is not logged and click on "Journal"
 
-window.onload=function(){
 	const notLoggedInWindow = document.getElementById("notLoggedInWindow");
 	const openNotLoggedIn = document.getElementById("openNotLoggedIn");
 	const closeLoggedIn = document.getElementById("closeLoggedIn");
@@ -29,4 +28,4 @@ window.onload=function(){
 	navbar_menu_btn.addEventListener("click", () => {
 		menu_mobile.classList.toggle("open");
 	});
-}
+
