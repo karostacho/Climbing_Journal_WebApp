@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
-import re
-import os
 from model.route import Route
 from model.user import User
-from database.route_db import add_route_to_db
+from database.route_db import add_route_to_db, remove_route_from_db
 from database.sql_data import SqlData
 from database.user_db import check_if_user_in_db, add_user_to_db, find_user_password, find_user_id, get_user
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -84,14 +82,35 @@ def home_page():
     return render_template("home_page.html", french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, v_scale=v_scale, font_scale=font_scale, rock_grades_by_index=rock_grades_by_index, bouldering_grade_index=bouldering_grade_index, bouldering_grades_by_index=bouldering_grades_by_index, rock_grade_index=rock_grade_index)
 
 
-climbing_type = 'rock_climbing_grades'
-routes_type = 'lead_climbing_routes'
-
-
 @app.route("/view_routes", methods=["GET", "POST"])
 def view_routes():
     rock_grade_index= None
-    rock_grades_by_index = all_rock_grades[24]
+    user_id = session.get('id')
+    
+    if request.method == "POST":
+        date = request.form.get("date")
+        comment = request.form.get("comment")
+        french_grade = request.form.get("french")
+        kurtyka_grade = request.form.get("kurtyka")
+        uiaa_grade = request.form.get("uiaa")
+        usa_grade = request.form.get("usa")
+        british_grade = request.form.get("british")
+        
+        if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
+            rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
+
+        route_name = request.form.get("route_name")
+       
+        route = Route(user_id, route_name, rock_grade_index, date, comment)
+        add_route_to_db(route, "lead_climbing_routes")
+    data = sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC')
+   
+    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id )
+
+
+@app.route("/sortByDate/<sort_order>", methods=["GET", "POST"] )
+def sort_by_date(sort_order):
+    rock_grade_index= None
     user_id = session.get('id')
 
     if request.method == "POST":
@@ -107,12 +126,51 @@ def view_routes():
             rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
 
         route_name = request.form.get("route_name")
-        
+       
         route = Route(user_id, route_name, rock_grade_index, date, comment)
         add_route_to_db(route, "lead_climbing_routes")
-    data = sql_data.get_routes_of_user( climbing_type, routes_type, user_id)
-   
-    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka,rock_grades_by_index=rock_grades_by_index, rock_grade_index=rock_grade_index, user_id=user_id )
+ 
+    if sort_order == 'desc':
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','DESC')
+    if sort_order == 'asc':
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','ASC')
+    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , sort_order=sort_order)
+
+
+@app.route("/sortByGrade/<sort_order>", methods=["GET", "POST"] )
+def sort_by_grade(sort_order):
+    rock_grade_index= None
+    user_id = session.get('id')
+    
+    if request.method == "POST":
+        date = request.form.get("date")
+        comment = request.form.get("comment")
+        french_grade = request.form.get("french")
+        kurtyka_grade = request.form.get("kurtyka")
+        uiaa_grade = request.form.get("uiaa")
+        usa_grade = request.form.get("usa")
+        british_grade = request.form.get("british")
+        
+        if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
+            rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
+
+        route_name = request.form.get("route_name")
+       
+        route = Route(user_id, route_name, rock_grade_index, date, comment)
+        add_route_to_db(route, "lead_climbing_routes")
+
+    if sort_order == 'desc':
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'rock_climbing_grades."Index"','DESC')
+    if sort_order == 'asc':
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'rock_climbing_grades."Index"','ASC')
+
+    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , sort_order=sort_order)
+
+
+@app.route("/delete_route/<int:route_id>")
+def delete_route(route_id):
+    remove_route_from_db("lead_climbing_routes", route_id)
+    return redirect(request.referrer or url_for('view_routes'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -121,24 +179,11 @@ def register():
         name = request.form['name']
         password = request.form['password']
         email = request.form['email']
-        repeat_password = request.form['repeat_password']
         hashed_password = generate_password_hash(password)
         account = check_if_user_in_db(email)
     
         if account:
             flash('Account already exists!')
-        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-            flash('Invalid email address!', 'error')
-        elif not re.match(r'[A-Za-z0-9]+', name):
-            flash('Name must contain only characters and numbers!', 'error')
-        elif len(password) < 8:
-            flash('Password must be at least 8 characters in length')
-        elif not re.match(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$', password):
-            flash('Password must contain at least: 1 lower case letter [a-z], 1 upper case letter [A-Z], 1 numeric character [0-9] and 1 special character: ~`!@#$%^&*()-_+={}[]|\;:"<>,./?', 'error')
-        elif not name or not password or not email:
-            flash('Please fill out the form!', 'error')
-        elif not repeat_password == password:
-            flash("Passwords don't match", 'error')
         else:
             user = User(None,name,hashed_password,email)
             add_user_to_db(user)
@@ -148,11 +193,7 @@ def register():
             else:
                 flash('Something went wrong', 'error')
 
-    elif request.method == 'POST':
-        flash('Please fill out the form!')
-
     return render_template('register.html')
-
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -174,11 +215,13 @@ def login():
             flash('Incorrect username or password')
     return render_template('login.html')
 
+
 @app.route('/logout')
 def logout():
    session.pop('loggedin', None)
    session.pop('id', None)
    return redirect(url_for('home_page'))
    
+
 if __name__ == "__main__":
     app.run()

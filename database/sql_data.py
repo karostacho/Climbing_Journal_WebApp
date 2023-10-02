@@ -28,14 +28,17 @@ class SqlData():
         grade = [row[0] for row in rows]
         return grade
 
-    def get_routes_of_user(self, climbing_type, routes_type, user_id):
-        rows = self.connector.execute_sql_query((f'''SELECT {routes_type}."id", {routes_type}.route_name, {climbing_type}."French", {routes_type}.date, {routes_type}.comment 
-                                                FROM {routes_type}
-                                                LEFT JOIN {climbing_type}
-                                                ON {climbing_type}."Index" = {routes_type}.grade_index
-                                                WHERE {routes_type}.user_id = {user_id}
-                                                ORDER BY {routes_type}.date DESC;'''))
+    def get_rock_routes_of_user_by(self, user_id, column_to_sort, order):
+        rows = self.connector.execute_sql_query((f'''SELECT lead_climbing_routes."id", lead_climbing_routes.route_name, rock_climbing_grades."French", lead_climbing_routes.date, lead_climbing_routes.comment 
+                                                FROM lead_climbing_routes
+                                                LEFT JOIN rock_climbing_grades
+                                                ON rock_climbing_grades."Index" = lead_climbing_routes.grade_index
+                                                WHERE lead_climbing_routes.user_id = {user_id}
+                                                ORDER BY {column_to_sort} {order};'''))
         return rows
+    
+
+
 
     @staticmethod
     def get_middle_value(indexes):

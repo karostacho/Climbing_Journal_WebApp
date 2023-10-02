@@ -9,8 +9,9 @@ def add_route_to_db(route, table_name):
     db_connector.commit()
 
 
-def remove_route_from_db(route):
+def remove_route_from_db(table_name, route_id):
     connector = Connector()
     db_connector = connector.connect_to_database()
     cursor = db_connector.cursor()
-    cursor.execute((f'DELETE FROM routes WHERE "id"={route.id}'))
+    cursor.execute((f'DELETE FROM {table_name} WHERE "id"={route_id}'))
+    db_connector.commit()
