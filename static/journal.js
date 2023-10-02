@@ -5,9 +5,9 @@ const openBtn = document.getElementById('openModalBtn');
 const closeBtn = document.getElementById('closeModalBtn');
 const submitBtn = document.getElementById('submitBtn');
 var currentDate = new Date().toISOString().split('T')[0];
-var date = document.getElementById("date");
+var date = document.getElementById('date');
   
-  date.setAttribute("max", currentDate);
+  date.setAttribute('max', currentDate);
 
 // Open modal
 openBtn.addEventListener('click', () => {
@@ -32,33 +32,27 @@ modal.addEventListener('click', e => {
   e.stopPropagation();
 });
 
-
+function getGradeValue(scale){
+  var grade = document.getElementById(scale);
+  return grade.value
+  }
 
 function validationForm(){
-  var french = document.getElementById("french");
-  var kurtyka = document.getElementById("kurtyka");
-  var british = document.getElementById("british");
-  var uiaa = document.getElementById("uiaa");
-  var usa = document.getElementById("usa");
+  var french = getGradeValue('french');
+  var kurtyka = getGradeValue('kurtyka');
+  var british = getGradeValue('british');
+  var uiaa = getGradeValue('uiaa');
+  var usa = getGradeValue('usa');
   
-  var frenchValue = french.value;
-  var kurtykaValue = kurtyka.value;
-  var britishValue = british.value;
-  var uiaaValue = uiaa.value;
-  var usaValue = usa.value;
 
-
-  if (!frenchValue && !britishValue && !kurtykaValue && !uiaaValue && !usaValue)  {
-    alert ("Grade must be selected")
+  if (!french && !kurtyka && !british && !uiaa && !usa)  {
+    alert ('Grade must be selected')
     return false
   }
- 
   else{
     return true
   }
 }
-
-
 
 
 // Dropdown selection reset in add route window
@@ -76,29 +70,18 @@ function validationForm(){
   });
 
 
-
   function updateData() {
-    // Prevent the default link behavior
-    
-
-    // Get the link element by its id
-    
-
     // Get the current href attribute value
     let href = link.getAttribute('href');
     if (href.includes('sort_order=asc')) {
       // Replace 'asc' with 'desc' in the href attribute
       href = href.replace('sort_order=asc', 'sort_order=desc');
     }
-
     // Check if the current sort_order is 'desc' or 'asc'
     if (href.includes('sort_order=desc')) {
       // Replace 'desc' with 'asc' in the href attribute
       href = href.replace('sort_order=desc', 'sort_order=asc');
     } 
-
     // Update the href attribute
     link.setAttribute('href', href);
-
-    
   }
