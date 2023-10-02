@@ -240,6 +240,11 @@ body{
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5); 
 }
 
+.add-route{
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+}
 /* Title in modal window */
 
 .add-route h2{
@@ -248,6 +253,7 @@ body{
   font-size: 24px;
   line-height: 20px;
   text-align: center;
+  margin-bottom: 5%;
 }
 
 /* Close modal button */
@@ -264,11 +270,7 @@ body{
 
 /* Text fields */
 
-.fields-section{
-  margin-left:10%;
-  margin-right: 5%;
-  margin-top:5%
-}
+
 
 .fields-name {
   font-family: 'Inter';
@@ -284,7 +286,6 @@ body{
 .field{
   float: left;
   text-align: left;
-
 }
 
 .box{
@@ -338,7 +339,6 @@ input {
   border-color: rgba(0, 0, 0, 0.1);
   padding: 8px, 16px, 8px, 16px;
   border: 1px,1px,1px,1px;
- 
 }
 
 .comment-and-dropdowns{
@@ -361,12 +361,10 @@ input {
   font-weight: 500;
 } 
 
-
 /* Submit route button*/
 
 .submit-btn{
   margin-top:3%;
-  margin-right: 5%;
 }
 
 .add-route button{
@@ -441,10 +439,12 @@ th {
   background-color: rgba(255, 255, 255, 1);
 }
 
-
 .fa-sort{
   color:rgba(158, 158, 158, 1);
   text-decoration: none;
 }
 
-
+.fa-trash-can{
+  color: #a30d11;
+  text-decoration: none
+}
