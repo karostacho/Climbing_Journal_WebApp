@@ -411,21 +411,21 @@ Mobile Home Page .css
 }
 
 #navbar-logo-mobile {
-  left: 121px;
-  height: 62px;
-  width: 142px;
-  top: 15px;
+  height: 35px;
   float: left;
 }
 
 /* Styles for hamburger button */
 #navbar-menu-btn {
-  background-color: rgb(51, 51, 51);
-  color: white;
+  background-color: white;
+  color: rgb(51, 51, 51);
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
   border: none;
   border-radius: 15px;
-  padding: 8px 12px;
-  font-size: 24px;
+
+  font-size: 36px;
   transition: background-color 0.2s;
 }
 
@@ -493,7 +493,7 @@ Mobile Home Page .css
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 0.2rem 2rem;
   }
 }
 
