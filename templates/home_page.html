@@ -15,15 +15,19 @@
         <button id="navbar-menu-btn">&#9776;</button>
     </div>
 
-    <nav id="menu-mobile">
+    <nav id="menu-mobile" class="menu-mobile">
         <ul>
             {% if session.loggedin %}
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
-            {% else %}
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-            {% endif %}
                 <li><a href="{{ url_for('home_page') }}">Grade Converter</a></li>
                 <li><a href="{{ url_for('view_routes') }}">Journal</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('home_page') }}">Grade Converter</a></li>
+                <li class="inactive-link">
+                    <a href="{{ url_for('view_routes') }}">Journal</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 
@@ -32,13 +36,13 @@
             <li><a  href="{{ url_for('home_page') }}" ><img class = "logo" src = "{{ url_for('static',filename='logo.gif') }}"></a></li>
             {% if session.loggedin %}
                 <li><a class="login" href="{{ url_for('logout') }}">Log out</a></li>
-                    <li class="journal-dropdown">
-                        <button class ="journal-tab" >Journal <i class="fa-solid fa-chevron-down"></i></button>
-                            <div class="journal-dropdown-content">
-                            <a href="{{ url_for('view_routes') }}">Lead Climbing</a>
-                            <a href="{{ url_for('view_routes') }}">Bouldering</a>
-                            </div>
-                    </li>
+                <li class="journal-dropdown">
+                    <button class ="journal-tab">Journal <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="journal-dropdown-content">
+                        <a href="{{ url_for('view_routes') }}">Lead Climbing</a>
+                        <a href="{{ url_for('view_routes') }}">Bouldering</a>
+                        </div>
+                </li>
 
             {% else %}
                 <li><a class ="login" href="{{ url_for('login') }}">Log in</a></li>

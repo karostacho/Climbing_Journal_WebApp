@@ -356,6 +356,8 @@ body {
 .grade-dropdowns {
 	display: inline-block;
 	padding: 5px 25px;
+	margin-left: 1.5rem;
+	margin-right: 1.5rem;
 }
 
 .grade-dropdowns label {
@@ -417,16 +419,16 @@ Mobile Home Page .css
 
 /* Styles for hamburger button */
 #navbar-menu-btn {
-  background-color: white;
-  color: rgb(51, 51, 51);
-  padding-bottom: 3px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border: none;
-  border-radius: 15px;
-
-  font-size: 36px;
-  transition: background-color 0.2s;
+	background-color: white;
+	color: rgb(51, 51, 51);
+	padding-bottom: 3px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: none;
+	border-radius: 15px;
+	cursor: pointer;
+	font-size: 36px;
+	transition: background-color 0.2s;
 }
 
 #navbar-menu-btn:hover {
@@ -434,7 +436,7 @@ Mobile Home Page .css
 }
 
 /* Styles for hamburger menu */
-#menu-mobile {
+.menu-mobile {
   display: none;
   position: absolute;
   top: 60px;
@@ -444,13 +446,13 @@ Mobile Home Page .css
   z-index: 999;
 }
 
-#menu-mobile ul {
+.menu-mobile ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-#menu-mobile li {
+.menu-mobile li {
   display: flex;
   justify-content: flex-end;
   margin-left: 20px;
@@ -458,7 +460,7 @@ Mobile Home Page .css
   border-bottom: 1px solid #ddd;
 }
 
-#menu-mobile a {
+.menu-mobile a {
   color: black;
   list-style: none;
   text-decoration: none;
@@ -470,9 +472,17 @@ Mobile Home Page .css
   font-size: 20px;
 }
 
-#menu-mobile a:hover {
+.menu-mobile a:hover {
   background-color: rgba(151, 71, 255, 0.07);
   color: rgba(98, 77, 227, 1);
+}
+
+.inactive-link a {
+	pointer-events: none;
+	opacity: 0.5;
+	color: gray;
+	text-decoration: none;
+	cursor: default;
 }
 
 @media (max-width: 768px) {
@@ -480,12 +490,12 @@ Mobile Home Page .css
     display: none;
   }
 
-  #menu-mobile {
+  .menu-mobile {
     display: none;
   }
 
   /* Make navbar visible when javascript toggles it's class to open */
-  #menu-mobile.open {
+  .menu-mobile.open {
     display: block;
   }
 
@@ -526,6 +536,8 @@ Mobile Home Page .css
 	.grade-dropdowns {
 		display: block;
 		margin-bottom: 20px;
+		margin-left: 0rem;
+		margin-right: 0rem;
 	}
 
 	.grade-dropdowns select {
