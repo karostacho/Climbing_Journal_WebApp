@@ -68,22 +68,22 @@ def home_page():
     bouldering_grade_index= bouldering_grades_by_index[0]
 
     if request.method == "GET":
-        session.pop('past_rock_index', None)
-        session.pop('past_bouldering_index', None)
+        session.pop('current_rock_index', None)
+        session.pop('current_bouldering_index', None)
 
     if request.method == "POST":
         if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
             rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
             rock_grades_by_index = convert_rock_grades(rock_grade_index)
-            session['past_rock_index'] = rock_grade_index
-            if 'past_bouldering_index' in session and session['past_bouldering_index'] is not None:
-                bouldering_grades_by_index = covert_bouldering_grades(session['past_bouldering_index'])
+            session['current_rock_index'] = rock_grade_index
+            if 'current_bouldering_index' in session and session['current_bouldering_index'] is not None:
+                bouldering_grades_by_index = covert_bouldering_grades(session['current_bouldering_index'])
         else:
             bouldering_grade_index = find_bouldering_grade_index(v_scale_grade, font_scale_grade)
             bouldering_grades_by_index = covert_bouldering_grades(bouldering_grade_index)
-            session['past_bouldering_index'] = bouldering_grade_index
-            if 'past_rock_index' in session and session['past_rock_index'] is not None:
-                rock_grades_by_index = convert_rock_grades(session['past_rock_index'])
+            session['current_bouldering_index'] = bouldering_grade_index
+            if 'current_rock_index' in session and session['current_rock_index'] is not None:
+                rock_grades_by_index = convert_rock_grades(session['current_rock_index'])
 
     return render_template("home_page.html",
                            french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka,
