@@ -211,9 +211,9 @@ def login():
                 session['id'] = find_user_id(email)
                 return redirect(url_for('view_routes'))
             else:
-                flash('Incorrect username or password', 'error')
+                flash('Incorrect email or password', 'error')
         else:
-            flash('Incorrect username or password', 'error')
+            flash('Incorrect email or password', 'error')
     return render_template('login.html')
 
 
