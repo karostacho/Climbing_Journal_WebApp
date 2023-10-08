@@ -18,20 +18,16 @@ bouldering = 'bouldering_grades'
 
 sql_data = SqlData()
 
- 
-def find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade):
+
+def find_rock_grade_index(french_grade, kurtyka_grade, uiaa_grade, usa_grade, british_grade):
     if french_grade:
         rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "French", french_grade)
-        
     elif kurtyka_grade:
         rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "Kurtyka(Poland)", kurtyka_grade)
-       
     elif uiaa_grade:
         rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "UIAA", uiaa_grade)
-       
     elif usa_grade:
         rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "USA", usa_grade)
-    
     elif british_grade:
         rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "British", british_grade)
     return rock_grade_index
@@ -40,22 +36,21 @@ def convert_rock_grades(rock_grade_index):
     for row in all_rock_grades:
         if row[0] == rock_grade_index:
                 rock_grades_by_index = row
-    return rock_grades_by_index   
+    return rock_grades_by_index
 
 def find_bouldering_grade_index(v_scale_grade, font_scale_grade):
     if v_scale_grade:
         bouldering_grade_index = sql_data.get_index_by_grade(bouldering, "V_scale", v_scale_grade)
     elif font_scale_grade:
-        bouldering_grade_index = sql_data.get_index_by_grade(bouldering, "Font_scale", font_scale_grade) 
+        bouldering_grade_index = sql_data.get_index_by_grade(bouldering, "Font_scale", font_scale_grade)
     return bouldering_grade_index
-
 
 def covert_bouldering_grades(bouldering_grade_index):
     for row in all_bouldering_grades:
         if row[0] == bouldering_grade_index:
             bouldering_grades_by_index = row
     return bouldering_grades_by_index
-    
+
 
 @app.route("/", methods= ["GET", "POST"])
 def home_page():
@@ -66,27 +61,44 @@ def home_page():
     kurtyka_grade = request.form.get("kurtyka")
     v_scale_grade = request.form.get("v_scale")
     font_scale_grade = request.form.get("font_scale")
+
     rock_grades_by_index = all_rock_grades[24]
+    rock_grade_index= rock_grades_by_index[0]
     bouldering_grades_by_index = all_bouldering_grades[18]
-    bouldering_grade_index= None
-    rock_grade_index= None
+    bouldering_grade_index= bouldering_grades_by_index[0]
+
+    if request.method == "GET":
+        session.pop('current_rock_index', None)
+        session.pop('current_bouldering_index', None)
 
     if request.method == "POST":
         if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
             rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
             rock_grades_by_index = convert_rock_grades(rock_grade_index)
+            session['current_rock_index'] = rock_grade_index
+            if 'current_bouldering_index' in session and session['current_bouldering_index'] is not None:
+                bouldering_grades_by_index = covert_bouldering_grades(session['current_bouldering_index'])
         else:
             bouldering_grade_index = find_bouldering_grade_index(v_scale_grade, font_scale_grade)
             bouldering_grades_by_index = covert_bouldering_grades(bouldering_grade_index)
-   
-    return render_template("home_page.html", french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, v_scale=v_scale, font_scale=font_scale, rock_grades_by_index=rock_grades_by_index, bouldering_grade_index=bouldering_grade_index, bouldering_grades_by_index=bouldering_grades_by_index, rock_grade_index=rock_grade_index)
+            session['current_bouldering_index'] = bouldering_grade_index
+            if 'current_rock_index' in session and session['current_rock_index'] is not None:
+                rock_grades_by_index = convert_rock_grades(session['current_rock_index'])
+
+    return render_template("home_page.html",
+                           french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka,
+                           v_scale=v_scale, font_scale=font_scale,
+                           bouldering_grade_index=bouldering_grade_index,
+                           bouldering_grades_by_index=bouldering_grades_by_index,
+                           rock_grade_index=rock_grade_index,
+                           rock_grades_by_index=rock_grades_by_index)
 
 
 @app.route("/view_routes", methods=["GET", "POST"])
 def view_routes():
     rock_grade_index= None
     user_id = session.get('id')
-    
+
     if request.method == "POST":
         date = request.form.get("date")
         comment = request.form.get("comment")
@@ -95,16 +107,16 @@ def view_routes():
         uiaa_grade = request.form.get("uiaa")
         usa_grade = request.form.get("usa")
         british_grade = request.form.get("british")
-        
+
         if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
             rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
 
         route_name = request.form.get("route_name")
-       
+
         route = Route(user_id, route_name, rock_grade_index, date, comment)
         add_route_to_db(route, "lead_climbing_routes")
     data = sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC')
-   
+
     return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id )
 
 
@@ -121,15 +133,15 @@ def sort_by_date(sort_order):
         uiaa_grade = request.form.get("uiaa")
         usa_grade = request.form.get("usa")
         british_grade = request.form.get("british")
-        
+
         if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
             rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
 
         route_name = request.form.get("route_name")
-       
+
         route = Route(user_id, route_name, rock_grade_index, date, comment)
         add_route_to_db(route, "lead_climbing_routes")
- 
+
     if sort_order == 'desc':
         data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','DESC')
     if sort_order == 'asc':
@@ -141,7 +153,7 @@ def sort_by_date(sort_order):
 def sort_by_grade(sort_order):
     rock_grade_index= None
     user_id = session.get('id')
-    
+
     if request.method == "POST":
         date = request.form.get("date")
         comment = request.form.get("comment")
@@ -150,12 +162,12 @@ def sort_by_grade(sort_order):
         uiaa_grade = request.form.get("uiaa")
         usa_grade = request.form.get("usa")
         british_grade = request.form.get("british")
-        
+
         if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
             rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
 
         route_name = request.form.get("route_name")
-       
+
         route = Route(user_id, route_name, rock_grade_index, date, comment)
         add_route_to_db(route, "lead_climbing_routes")
 
@@ -181,7 +193,7 @@ def register():
         email = request.form['email']
         hashed_password = generate_password_hash(password)
         account = check_if_user_in_db(email)
-    
+
         if account:
             flash('Account already exists!')
         else:
@@ -202,7 +214,7 @@ def login():
         email = request.form['email']
         password = request.form['password']
         account = check_if_user_in_db(email)
- 
+
         if account:
             password_rs = find_user_password(email)
             if check_password_hash(password_rs, password):
@@ -221,7 +233,7 @@ def logout():
    session.pop('loggedin', None)
    session.pop('id', None)
    return redirect(url_for('home_page'))
-   
+
 
 if __name__ == "__main__":
     app.run()
