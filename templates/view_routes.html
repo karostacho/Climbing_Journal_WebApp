@@ -39,6 +39,19 @@
     
     <div class="routes-section">
         <div class="table-section">
+            <form method="POST" >
+                <div class="grade-filter">
+                    <label for="gradeFilter">Grade Scale:</label><br>
+                        <select name="gradeFilter" id="grade-filter" name="grade-filter" onchange="this.form.submit()">
+                            <option value="" disabled selected>{{selected_scale}}</option>
+                            <option value="French">French</option>
+                            <option value="Kurtyka(Poland)">Kurtyka</option>
+                            <option value="UIAA">UIAA</option>
+                            <option value="USA">USA</option>
+                            <option value="British">British</option>
+                        </select>
+                </div>
+            </form>
             <table id="routes">
                 <thead>
                 <tr class="headers">
@@ -110,7 +123,7 @@
                                     </div>
                                 </div>
                             </div>
-                        
+                            <p>Choose the scale of your route</p>
                 
                             <div class="dropdown-section">
                                 <div class="grade-dropdowns">
@@ -121,48 +134,48 @@
                                             <option value="{{ grade }}">{{ grade }}</option>
                                         {% endfor %}
                                     </select>
-                            </div>
+                                </div>
 
-                            <div class="grade-dropdowns">
-                                <label for="kurtyka">Kurtyka</label><br>
-                                <select id="kurtyka" name="kurtyka"  >
-                                    <option value=""> </option>
-                                    {% for grade in kurtyka %}
-                                        <option value="{{ grade }}">{{ grade }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                                <div class="grade-dropdowns">
+                                    <label for="kurtyka">Kurtyka</label><br>
+                                    <select id="kurtyka" name="kurtyka"  >
+                                        <option value=""> </option>
+                                        {% for grade in kurtyka %}
+                                            <option value="{{ grade }}">{{ grade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
 
-                            <div class="grade-dropdowns">
-                                <label for="uiaa">UIAA</label><br>
-                                <select id="uiaa" name="uiaa" >
-                                    <option value=""></option>
-                                    {% for grade in uiaa %}
-                                        <option value="{{ grade }}">{{ grade }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                                <div class="grade-dropdowns">
+                                    <label for="uiaa">UIAA</label><br>
+                                    <select id="uiaa" name="uiaa" >
+                                        <option value=""></option>
+                                        {% for grade in uiaa %}
+                                            <option value="{{ grade }}">{{ grade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
 
-                            <div class="grade-dropdowns">
-                                <label for="usa">USA</label><br>
-                                <select id="usa" name="usa">
-                                    <option value=""></option>
-                                    {% for grade in usa %}
-                                        <option value="{{ grade }}">{{ grade }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                                <div class="grade-dropdowns">
+                                    <label for="usa">USA</label><br>
+                                    <select id="usa" name="usa">
+                                        <option value=""></option>
+                                        {% for grade in usa %}
+                                            <option value="{{ grade }}">{{ grade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
 
-                            <div class="grade-dropdowns">
-                                <label for="british">British</label><br>
-                                <select  id="british" name="british" >
-                                    <option value=""></option>
-                                    {% for grade in british %}
-                                        <option value="{{ grade }}">{{ grade }}</option>
-                                    {% endfor %}
-                                </select>
+                                <div class="grade-dropdowns">
+                                    <label for="british">British</label><br>
+                                    <select  id="british" name="british" >
+                                        <option value=""></option>
+                                        {% for grade in british %}
+                                            <option value="{{ grade }}">{{ grade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
                         <div class="flash-container" >
                             {% with messages = get_flashed_messages(with_categories=true)  %}
