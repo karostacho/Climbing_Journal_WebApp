@@ -243,8 +243,8 @@ body{
 .add-route{
   display: flex;
   justify-content: center;
-  margin-top: 3%;
 }
+
 /* Title in modal window */
 
 .add-route h2{
@@ -264,8 +264,8 @@ body{
   font-size: 34px;
   font-weight: bold;
   cursor: pointer;
-  margin-top:  18px;
-  margin-right: 18px;
+  margin-top:  0.5%;
+  margin-right: 0.5%;
 }
 
 /* Text fields */
@@ -307,7 +307,7 @@ body{
 
 .comment{
   margin-top:4%;
-  margin-bottom:5%;
+  margin-bottom:2%;
   width: 100%;
 }
 
@@ -329,7 +329,8 @@ input {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width:905px
+  width:905px;
+  margin-top:4%
 }
 
 #french, #kurtyka, #uiaa, #usa, #british, #v_scale, #font_scale{
@@ -345,6 +346,12 @@ input {
   display: flex;
   flex-direction: row;
   align-items: flex-start; 
+}
+
+p{
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 18px;;
 }
 
 .grade-dropdowns label {
@@ -364,7 +371,7 @@ input {
 /* Submit route button*/
 
 .submit-btn{
-  margin-top:3%;
+  margin-top:2%;
 }
 
 .add-route button{
@@ -384,18 +391,51 @@ input {
 
 /* Table */
 
+.grade-filter{ 
+  float:right;
+  margin-right:15%;
+  margin-bottom: 1%;
+}
+
+#grade-filter{
+  width:102px;
+  height:40px;
+  border-radius: 8px;
+  border-color: rgba(208, 213, 221, 1);
+  padding: 10px, 12px, 10px, 16px;
+  border: 1px,1px,1px,1px;
+}
+
+.grade-filter label{
+  font-family: 'Poppins',sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+}
+
+.grade-filter select{
+  margin-top: 5%;
+  font-family: 'Poppins',sans-serif;
+  font-weight: 500;
+  line-height: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+
 .table-section table {
-  width: 1052.96px;
-  max-height: 300px;
+  width: 80%;
+  max-height: 80%;
   margin: 0 auto; 
   border-collapse: collapse;
 }
   
 .table-section{
   overflow-y:auto ;
-  max-height: 280px;
+  height: 280px;
+  max-height: 500px;
   background-color: #fff;
-  padding-right: 16px;
   margin-top:8%
 }
 
