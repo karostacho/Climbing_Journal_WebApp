@@ -62,16 +62,14 @@ def home_page():
     v_scale_grade = request.form.get("v_scale")
     font_scale_grade = request.form.get("font_scale")
 
-    bouldering_grade_index = None
-    bouldering_grades_by_index = None
-    rock_grade_index = None
-    rock_grades_by_index = None
+    rock_grades_by_index = all_rock_grades[24]
+    rock_grade_index= rock_grades_by_index[0]
+    bouldering_grades_by_index = all_bouldering_grades[18]
+    bouldering_grade_index= bouldering_grades_by_index[0]
 
     if request.method == "GET":
-        rock_grades_by_index = all_rock_grades[24]
-        rock_grade_index= rock_grades_by_index[0]
-        bouldering_grades_by_index = all_bouldering_grades[18]
-        bouldering_grade_index= bouldering_grades_by_index[0]
+        session.pop('past_rock_index', None)
+        session.pop('past_bouldering_index', None)
 
     if request.method == "POST":
         if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
