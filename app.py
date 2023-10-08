@@ -86,26 +86,40 @@ def home_page():
 def view_routes():
     rock_grade_index= None
     user_id = session.get('id')
+    gradeFilter = request.form.get("gradeFilter")
     
-    if request.method == "POST":
-        date = request.form.get("date")
-        comment = request.form.get("comment")
-        french_grade = request.form.get("french")
-        kurtyka_grade = request.form.get("kurtyka")
-        uiaa_grade = request.form.get("uiaa")
-        usa_grade = request.form.get("usa")
-        british_grade = request.form.get("british")
-        
-        if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
-            rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
+    
+    if request.method == "GET":
+        data = sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC', 'French')
+        selected_scale = "French"
 
-        route_name = request.form.get("route_name")
-       
-        route = Route(user_id, route_name, rock_grade_index, date, comment)
-        add_route_to_db(route, "lead_climbing_routes")
-    data = sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC')
-   
-    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id )
+    if request.method == "POST":
+        
+        if 'gradeFilter' in request.form:
+            data = sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC', gradeFilter)
+            selected_scale = gradeFilter
+ 
+            return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id, selected_scale=selected_scale)
+        
+        else:
+            date = request.form.get("date")
+            comment = request.form.get("comment")
+            french_grade = request.form.get("french")
+            kurtyka_grade = request.form.get("kurtyka")
+            uiaa_grade = request.form.get("uiaa")
+            usa_grade = request.form.get("usa")
+            british_grade = request.form.get("british")
+            
+            if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
+                rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
+
+            route_name = request.form.get("route_name")
+        
+            route = Route(user_id, route_name, rock_grade_index, date, comment)
+            add_route_to_db(route, "lead_climbing_routes")
+
+    data=data
+    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , selected_scale=selected_scale )
 
 
 @app.route("/sortByDate/<sort_order>", methods=["GET", "POST"] )
@@ -131,9 +145,9 @@ def sort_by_date(sort_order):
         add_route_to_db(route, "lead_climbing_routes")
  
     if sort_order == 'desc':
-        data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','DESC')
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','DESC', 'French')
     if sort_order == 'asc':
-        data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','ASC')
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'lead_climbing_routes.date','ASC', 'French')
     return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , sort_order=sort_order)
 
 
@@ -160,9 +174,9 @@ def sort_by_grade(sort_order):
         add_route_to_db(route, "lead_climbing_routes")
 
     if sort_order == 'desc':
-        data = sql_data.get_rock_routes_of_user_by(user_id, 'rock_climbing_grades."Index"','DESC')
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'rock_climbing_grades."Index"','DESC', 'French')
     if sort_order == 'asc':
-        data = sql_data.get_rock_routes_of_user_by(user_id, 'rock_climbing_grades."Index"','ASC')
+        data = sql_data.get_rock_routes_of_user_by(user_id, 'rock_climbing_grades."Index"','ASC', 'French')
 
     return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , sort_order=sort_order)
 
@@ -209,7 +223,7 @@ def login():
             if check_password_hash(password_rs, password):
                 session['loggedin'] = True
                 session['id'] = find_user_id(email)
-                return redirect(url_for('view_routes'))
+                return redirect(url_for('view_routes', scale='French'))
             else:
                 flash('Incorrect email or password', 'error')
         else:
@@ -226,3 +240,5 @@ def logout():
 
 if __name__ == "__main__":
     app.run()
+
+
