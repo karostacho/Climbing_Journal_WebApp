@@ -1,29 +1,43 @@
 body {
 	margin: 0;
-	padding: 0px;
+	padding: 0;
 }
 
 /* Navbar*/
 .navbar {
-	height: 73px;
+	display: flex;
+	align-items: center;
 	box-shadow: 0px, 20px, 0, 20px rgba(0, 0, 0, 0.08);
-	margin-top: 1.7%;
-	margin-bottom: 0.5%;
-	margin-left: 3%;
-	margin-right: 3%;
 }
 
 /* Settings for all buttons on navbar */
-.navbar ul li {
-	float: right;
-	width: 183px;
-	height: 51px;
+.navbar ul {
+	display: flex;
+	list-style: none;
+	justify-content: space-between;
+	width: 100%;
+	margin: 0;
+	padding-top: 0.5rem;
+	padding-left: 8rem;
+	padding-right: 8rem;
+}
+
+.navbar-wrapper{
+	display: flex;
+	justify-content: right;
+}
+
+.navbar li {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-wrap: nowrap;
 	border-radius: 8px;
-	gap: 20px;
 	color: white;
 	text-align: center;
 	list-style-type: none;
-	margin-right: 2%;
+	margin-right: 2rem;
+	margin-left: 2rem;
 }
 
 .navbar a {
@@ -39,28 +53,19 @@ body {
 }
 
 /* Logo */
-.navbar ul li:first-child {
-	float: left;
-}
-
 .navbar img {
-	left: 121px;
 	height: 62px;
 	width: 142px;
-	top: 15px;
-	float: left;
+	margin-top: 10px;
+	margin-bottom: 0px;
 }
 
 /* Login button */
-
 .navbar a.login {
-	width: 108px;
-	height: 56px;
-	top: 18px;
-	padding: 17px 30px 17px 30px;
+	display: inline-block;
 	border-radius: 8px;
 	border: 1px solid rgba(98, 77, 227, 1);
-	gap: 10px;
+	padding: 12px 30px;
 }
 
 .navbar a.login:hover {
@@ -70,14 +75,8 @@ body {
 
 /* Converter button */
 
-.navbar a.grade-converter-tab {
-	width: 108px;
-	height: Fixed (56px);
-	gap: 10px;
-}
-
 .navbar li.grade-converter-tab {
-	border-bottom: 3px solid transparent;
+	border-bottom: 4px solid transparent;
 	border-bottom-color: rgba(98, 77, 227, 1);
 	border-radius: 0px;
 }
@@ -290,36 +289,31 @@ body {
 .graphic-section {
 	position: relative;
 }
-
-.graphic-section img {
-	width: 100%;
-	height: 158px;
-	top: 93px;
-	left: -1px;
-}
-
-.main-title {
-	background-color: rgba(255, 255, 255, 0.5);
-	top: 129px;
-	top: 30%;
-	left: 530px;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	padding: 10px;
-	border-radius: 8px;
-	position: absolute;
-	text-align: center;
-}
-
-.main-title h1 {
-	font-family: "Poppins", sans-serif;
-	font-size: 20px;
-	letter-spacing: 0.05px;
-	font-weight: 700;
-	text-align: center;
-	line-height: 30px;
-	margin: 0;
-}
+	.graphic-section img {
+		width: 100%;
+		height: 158px;
+		top: 93px;
+		left: -1px;
+	}
+	.main-title {
+		background-color: rgba(255, 255, 255, 0.5);
+		top: 35%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		padding: 10px 30px;
+		border-radius: 8px;
+		position: absolute;
+		text-align: center;
+	}
+	.main-title h1 {
+		font-family: "Poppins", sans-serif;
+		font-size: 20px;
+		letter-spacing: 0.05px;
+		font-weight: 700;
+		text-align: center;
+		line-height: 30px;
+		margin: 0;
+	}
 
 /* Converter*/
 
@@ -356,6 +350,8 @@ body {
 .grade-dropdowns {
 	display: inline-block;
 	padding: 5px 25px;
+	margin-left: 1.5rem;
+	margin-right: 1.5rem;
 }
 
 .grade-dropdowns label {
@@ -411,22 +407,22 @@ Mobile Home Page .css
 }
 
 #navbar-logo-mobile {
-  left: 121px;
-  height: 62px;
-  width: 142px;
-  top: 15px;
+  height: 35px;
   float: left;
 }
 
 /* Styles for hamburger button */
 #navbar-menu-btn {
-  background-color: rgb(51, 51, 51);
-  color: white;
-  border: none;
-  border-radius: 15px;
-  padding: 8px 12px;
-  font-size: 24px;
-  transition: background-color 0.2s;
+	background-color: white;
+	color: rgb(51, 51, 51);
+	padding-bottom: 3px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: none;
+	border-radius: 15px;
+	cursor: pointer;
+	font-size: 36px;
+	transition: background-color 0.2s;
 }
 
 #navbar-menu-btn:hover {
@@ -434,7 +430,7 @@ Mobile Home Page .css
 }
 
 /* Styles for hamburger menu */
-#menu-mobile {
+.menu-mobile {
   display: none;
   position: absolute;
   top: 60px;
@@ -444,13 +440,13 @@ Mobile Home Page .css
   z-index: 999;
 }
 
-#menu-mobile ul {
+.menu-mobile ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-#menu-mobile li {
+.menu-mobile li {
   display: flex;
   justify-content: flex-end;
   margin-left: 20px;
@@ -458,7 +454,7 @@ Mobile Home Page .css
   border-bottom: 1px solid #ddd;
 }
 
-#menu-mobile a {
+.menu-mobile a {
   color: black;
   list-style: none;
   text-decoration: none;
@@ -470,50 +466,90 @@ Mobile Home Page .css
   font-size: 20px;
 }
 
-#menu-mobile a:hover {
+.menu-mobile a:hover {
   background-color: rgba(151, 71, 255, 0.07);
   color: rgba(98, 77, 227, 1);
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    display: none;
-  }
+.inactive-link a {
+	pointer-events: none;
+	opacity: 0.5;
+	color: gray;
+	text-decoration: none;
+	cursor: default;
+}
 
-  #menu-mobile {
-    display: none;
-  }
+@media (max-width: 1025px) {
+	.navbar {
+		display: none;
+	}
 
-  /* Make navbar visible when javascript toggles it's class to open */
-  #menu-mobile.open {
-    display: block;
-  }
+	.menu-mobile {
+		display: none;
+	}
 
-  .navbar-mobile {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-  }
+	/* Make navbar visible when javascript toggles it's class to open */
+	.menu-mobile.open {
+		display: block;
+	}
+
+	.navbar-mobile {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.2rem 2rem;
+	}
+
+	.graphic-section {
+		position: relative;
+		text-align: center;
+	}
+		.graphic-section img {
+			width: 100%;
+			height: 170px;
+			display: block;
+		}
+		.main-title {
+			min-width: 270px;
+			padding: 10px 30px;
+			top: 33%;
+			left: 50%;
+		}
+
+	.climbing-drop {
+		top: 18%;
+	}
+		.titles h1 {
+			font-size: 24px;
+			line-height: 36px;
+			letter-spacing: 0.05px;
+			font-weight: 400;
+		}
 }
 
 @media (max-width: 768px) {
 	.grade-dropdowns {
 		display: block;
 		margin-bottom: 20px;
+		margin-left: 0rem;
+		margin-right: 0rem;
 	}
 
 	.grade-dropdowns select {
-		font-size: 24px;
-		line-height: 40px;
-		padding: 16px 16px;
+		width: 90px;
+		height: 36px;
+		font-size: 16px;
+		line-height: 20px;
 		border-radius: 8px;
+		border-width: 1px;
+		padding-left: 16px;
 		background: white;
-		width: 10rem;
-		height: 5rem;
 	}
 
 	.grade-dropdowns label {
-		font-size: 18px;
+		font-size: 16px;
+		line-height: 20px;
+		letter-spacing: 0.05px;
+		font-weight: 400;
 	}
 }

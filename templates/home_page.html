@@ -15,56 +15,68 @@
         <button id="navbar-menu-btn">&#9776;</button>
     </div>
 
-    <nav id="menu-mobile">
+    <nav id="menu-mobile" class="menu-mobile">
         <ul>
             {% if session.loggedin %}
-                <li><a href="{{ url_for('logout') }}">Login</a></li>
-            {% else %}
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-            {% endif %}
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 <li><a href="{{ url_for('home_page') }}">Grade Converter</a></li>
                 <li><a href="{{ url_for('view_routes') }}">Journal</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('home_page') }}">Grade Converter</a></li>
+                <li class="inactive-link">
+                    <a href="{{ url_for('view_routes') }}">Journal</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 
     <div class="navbar">
         <ul>
-            <li><a  href="{{ url_for('home_page') }}" ><img class = "logo" src = "{{ url_for('static',filename='logo.gif') }}"></a></li>
-            {% if session.loggedin %}
-                <li><a class="login" href="{{ url_for('logout') }}">Log out</a></li>
-                    <li class="journal-dropdown">
-                        <button class ="journal-tab" >Journal <i class="fa-solid fa-chevron-down"></i></button>
-                            <div class="journal-dropdown-content">
-                            <a href="{{ url_for('view_routes') }}">Lead Climbing</a>
-                            <a href="{{ url_for('view_routes') }}">Bouldering</a>
-                            </div>
-                    </li>
+            <li>
+                <a href="{{ url_for('home_page') }}"><img class="logo" src="{{ url_for('static',filename='logo.gif') }}"></a>
+            </li>
 
-            {% else %}
-                <li><a class ="login" href="{{ url_for('login') }}">Log in</a></li>
-                <li class="journal-dropdown-inactive">
-                <button class ="journal-tab-inactive" id="openNotLoggedIn">Journal <i class="fa-solid fa-chevron-down"></i></button>
-                </li>
+            <div class="navbar-wrapper">
                 <div class="pop-up-window">
-                    <div class="not-logged-in-window" id="notLoggedInWindow" >
-                        <span class="close-window" id="closeLoggedIn"><i class="fa-solid fa-xmark"></i></span>
-                        <h1>You are not logged in</h1>
-                        <div class="text-container">
-                            <p>Log in to your profile or sign up to add new routes and boulders to your climbing journal, and keep an eye on your progress!</p>
-                        </div>
-                        <div class="buttons">
-                            <div class="sign-up-button" >
-                                <a href="{{ url_for('register') }}" class ="sign_up" >Sign up</a>
+                        <div class="not-logged-in-window" id="notLoggedInWindow" >
+                            <span class="close-window" id="closeLoggedIn"><i class="fa-solid fa-xmark"></i></span>
+                            <h1>You are not logged in</h1>
+                            <div class="text-container">
+                                <p>Log in to your profile or sign up to add new routes and boulders to your climbing journal, and keep an eye on your progress!</p>
                             </div>
-                            <div class="log-in-button">
-                                <a class ="log_in" href="{{ url_for('login') }}">Have account? Log in</a>
+                            <div class="buttons">
+                                <div class="sign-up-button" >
+                                    <a href="{{ url_for('register') }}" class ="sign_up" >Sign up</a>
+                                </div>
+                                <div class="log-in-button">
+                                    <a class="log_in" href="{{ url_for('login') }}">Have account? Log in</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endif %}
-            <li class ="grade-converter-tab"><a class ="grade-converter-tab"  href="{{ url_for('home_page') }}" >Grade converter</a></li>
+
+                <li class="grade-converter-tab"><a class="grade-converter-tab" href="{{ url_for('home_page') }}">Grade converter</a></li>
+
+                {% if session.loggedin %}
+                    <li class="journal-dropdown">
+                        <button class ="journal-tab">Journal <i class="fa-solid fa-chevron-down"></i></button>
+                            <div class="journal-dropdown-content">
+                                <a href="{{ url_for('view_routes') }}">Lead Climbing</a>
+                                <a href="{{ url_for('view_routes') }}">Bouldering</a>
+                            </div>
+                    </li>
+                    <li><a class="login" href="{{ url_for('logout') }}">Log out</a></li>
+
+                {% else %}
+                    <li class="journal-dropdown-inactive">
+                        <button class ="journal-tab-inactive" id="openNotLoggedIn">Journal <i class="fa-solid fa-chevron-down"></i></button>
+                    </li>
+                    <li><a class ="login" href="{{ url_for('login') }}">Log in</a></li>
+                {% endif %}
+            </div>
         </ul>
+
     </div>
 
     <div class="graphic-section">
@@ -84,7 +96,7 @@
                 <div class="grade-dropdowns">
                     <label for="french">French</label>
                     <select id="french" name="french" onchange="this.form.submit()">
-                        <option value="">{{rock_grades_by_index[2] }} </option>
+                        <option value="">{{ rock_grades_by_index[2] }}</option>
                         {% for grade in french %}
                             <option value="{{ grade }}">{{ grade }}</option>
                         {% endfor %}
@@ -94,7 +106,7 @@
                 <div class="grade-dropdowns">
                     <label for="kurtyka">Kurtyka</label>
                     <select id="kurtyka" name="kurtyka" onchange="this.form.submit()">
-                        <option value="">{{rock_grades_by_index[5] }} </option>
+                        <option value="">{{ rock_grades_by_index[5] }}</option>
                         {% for grade in kurtyka %}
                             <option value="{{ grade }}">{{ grade }}</option>
                         {% endfor %}
@@ -104,7 +116,7 @@
                 <div class="grade-dropdowns">
                     <label for="uiaa">UIAA</label>
                     <select id="uiaa" name="uiaa" onchange="this.form.submit()">
-                        <option value="">{{rock_grades_by_index[3] }}</option>
+                        <option value="">{{ rock_grades_by_index[3] }}</option>
                         {% for grade in uiaa %}
                             <option value="{{ grade }}">{{ grade }}</option>
                         {% endfor %}
@@ -114,7 +126,7 @@
                 <div class="grade-dropdowns">
                     <label for="usa">USA</label>
                     <select class ='grade' id="usa" name="usa" onchange="this.form.submit()">
-                        <option value="">{{rock_grades_by_index[1] }} </option>
+                        <option value="">{{ rock_grades_by_index[1] }}</option>
                         {% for grade in usa %}
                             <option value="{{ grade }}">{{ grade }}</option>
                         {% endfor %}
@@ -124,23 +136,25 @@
                 <div class="grade-dropdowns">
                     <label for="british">British</label>
                     <select id="british" name="british" onchange="this.form.submit()">
-                        <option value="">{{rock_grades_by_index[4] }}</option>
+                        <option value="">{{ rock_grades_by_index[4] }}</option>
                         {% for grade in british %}
                             <option value="{{ grade }}">{{ grade }}</option>
                         {% endfor %}
                     </select>
                 </div>
             </div>
+        </form>
 
-            <div class="titles">
-                <h1>Bouldering</h1>
-            </div>
+        <div class="titles">
+            <h1>Bouldering</h1>
+        </div>
 
+        <form method="POST">
             <div class="grade-dropdowns-wrapper">
                 <div class="grade-dropdowns">
                 <label for="v_scale">V-scale</label>
                     <select id="v_scale" name="v_scale" onchange="this.form.submit()">
-                        <option value="">{{bouldering_grades_by_index[1] }}</option>
+                        <option value="">{{ bouldering_grades_by_index[1] }}</option>
                         {% for grade in v_scale %}
                             <option value="{{ grade }}">{{ grade }}</option>
                         {% endfor %}
@@ -150,7 +164,7 @@
                 <div class="grade-dropdowns">
                     <label for="font_scale">Font Scale</label>
                     <select id="font_scale" name="font_scale" onchange="this.form.submit()">
-                        <option value="">{{bouldering_grades_by_index[2] }}</option>
+                        <option value="">{{ bouldering_grades_by_index[2] }}</option>
                         {% for grade in font_scale %}
                             <option value="{{ grade }}">{{ grade }}</option>
                         {% endfor %}
