@@ -1,16 +1,16 @@
 html, body {
     height: 100%;
     margin: 0;
-  }
+}
 
-.login-page{
-   height: 100%;
-   margin:0%;
+.login-page {
+    height: 100%;
+    margin:0%;
 }
 
 /* Logo */
 
-.logo-container{
+.logo-container {
     float: left;
 }
 
@@ -20,7 +20,6 @@ html, body {
     margin-left:18%;
     margin-top:15%;
 }
-
 
 /* Login section */
 
@@ -55,27 +54,26 @@ html, body {
     font-size: 150%;
     font-weight: 500;
     line-height: 30px;
-    letter-spacing: 0.05000000074505806px;
+    letter-spacing: 0.05px;
     text-align: left;
-    color:  rgba(0, 0, 0, 1)
+    color: rgba(0, 0, 0, 1)
 }
 
 
-.login-body p{
+.login-body p {
     font-family: "Poppins", sans-serif;
     font-size: 100%;
     font-weight: 500;
     line-height: 21px;
     text-align: left;
-    color:  
-    rgba(102, 112, 133, 1);
+    color:rgba(102, 112, 133, 1);
 }
 
-.first-p{
+.first-p {
     width: 500px;
 }
 
-.second-p{
+.second-p {
     font-family: "Poppins", sans-serif;
     font-size: 100%;
     font-weight: 400;
@@ -84,12 +82,12 @@ html, body {
     color: rgba(17, 17, 17, 1)
 }
 
-.second-p a{
+.second-p a {
     color: rgba(0, 122, 255, 1);
     font-weight: 400;
 }
 
-.login-body label{
+.login-body label {
     font-family: "Inter";
     font-size: 100%;
     font-weight: 400;
@@ -98,14 +96,14 @@ html, body {
     color:  black
 }
 
-.box{
-   width:77%;
-  height: 42px;
-  border-radius: 8px;
-  border:1px;
-  border-style: solid;
-  border-color: rgba(207, 208, 215, 1); ;
-  color: black
+.box {
+    width:77%;
+    height: 42px;
+    border-radius: 8px;
+    border:1px;
+    border-style: solid;
+    border-color: rgba(207, 208, 215, 1); ;
+    color: black
 }
 
 /* Submit login */
@@ -135,19 +133,42 @@ html, body {
    margin-top:2%;
     color:red
   }
- 
+
 /* Graphic section*/
 
-.graphic{
+.graphic {
     position: relative;
     float: right;
     width: 40%;
     height: 100%;
     flex: 1;
 }
-  
-.graphic img{
+
+.graphic img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+@media (max-width: 1025px) {
+    .graphic {
+        display: none;
+    }
+
+    .logo-container {
+        display: none;
+    }
+
+    .login-box {
+        display: flex;
+        width: 100%;
+    }
+
+    .login-container {
+        width: 100%;
+    }
+
+    .login-body {
+        margin: 0;
+    }
 }

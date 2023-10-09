@@ -9,9 +9,9 @@
  <body>
   <div class="register-page">
     <div class="register-box">
-    
+
       <div class="logo-container">
-        <a  href="{{ url_for('home_page') }}" ><img class = "logo" src = "{{ url_for('static',filename='logo.gif') }}"></a>
+        <a  href="{{ url_for('home_page') }}" ><img class = "logo" src = "{{ url_for('static',filename='photos/logo.gif') }}"></a>
       </div>
         <div class="register-container">
           <div class="register-body">
@@ -20,7 +20,7 @@
               <p>Please fill in your details to create your account</p>
             </div>
 
-            <form action="{{ url_for('register') }}" method="post" onsubmit="return validationForm()" > 
+            <form action="{{ url_for('register') }}" method="post" onsubmit="return validationForm()" >
               <div class="field">
               <label for="name">Name</label><br>
                 <input class="box" type="text" name="name" id="name" required>
@@ -64,11 +64,11 @@
           </div>
         </div>
     </div>
-    
+
     <div class="graphic">
-      <img src="{{ url_for('static',filename='sign_up.jpg') }}" >
+      <img src="{{ url_for('static',filename='photos/sign_up.jpg') }}" >
     </div>
   </div>
-  <script src="../static/register.js"></script>
+  <script src="../static/java_script/register.js"></script>
  </body>
 </html>
