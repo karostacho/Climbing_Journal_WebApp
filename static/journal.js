@@ -70,18 +70,20 @@ function validationForm(){
   });
 
 
-  function updateData() {
-    // Get the current href attribute value
-    let href = link.getAttribute('href');
-    if (href.includes('sort_order=asc')) {
-      // Replace 'asc' with 'desc' in the href attribute
-      href = href.replace('sort_order=asc', 'sort_order=desc');
-    }
-    // Check if the current sort_order is 'desc' or 'asc'
-    if (href.includes('sort_order=desc')) {
-      // Replace 'desc' with 'asc' in the href attribute
-      href = href.replace('sort_order=desc', 'sort_order=asc');
-    } 
-    // Update the href attribute
-    link.setAttribute('href', href);
+  var currentSortOrder = "DESC"; // Initial sorting order
+
+  function toggleSortOrder() {
+      // Toggle sorting order between ASC and DESC
+      if (currentSortOrder === "ASC") {
+          currentSortOrder = "DESC";
+      } else {
+          currentSortOrder = "ASC";
+      }
+
+      // Update the hidden input value
+      var sortOrderInput = document.querySelector('input[name="sortOrder"]');
+      sortOrderInput.value = currentSortOrder;
+
+      // Trigger form submission
+      document.getElementById('sortForm').submit();
   }

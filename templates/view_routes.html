@@ -52,24 +52,19 @@
                         </select>
                 </div>
             </form>
+            <form id="sortForm" method="post" style="display: inline;">
+                <input type="hidden" name="sortOrder" value="DESC">
+            </form>
             <table id="routes">
                 <thead>
                 <tr class="headers">
                     <th>#</th>
                     <th >Name</th>
                     <th>
-                        {% if sort_order == 'desc' %}
-                        <a class="fa-solid fa-sort" href="{{ url_for('sort_by_grade', sort_order='asc') }}" ></a><a> Grade</a>
-                        {% else %}
-                        <a class="fa-solid fa-sort" href="{{ url_for('sort_by_grade', sort_order='desc') }}"></a><a> Grade</a>
-                        {% endif %}
+                        <a class="fa-solid fa-sort"></a><a> Grade</a>
                     </th>
                     <th>
-                        {% if request.path == "/view_routes" or sort_order == 'desc' %}
-                        <a class="fa-solid fa-sort" href="{{ url_for('sort_by_date', sort_order='asc') }}"></a><a> Date</a>
-                        {% else %}
-                        <a class="fa-solid fa-sort" href="{{ url_for('sort_by_date', sort_order='desc') }}"></a><a> Date</a>
-                        {% endif %}
+                        <a class="fa-solid fa-sort" href="#" onclick="toggleSortOrder();"></a><a> Date</a>
                     </th>
                     <th>Comment</th>
                     <th>Action</th>
