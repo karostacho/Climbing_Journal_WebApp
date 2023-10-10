@@ -1,5 +1,3 @@
-///Common .js file for all relevant views
-
 // For Mobile navbar
 const navbar_menu_btn = document.getElementById("navbar-menu-btn");
 const menu_mobile = document.getElementById("menu-mobile");
