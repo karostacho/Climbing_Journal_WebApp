@@ -16,7 +16,8 @@
 
     <div class="login-box">
         <div class="logo-container">
-            <a href="{{ url_for('home_page') }}"><img class="logo" src="{{ url_for('static',filename='photos/logo.gif') }}" /></a>
+            <a href="{{ url_for('home_page') }}"><img class="logo"
+                    src="{{ url_for('static',filename='photos/logo.gif') }}" /></a>
         </div>
 
         <div class="login-container">
@@ -26,7 +27,7 @@
                     <p>Please fill in your details to access your account</p>
                 </div>
 
-                <form action="{{ url_for('login') }}" method="post">
+                <form action="{{ url_for('login_page') }}" method="post">
                     <div class="field">
                         <label>E-mail</label><br />
                         <input class="box" type="text" name="email" id="email" required />
