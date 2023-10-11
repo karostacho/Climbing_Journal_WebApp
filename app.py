@@ -88,22 +88,35 @@ def view_routes():
     user_id = session.get('id')
     gradeFilter = request.form.get("gradeFilter")
     selected_scale = session.get('selected_scale', "French")
-    data = sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC', selected_scale)
-    sort_order = request.form.get("sortOrder")
+    selected_sort_date_order= session.get("selected_sort_date_order", "DESC")
+    data = sql_data.get_rock_routes_of_user_by( user_id, 'date', selected_sort_date_order, selected_scale)
+    sort_grade_order = request.form.get("sortGradeOrder")
+    selected_sort_grade_order = session.get("selected_sort_grade_order")
     
+
     if request.method == "POST":
 
         if 'gradeFilter' in request.form:
-            data = sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC', gradeFilter)
+            data = sql_data.get_rock_routes_of_user_by( user_id, 'date', selected_sort_date_order, gradeFilter)
             selected_scale = gradeFilter
             session['selected_scale'] = selected_scale
-        if 'sortOrder' in request.form:
-            sort_order = request.form.get("sortOrder")
-            if sort_order == "DESC":
+        if 'sortDateOrder' in request.form:
+            selected_sort_date_order = request.form.get("sortDateOrder")
+            session['selected_sort_date_order'] = selected_sort_date_order
+            if selected_sort_date_order == "DESC":
                 data = sort_by_desc(date_column, data)
-            if sort_order == "ASC":
+            if selected_sort_date_order == "ASC":
                 data = sort_by_asc(date_column, data)
-            return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id, selected_scale=selected_scale, sort_order=sort_order)
+        if 'sortGradeOrder' in request.form:
+            sort_grade_order = request.form.get("sortGradeOrder")
+            session['selected_sort_grade_order'] = sort_grade_order
+            if sort_grade_order == "DESC":
+                data = sort_by_desc(grade_column, data)
+            if sort_grade_order == "ASC":
+                data = sort_by_asc(grade_column, data)
+            
+
+            return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id, selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_grade_order=selected_sort_grade_order, selected_sort_date_order=selected_sort_date_order)
         
         else:
             date = request.form.get("date")
@@ -117,13 +130,11 @@ def view_routes():
             if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
                 rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
 
-            route_name = request.form.get("route_name")
-            route = Route(user_id, route_name, rock_grade_index, date, comment)
-            add_route_to_db(route, "lead_climbing_routes")
+                route_name = request.form.get("route_name")
+                route = Route(user_id, route_name, rock_grade_index, date, comment)
+                add_route_to_db(route, "lead_climbing_routes")
 
-        data=sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC', selected_scale)
-        
-    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , selected_scale=selected_scale, sort_order=sort_order )
+    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_grade_order=selected_sort_grade_order,selected_sort_date_order=selected_sort_date_order )
 
 @app.route("/delete_route/<int:route_id>")
 def delete_route(route_id):
