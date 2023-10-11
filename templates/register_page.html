@@ -53,7 +53,8 @@
                         {% with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
                         {% for category, message in messages %}
-                        <div class="flash-message {% if category == 'success' %}success{% else %}error{% endif %}"
+                        <div class="flash-message"
+                            class="{{ category }}"
                             role="alert">
                             {{ message }}
                         </div>

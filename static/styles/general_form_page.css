@@ -95,7 +95,6 @@ body {
     border: 1px;
     border-style: solid;
     border-color: rgba(207, 208, 215, 1);
-    ;
     color: black
 }
 
@@ -128,6 +127,18 @@ body {
     font-weight: 400;
     margin-top: 2%;
     color: red
+}
+
+.flash-message.error {
+    color: red
+}
+
+.flash-message.success {
+    color: #155724;
+}
+
+.flash-container {
+    width: 365px;
 }
 
 /* Graphic section*/
