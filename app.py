@@ -208,8 +208,8 @@ def register():
     return render_template('register.html')
 
 
-@app.route('/login/', methods=['GET', 'POST'])
-def login():
+@app.route('/login', methods=['GET', 'POST'])
+def login_page():
     if request.method == 'POST' :
         email = request.form['email']
         password = request.form['password']
@@ -225,7 +225,7 @@ def login():
                 flash('Incorrect username or password')
         else:
             flash('Incorrect username or password')
-    return render_template('login.html')
+    return render_template('login_page.html')
 
 
 @app.route('/logout')

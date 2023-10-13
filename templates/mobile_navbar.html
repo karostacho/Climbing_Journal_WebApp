@@ -1,0 +1,26 @@
+<div class="navbar-mobile">
+	<a href="{{ url_for('home_page') }}"
+		><img
+			id="navbar-logo-mobile"
+			src="{{ url_for('static',filename='photos/logo.gif') }}"
+	/></a>
+	<button id="navbar-menu-btn">&#9776;</button>
+</div>
+
+<nav id="menu-mobile" class="menu-mobile">
+	<ul>
+		{% if session.loggedin %}
+		<li><a href="{{ url_for('logout') }}">Logout</a></li>
+		<li><a href="{{ url_for('home_page') }}">Grade Converter</a></li>
+		<li><a href="{{ url_for('view_routes') }}">Journal</a></li>
+		{% else %}
+		<li><a href="{{ url_for('login_page') }}">Login</a></li>
+		<li><a href="{{ url_for('home_page') }}">Grade Converter</a></li>
+		<li class="inactive-link">
+			<a href="{{ url_for('view_routes') }}">Journal</a>
+		</li>
+		{% endif %}
+	</ul>
+</nav>
+
+<script src="../static/java_script/mobile_navbar.js" defer="defer"></script>
