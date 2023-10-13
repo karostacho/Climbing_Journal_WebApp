@@ -28,8 +28,8 @@ class SqlData():
         grade = [row[0] for row in rows]
         return grade
 
-    def get_rock_routes_of_user_by(self, user_id, column_to_sort, order):
-        rows = self.connector.execute_sql_query((f'''SELECT lead_climbing_routes."id", lead_climbing_routes.route_name, rock_climbing_grades."French", lead_climbing_routes.date, lead_climbing_routes.comment 
+    def get_rock_routes_of_user_by(self, user_id, column_to_sort, order, scale):
+        rows = self.connector.execute_sql_query((f'''SELECT lead_climbing_routes.grade_index, lead_climbing_routes.route_name, rock_climbing_grades."{scale}", lead_climbing_routes.date, lead_climbing_routes.comment, lead_climbing_routes."id" 
                                                 FROM lead_climbing_routes
                                                 LEFT JOIN rock_climbing_grades
                                                 ON rock_climbing_grades."Index" = lead_climbing_routes.grade_index

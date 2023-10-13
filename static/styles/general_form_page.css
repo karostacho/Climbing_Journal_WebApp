@@ -121,6 +121,14 @@ body {
 
 /* Flash message */
 
+.field p3{
+    color: rgba(255, 7, 7, 1);
+    font-size: 14px;
+    font-family: "Poppins";
+    font-weight: 500;
+    width: 400px !important;
+   }
+
 .flash-message {
     font-family: "Poppins", sans-serif;
     font-size: 100%;
@@ -130,11 +138,17 @@ body {
 }
 
 .flash-message.error {
-    color: red
+    color: rgba(255, 7, 7, 1);
+    font-size: 14px;
+    font-family: "Poppins";
+    font-weight: 500;
 }
 
 .flash-message.success {
-    color: #155724;
+    color: green;
+    font-size: 14px;
+    font-family: "Poppins";
+    font-weight: 500;
 }
 
 .flash-container {
@@ -182,6 +196,7 @@ body {
     }
 
     .form-body {
+        width: 300px;
         margin: 0;
     }
 }

@@ -70,18 +70,53 @@ function validationForm(){
   });
 
 
-  function updateData() {
-    // Get the current href attribute value
-    let href = link.getAttribute('href');
-    if (href.includes('sort_order=asc')) {
-      // Replace 'asc' with 'desc' in the href attribute
-      href = href.replace('sort_order=asc', 'sort_order=desc');
-    }
-    // Check if the current sort_order is 'desc' or 'asc'
-    if (href.includes('sort_order=desc')) {
-      // Replace 'desc' with 'asc' in the href attribute
-      href = href.replace('sort_order=desc', 'sort_order=asc');
+  
+
+
+  
+  function toggleDatetOrder() {
+    const dateForm = document.getElementById('sortDateForm')
+  const dateOrder = document.getElementById('sortDateOrder');
+  const storedDateOrder = localStorage.getItem('sortDateOrder');
+  
+
+  if (storedDateOrder) {
+    dateOrder.value = storedDateOrder;
+}
+   
+      if (dateOrder.value === 'DESC') {
+        dateOrder.value = 'ASC';
     } 
-    // Update the href attribute
-    link.setAttribute('href', href);
+      else {
+        dateOrder.value = 'DESC';
+    }
+
+    localStorage.setItem('sortDateOrder', dateOrder.value);
+
+    dateForm.submit();
   }
+
+
+  function toggleGradeOrder() {
+    const gradeForm = document.getElementById('sortGradeForm');
+    const gradeOrder = document.getElementById('sortGradeOrder');
+    const storedGradeOrder = localStorage.getItem('sortGradeOrder');
+  
+
+  if (storedGradeOrder) {
+    gradeOrder.value = storedGradeOrder;
+}
+   
+      if (gradeOrder.value === 'DESC') {
+        gradeOrder.value = 'ASC';
+    } 
+      else {
+        gradeOrder.value = 'DESC';
+    }
+
+    localStorage.setItem('sortGradeOrder', gradeOrder.value);
+
+    gradeForm.submit();
+  }
+
+ 
