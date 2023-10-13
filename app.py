@@ -186,7 +186,7 @@ def delete_route(route_id):
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def register():
+def register_page():
     if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form and 'repeat_password' in request.form:
         name = request.form['name']
         password = request.form['password']
@@ -205,7 +205,7 @@ def register():
             else:
                 flash('Something went wrong', 'error')
 
-    return render_template('register.html')
+    return render_template('register_page.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
