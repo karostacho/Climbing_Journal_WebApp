@@ -155,7 +155,7 @@ def delete_route(route_id):
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def register():
+def register_page():
     if request.method == 'POST' :
         name = request.form['name']
         password = request.form['password']
