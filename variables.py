@@ -18,3 +18,16 @@ kurtyka = ['I', 'II', 'III', 'IV', 'IV+', 'V-', 'V', 'V+', 'VI', 'VI+', 'VI.1', 
 v_scale = ['V-easy', 'V0-', 'V0', 'V0+', 'V0-1', 'V1-', 'V1', 'V1+', 'V1-2', 'V2-', 'V2', 'V2+', 'V2-3', 'V3-', 'V3', 'V3+', 'V3-4', 'V4-', 'V4', 'V4+', 'V4-5', 'V5-', 'V5', 'V5+', 'V5-6', 'V6-', 'V6', 'V6+', 'V6-7', 'V7-', 'V7',
                 'V7+', 'V7-8', 'V8-', 'V8', 'V8+', 'V8-9', 'V9-', 'V9', 'V9+', 'V9-10', 'V10-', 'V10', 'V10+', 'V10-11', 'V11-', 'V11', 'V11+', 'V11-12', 'V12-', 'V12', 'V12+', 'V12-13', 'V13-', 'V13', 'V13+', 'V13-14', 'V14-', 'V14', 'V14+', 'V14-15', 'V15-', 'V15', 'V15+', 'V15-16', 'V16-', 'V16', 'V16+', 'V16-17', 'V17-', 'V17']
 font_scale = ['3', '4-', '4', '4+', '5-', '5', '5+', '6A', '6A+', '6B', '6B+', '6C', '6C+', '7A', '7A+', '7B', '7B+', '7C', '7C+', '8A', '8A+', '8B', '8B+', '8C', '8C+', '9A']
+
+
+grade_column = 0
+date_column = 3
+
+def sort_by_asc(column_to_sort, tuple_list):
+    sorted_tuple = sorted(tuple_list, key=lambda x: x[column_to_sort])
+    return sorted_tuple
+
+
+def sort_by_desc(column_to_sort, tuple_list):
+    sorted_tuple = sorted(tuple_list, key=lambda x: x[column_to_sort], reverse=True)
+    return sorted_tuple
