@@ -237,7 +237,6 @@ body {
 
 .journal-dropdown {
 	position: relative;
-	display: inline-block;
 }
 
 .journal-tab {
@@ -257,8 +256,10 @@ body {
 .journal-dropdown-content {
 	display: none;
 	position: absolute;
+    top: 100%;
+    left: 0;
 	background-color: white;
-	border-radius: 8px;
+    border-radius: 0px 0px 8px 8px;
 	z-index: 4;
 }
 
@@ -276,7 +277,7 @@ body {
 }
 
 .journal-dropdown:hover .journal-dropdown-content {
-	display: list-item;
+	display: block;
 }
 
 .journal-dropdown-content a:hover {
