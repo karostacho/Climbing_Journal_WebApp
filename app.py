@@ -94,8 +94,8 @@ def home_page():
                            rock_grades_by_index=rock_grades_by_index)
 
 
-@app.route("/view_routes", methods=["GET", "POST"])
-def view_routes():
+@app.route("/journal_page", methods=["GET", "POST"])
+def journal_page():
     rock_grade_index= None
     user_id = session.get('id')
     gradeFilter = request.form.get("gradeFilter")
@@ -104,7 +104,7 @@ def view_routes():
     data = sql_data.get_rock_routes_of_user_by( user_id, 'date', selected_sort_date_order, selected_scale)
     sort_grade_order = request.form.get("sortGradeOrder")
     selected_sort_grade_order = session.get("selected_sort_grade_order")
-    
+
 
     if request.method == "POST":
 
@@ -126,10 +126,10 @@ def view_routes():
                 data = sort_by_desc(grade_column, data)
             if sort_grade_order == "ASC":
                 data = sort_by_asc(grade_column, data)
-            
 
-            return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id, selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_grade_order=selected_sort_grade_order, selected_sort_date_order=selected_sort_date_order)
-        
+
+            return render_template("journal_page.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id, selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_grade_order=selected_sort_grade_order, selected_sort_date_order=selected_sort_date_order)
+
         else:
             date = request.form.get("date")
             comment = request.form.get("comment")
@@ -146,7 +146,7 @@ def view_routes():
                 route = Route(user_id, route_name, rock_grade_index, date, comment)
                 add_route_to_db(route, "lead_climbing_routes")
 
-    return render_template("view_routes.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_grade_order=selected_sort_grade_order,selected_sort_date_order=selected_sort_date_order )
+    return render_template("journal_page.html", data=data, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_grade_order=selected_sort_grade_order,selected_sort_date_order=selected_sort_date_order )
 
 @app.route("/delete_route/<int:route_id>")
 def delete_route(route_id):
@@ -190,7 +190,7 @@ def login_page():
             if check_password_hash(password_rs, password):
                 session['loggedin'] = True
                 session['id'] = find_user_id(email)
-                return redirect(url_for('view_routes', scale='French'))
+                return redirect(url_for('journal_page', scale='French'))
             else:
                 flash('Incorrect email or password', 'error')
         else:
@@ -207,5 +207,3 @@ def logout():
 
 if __name__ == "__main__":
     app.run()
-
-

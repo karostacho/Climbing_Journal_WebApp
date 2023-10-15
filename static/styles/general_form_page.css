@@ -42,6 +42,12 @@ body {
     margin-bottom: 3%;
 }
 
+.form-body {
+    width: 60%;
+    max-width: 400px;
+    margin: 0;
+}
+
 .form-body h1 {
     font-family: "Poppins", sans-serif;
     font-size: 150%;
@@ -121,20 +127,19 @@ body {
 
 /* Flash message */
 
-.field p3{
+.field p3 {
     color: rgba(255, 7, 7, 1);
-    font-size: 14px;
     font-family: "Poppins";
+    font-size: 14px;
     font-weight: 500;
-    width: 400px !important;
-   }
+}
 
 .flash-message {
-    font-family: "Poppins", sans-serif;
-    font-size: 100%;
-    font-weight: 400;
+    color: rgba(255, 7, 7, 1);
+    font-family: "Poppins";
+    font-size: 14px;
+    font-weight: 500;
     margin-top: 2%;
-    color: red
 }
 
 .flash-message.error {
@@ -196,7 +201,7 @@ body {
     }
 
     .form-body {
-        width: 300px;
-        margin: 0;
+        width: 100%;
+        max-width: 300px;
     }
 }
