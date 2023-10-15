@@ -190,7 +190,7 @@ def login_page():
             if check_password_hash(password_rs, password):
                 session['loggedin'] = True
                 session['id'] = find_user_id(email)
-                return redirect(url_for('view_routes', scale='French'))
+                return redirect(url_for('journal_page', scale='French'))
             else:
                 flash('Incorrect email or password', 'error')
         else:
