@@ -119,4 +119,13 @@ function validationForm(){
     gradeForm.submit();
   }
 
+
+  function deleteRoute(routeId){
+    if (confirm("Are you sure you want to delete this route?")){
+      document.getElementById('deleteRoute').value = routeId;
+      const deleteForm = document.getElementById('deleteRouteForm');
+      deleteForm.submit()
+    }
+  }
+
  

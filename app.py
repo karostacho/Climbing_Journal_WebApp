@@ -7,6 +7,7 @@ from database.user_db import check_if_user_in_db, add_user_to_db, find_user_pass
 from werkzeug.security import check_password_hash, generate_password_hash
 from variables import all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale, grade_column, date_column, sort_by_asc, sort_by_desc
 from database.password import secret_key
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -53,6 +54,19 @@ def covert_bouldering_grades(bouldering_grade_index):
             bouldering_grades_by_index = row
     return bouldering_grades_by_index
 
+
+def format_date(date_str):
+    if isinstance(date_str, str):
+        try:
+            date_object = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S GMT')
+            return date_object.strftime('%Y-%m-%d')
+        except ValueError:
+            return date_str 
+    return date_str
+
+def get_fortmatted_routes_list(routes_list):
+    routes_list = [(a, b, c, format_date(d), e, f) for a, b, c, d, e, f in routes_list]
+    return routes_list
 
 @app.route("/", methods= ["GET", "POST"])
 def home_page():
@@ -102,43 +116,56 @@ def journal_page():
     user_id = session.get('id')
     gradeFilter = request.form.get("gradeFilter")
     selected_scale = session.get('selected_scale', "French")
-    selected_sort_date_order= session.get("selected_sort_date_order", "DESC")
+    sort_date_order = request.form.get("sortDateOrder")
     sort_grade_order = request.form.get("sortGradeOrder")
-    selected_sort_grade_order = session.get("selected_sort_grade_order")
+    sort_order= session.get("sort_order", "DESC")
+    column_to_sort = session.get("column_to_sort", "date")
+    
 
     if request.method == "GET":
         sql_data = SqlData()
-        routes_list = sql_data.get_rock_routes_of_user_by( user_id, 'date', selected_sort_date_order, selected_scale)
-        
+        routes_list = session.get("routes_list", sql_data.get_rock_routes_of_user_by( user_id, 'date', 'DESC', selected_scale))
+        routes_list = get_fortmatted_routes_list(routes_list)
+        session['routes_list'] = routes_list
 
     if request.method == "POST":
+        routes_list =  session.get("routes_list")
+        routes_list = get_fortmatted_routes_list(routes_list)
+        
         if 'gradeFilter' in request.form:
-            sql_data = SqlData()
-            routes_list = sql_data.get_rock_routes_of_user_by( user_id, 'date', selected_sort_date_order, gradeFilter)
+            sort_order =  session.get("sort_order")
+            column_to_sort = session.get("column_to_sort")
             selected_scale = gradeFilter
             session['selected_scale'] = selected_scale
-        if 'sortDateOrder' in request.form:
             sql_data = SqlData()
-            routes_list = sql_data.get_rock_routes_of_user_by( user_id, 'date', selected_sort_date_order, selected_scale)
-            selected_sort_date_order = request.form.get("sortDateOrder")
-            session['selected_sort_date_order'] = selected_sort_date_order
-            if selected_sort_date_order == "DESC":
+            routes_list = sql_data.get_rock_routes_of_user_by( user_id, column_to_sort, sort_order, selected_scale)
+            session['routes_list'] = routes_list
+            
+        elif 'sortDateOrder' in request.form:
+            if sort_date_order == "DESC":
                 routes_list = sort_by_desc(date_column, routes_list)
-            if selected_sort_date_order == "ASC":
+            if sort_date_order == "ASC":
                 routes_list = sort_by_asc(date_column, routes_list)
-        if 'sortGradeOrder' in request.form:
-            sql_data = SqlData()
-            routes_list = sql_data.get_rock_routes_of_user_by( user_id, 'date', selected_sort_date_order, selected_scale)
-            sort_grade_order = request.form.get("sortGradeOrder")
-            session['selected_sort_grade_order'] = sort_grade_order
+            session['sort_order'] = sort_date_order
+            session['column_to_sort'] = 'date'
+            session['routes_list'] = routes_list
+
+        elif 'sortGradeOrder' in request.form:
             if sort_grade_order == "DESC":
                 routes_list = sort_by_desc(grade_column, routes_list)
             if sort_grade_order == "ASC":
                 routes_list = sort_by_asc(grade_column, routes_list)
+            session['sort_order'] = sort_grade_order
+            session['column_to_sort'] = 'grade_index'
+            session['routes_list'] = routes_list
 
-
-            return render_template("journal_page.html", routes_list=routes_list, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id, selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_grade_order=selected_sort_grade_order, selected_sort_date_order=selected_sort_date_order)
-
+        elif 'deleteRoute' in request.form:
+            route_id = request.form.get("deleteRoute")
+            remove_route_from_db("lead_climbing_routes", route_id)
+            sql_data = SqlData()
+            routes_list = sql_data.get_rock_routes_of_user_by( user_id, column_to_sort, sort_order, selected_scale)
+            session['routes_list'] = routes_list
+        
         else:
             date = request.form.get("date")
             comment = request.form.get("comment")
@@ -154,15 +181,13 @@ def journal_page():
                 route_name = request.form.get("route_name")
                 route = Route(user_id, route_name, rock_grade_index, date, comment)
                 add_route_to_db(route, "lead_climbing_routes")
-        #sql_data = SqlData()
-        #data = sql_data.get_rock_routes_of_user_by( user_id, 'date', selected_sort_date_order, selected_scale)
-
-    return render_template("journal_page.html", routes_list=routes_list, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_grade_order=selected_sort_grade_order,selected_sort_date_order=selected_sort_date_order )
-
-@app.route("/delete_route/<int:route_id>")
-def delete_route(route_id):
-    remove_route_from_db("lead_climbing_routes", route_id)
-    return redirect(request.referrer)
+                sort_order= session.get("sort_order", "DESC")
+                column_to_sort = session.get("column_to_sort", "date")
+                sql_data = SqlData()
+                routes_list = sql_data.get_rock_routes_of_user_by( user_id, column_to_sort, sort_order, selected_scale)
+                session['routes_list'] = routes_list
+ 
+    return render_template("journal_page.html", routes_list=routes_list, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_date_order=sort_date_order )
 
 
 @app.route('/register', methods=['GET', 'POST'])
