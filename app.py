@@ -206,12 +206,15 @@ def register_page():
             add_user_to_db(user)
             new_user = get_user(email)
             if new_user:
-                flash('You have successfully registered!', 'success')
-                return render_template('login.html')
+                return render_template('succesfull_register_page.html')
             else:
                 flash('Something went wrong', 'error')
 
     return render_template('register_page.html')
+
+@app.route('/succesfull_register', methods=['GET', 'POST'])
+def succesfull_register():
+    return render_template('succesfull_register_page.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])

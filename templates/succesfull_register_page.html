@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Inter:wght@500&family=Montserrat+Alternates:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/general_form_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/mobile_navbar.css') }}" />
+</head>
+
+<body>
+    {% include 'mobile_navbar.html' %}
+
+    <div class="content-wrapper">
+        <div class="logo-container">
+            <a href="{{ url_for('home_page') }}"><img class="logo"
+                    src="{{ url_for('static',filename='photos/logo.gif') }}"></a>
+        </div>
+
+        <div class="successfull_register_container">
+            <div class="form-body">
+                <h2>You have succesfully registered</h2>
+                <div class="first-p">
+                    <p>Congratulations! Now you can log in.</p>
+                </div>
+                <a class="back_to_login_btn" href="{{ url_for('login_page') }}">Back to login</a>
+            </div>
+            
+                
+        </div>
+        
+    </div>
+
+    <div class="graphic">
+        <img src="{{ url_for('static',filename='photos/sign_up.jpg') }}">
+    </div>
+</body>
+
+</html>
