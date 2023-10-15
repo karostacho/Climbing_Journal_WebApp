@@ -14,23 +14,9 @@
 </head>
 
 <body>
+    {% include 'mobile_navbar.html' %}
 
-    <div class=navbar>
-        <ul>
-            <li><a href="{{ url_for('home_page') }}"><img class="logo"
-                        src="{{ url_for('static',filename='photos/logo.gif') }}"></a></li>
-            <li><a class="login" href="{{ url_for('logout') }}">Log out</a></li>
-            <li class="journal-dropdown">
-                <button class="journal-tab">Journal <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="journal-dropdown-content">
-                    <a href="{{ url_for('journal_page') }}">Lead Climbing</a>
-                    <a href="{{ url_for('journal_page') }}">Bouldering</a>
-                </div>
-            </li>
-            <li class="grade-converter-tab"><a class="grade-converter-tab" href="{{ url_for('home_page') }}">Grade
-                    converter</a></li>
-        </ul>
-    </div>
+    {% include 'navbar.html' %}
 
     <div class="graphic-section">
         <img src="{{ url_for('static',filename='photos/background_image.jpg') }}">
