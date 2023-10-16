@@ -12,6 +12,7 @@ body {
 }
 
 /* Settings for all buttons on navbar */
+
 .navbar ul {
     display: flex;
     list-style: none;
@@ -19,8 +20,8 @@ body {
     width: 100%;
     margin: 0;
     padding-top: 0.5rem;
-    padding-left: 8rem;
-    padding-right: 8rem;
+    padding-left: 8%;
+    padding-right: 8%;
 }
 
 .navbar-wrapper {
@@ -54,6 +55,7 @@ body {
 }
 
 /* Logo */
+
 .navbar img {
     height: 62px;
     width: 142px;
@@ -62,6 +64,7 @@ body {
 }
 
 /* Login button */
+
 .navbar a.login {
     display: inline-block;
     border-radius: 8px;
@@ -122,7 +125,6 @@ body {
     border-color: rgba(98, 77, 227, 1);
     margin: 0;
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
-    /* Overlay*/
 }
 
 .pop-up-window {
@@ -318,9 +320,8 @@ body {
 		margin: 0;
 	}
 
-/* Converter*/
-
 /* Converter section*/
+
 .climbing-drop {
 	text-align: center;
 	width: 100%;
