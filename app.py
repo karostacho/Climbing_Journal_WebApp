@@ -18,8 +18,6 @@ rock_climbing = 'rock_climbing_grades'
 bouldering = 'bouldering_grades'
 
 
-
-
 def find_rock_grade_index(french_grade, kurtyka_grade, uiaa_grade, usa_grade, british_grade):
     sql_data = SqlData()
     if french_grade:
@@ -55,6 +53,7 @@ def covert_bouldering_grades(bouldering_grade_index):
     return bouldering_grades_by_index
 
 
+#TODO przenies do helper.py
 def format_date(date_str):
     if isinstance(date_str, str):
         try:
@@ -113,11 +112,12 @@ def home_page():
 @app.route("/journal_page", methods=["GET", "POST"])
 def journal_page():
     rock_grade_index= None
-    user_id = session.get('id')
     gradeFilter = request.form.get("gradeFilter")
-    selected_scale = session.get('selected_scale', "French")
     sort_date_order = request.form.get("sortDateOrder")
     sort_grade_order = request.form.get("sortGradeOrder")
+
+    user_id = session.get('id')
+    selected_scale = session.get('selected_scale', "French")
     sort_order= session.get("sort_order", "DESC")
     column_to_sort = session.get("column_to_sort", "date")
     
@@ -137,11 +137,14 @@ def journal_page():
             column_to_sort = session.get("column_to_sort")
             selected_scale = gradeFilter
             session['selected_scale'] = selected_scale
+            #TODO repeta
             sql_data = SqlData()
             routes_list = sql_data.get_rock_routes_of_user_by( user_id, column_to_sort, sort_order, selected_scale)
             session['routes_list'] = routes_list
             
         elif 'sortDateOrder' in request.form:
+            #TODO try to extract method
+            #TODO date_column/grade_column change name
             if sort_date_order == "DESC":
                 routes_list = sort_by_desc(date_column, routes_list)
             if sort_date_order == "ASC":
@@ -162,11 +165,13 @@ def journal_page():
         elif 'deleteRoute' in request.form:
             route_id = request.form.get("deleteRoute")
             remove_route_from_db("lead_climbing_routes", route_id)
+            #TODO extract method
             sql_data = SqlData()
             routes_list = sql_data.get_rock_routes_of_user_by( user_id, column_to_sort, sort_order, selected_scale)
             session['routes_list'] = routes_list
         
         else:
+            route_name = request.form.get("route_name")
             date = request.form.get("date")
             comment = request.form.get("comment")
             french_grade = request.form.get("french")
@@ -176,13 +181,13 @@ def journal_page():
             british_grade = request.form.get("british")
 
             if french_grade or kurtyka_grade or uiaa_grade or usa_grade or british_grade:
-                rock_grade_index = find_rock_grade_index(french_grade,kurtyka_grade, uiaa_grade, usa_grade,british_grade)
+                rock_grade_index = find_rock_grade_index(french_grade, kurtyka_grade, uiaa_grade, usa_grade, british_grade)
 
-                route_name = request.form.get("route_name")
                 route = Route(user_id, route_name, rock_grade_index, date, comment)
                 add_route_to_db(route, "lead_climbing_routes")
                 sort_order= session.get("sort_order", "DESC")
                 column_to_sort = session.get("column_to_sort", "date")
+                #TODO repeta
                 sql_data = SqlData()
                 routes_list = sql_data.get_rock_routes_of_user_by( user_id, column_to_sort, sort_order, selected_scale)
                 session['routes_list'] = routes_list
@@ -202,7 +207,7 @@ def register_page():
         if account:
             flash('Account already exists!')
         else:
-            user = User(None,name,hashed_password,email)
+            user = User(None, name, hashed_password, email)
             add_user_to_db(user)
             new_user = get_user(email)
             if new_user:
@@ -211,6 +216,7 @@ def register_page():
                 flash('Something went wrong', 'error')
 
     return render_template('register_page.html')
+
 
 @app.route('/succesfull_register', methods=['GET', 'POST'])
 def succesfull_register():
