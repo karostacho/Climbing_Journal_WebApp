@@ -77,10 +77,6 @@
 }
 
 @media (max-width: 1025px) {
-    .navbar {
-        display: none;
-    }
-
     .menu-mobile {
         display: none;
     }
