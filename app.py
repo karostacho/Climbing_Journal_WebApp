@@ -25,7 +25,7 @@ def find_rock_grade_index(french_grade, kurtyka_grade, uiaa_grade, usa_grade, br
     if french_grade:
         rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "French", french_grade)
     elif kurtyka_grade:
-        rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "Kurtyka(Poland)", kurtyka_grade)
+        rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "Kurtyka", kurtyka_grade)
     elif uiaa_grade:
         rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "UIAA", uiaa_grade)
     elif usa_grade:
