@@ -188,6 +188,7 @@ body {
 
     .content-wrapper {
         display: flex;
+        height: max-content;
         width: 100%;
     }
 
