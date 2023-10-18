@@ -31,3 +31,18 @@ def sort_by_asc(column_to_sort, tuple_list):
 def sort_by_desc(column_to_sort, tuple_list):
     sorted_tuple = sorted(tuple_list, key=lambda x: x[column_to_sort], reverse=True)
     return sorted_tuple
+
+
+def format_date(date_str):
+    if isinstance(date_str, str):
+        try:
+            date_object = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S GMT')
+            return date_object.strftime('%Y-%m-%d')
+        except ValueError:
+            return date_str 
+    return date_str
+
+
+def get_fortmatted_routes_list(routes_list):
+    routes_list = [(a, b, c, format_date(d), e, f) for a, b, c, d, e, f in routes_list]
+    return routes_list

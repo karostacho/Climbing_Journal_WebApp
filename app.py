@@ -5,7 +5,7 @@ from database.route_db import add_route_to_db, remove_route_from_db
 from database.sql_data import SqlData
 from database.user_db import check_if_user_in_db, add_user_to_db, find_user_password, find_user_id, get_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from helper import all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale, grade_column_index, date_column_index, sort_by_asc, sort_by_desc
+from helper import get_fortmatted_routes_list, all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale, grade_column_index, date_column_index, sort_by_asc, sort_by_desc
 from database.password import secret_key
 from datetime import datetime
 
@@ -52,20 +52,6 @@ def covert_bouldering_grades(bouldering_grade_index):
             bouldering_grades_by_index = row
     return bouldering_grades_by_index
 
-
-#TODO przenies do helper.py
-def format_date(date_str):
-    if isinstance(date_str, str):
-        try:
-            date_object = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S GMT')
-            return date_object.strftime('%Y-%m-%d')
-        except ValueError:
-            return date_str 
-    return date_str
-
-def get_fortmatted_routes_list(routes_list):
-    routes_list = [(a, b, c, format_date(d), e, f) for a, b, c, d, e, f in routes_list]
-    return routes_list
 
 @app.route("/", methods= ["GET", "POST"])
 def home_page():
