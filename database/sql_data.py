@@ -34,7 +34,9 @@ class SqlData():
                                                 LEFT JOIN rock_climbing_grades
                                                 ON rock_climbing_grades."Index" = lead_climbing_routes.grade_index
                                                 WHERE lead_climbing_routes.user_id = {user_id}
-                                                ORDER BY {column_to_sort} {order};'''))
+                                                ORDER BY {column_to_sort} {order},
+                                                grade_index DESC,
+                                                route_name ASC'''))
         return rows
     
 

@@ -38,6 +38,13 @@ body {
     padding-right: 5rem;
 }
 
+.successfull_register_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .field {
     margin-bottom: 3%;
 }
@@ -56,6 +63,15 @@ body {
     letter-spacing: 0.05px;
     text-align: left;
     color: rgba(0, 0, 0, 1)
+}
+
+.form-body h3{
+    font-family: "Poppins", sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0.05px;
+    text-align: left;
 }
 
 .form-body p {
@@ -106,7 +122,7 @@ body {
 
 /* Submit login button */
 
-.submit-btn {
+.submit-btn{
     width: 106px;
     height: 56px;
     border-radius: 8px;
@@ -123,6 +139,32 @@ body {
     text-align: center;
     color: rgba(255, 255, 255, 1);
     cursor: pointer;
+}
+
+.back_to_login_btn{
+    width:auto;
+    height: 56px;
+    border-radius: 8px;
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(98, 77, 227, 1);
+    background-color: rgba(98, 77, 227, 1);
+    font-family: "Inter";
+    font-size: 120%;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a.back_to_login_btn{
+    text-align: center;
 }
 
 /* Flash message */

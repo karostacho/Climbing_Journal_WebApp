@@ -346,9 +346,9 @@ body{
 }
 
 .add-route-btn{
-  width: 204px;
-  height: 44px;
-  top:256px;
+  width: 17rem;
+  height: 3rem;
+  top:15rem;
   border-radius: 8px;
   border-color: rgba(98, 77, 227, 1);
   padding: 17px, 30px, 17px, 30px;
@@ -371,8 +371,8 @@ body{
   display: none;
   position:fixed;
   z-index: 100;
-  width: 85%;
-  height: 85%;
+  width: 65rem;
+  height: 35rem;
   background-color: white;
   left: 50%;
   top: 50%;
@@ -383,6 +383,7 @@ body{
   overflow: auto;
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
 }
+
 
 .add-route{
   display: flex;
@@ -577,11 +578,11 @@ p{
 
 .table-section{
   overflow-y:auto ;
-  height: 280px;
-  max-height: 500px;
+  max-height: 22rem;
   background-color: #fff;
-  margin-top:8%
+  margin-top:6%
 }
+
 
 th {
   position: -webkit-sticky;
@@ -632,3 +633,5 @@ th {
   color: #a30d11;
   text-decoration: none
 }
+
+
