@@ -21,10 +21,9 @@ closeBtn.addEventListener('click', () => {
 	modal.style.display = 'none';
 	openBtn.style.display = 'block';
 
-	// Reset form
+// Reset form
 	document.querySelector('form').reset();
 });
-
 
 // Stop propagation on inner clicks
 modal.addEventListener('click', e => {
@@ -44,7 +43,6 @@ function validationForm() {
 	var british = getGradeValue('british');
 	var uiaa = getGradeValue('uiaa');
 	var usa = getGradeValue('usa');
-
 
 	if (!french && !kurtyka && !british && !uiaa && !usa) {
 		alert('Grade must be selected')
@@ -71,50 +69,32 @@ dropdowns.forEach(dropdown => {
 });
 
 
-//TODO repeta
-function toggleDatetOrder() {
-	const dateForm = document.getElementById('sortDateForm')
-	const dateOrder = document.getElementById('sortDateOrder');
-	const storedDateOrder = localStorage.getItem('sortDateOrder');
+function toggleOrder(form_name, column_order){
+	const form = document.getElementById(form_name)
+	const order = document.getElementById(column_order);
+	const storedOrder = localStorage.getItem(column_order);
 
-
-	if (storedDateOrder) {
-		dateOrder.value = storedDateOrder;
+	if (storedOrder) {
+		order.value = storedOrder;
 	}
-
-	if (dateOrder.value === 'DESC') {
-		dateOrder.value = 'ASC';
+	if (order.value === 'DESC') {
+		order.value = 'ASC';
 	}
 	else {
-		dateOrder.value = 'DESC';
+		order.value = 'DESC';
 	}
 
-	localStorage.setItem('sortDateOrder', dateOrder.value);
+	localStorage.setItem(column_order, order.value);
+	form.submit();
+} 
 
-	dateForm.submit();
+function toggleDatetOrder() {
+	toggleOrder('sortDateForm', 'sortDateOrder')
 }
 
 
 function toggleGradeOrder() {
-	const gradeForm = document.getElementById('sortGradeForm');
-	const gradeOrder = document.getElementById('sortGradeOrder');
-	const storedGradeOrder = localStorage.getItem('sortGradeOrder');
-
-
-	if (storedGradeOrder) {
-		gradeOrder.value = storedGradeOrder;
-	}
-
-	if (gradeOrder.value === 'DESC') {
-		gradeOrder.value = 'ASC';
-	}
-	else {
-		gradeOrder.value = 'DESC';
-	}
-
-	localStorage.setItem('sortGradeOrder', gradeOrder.value);
-
-	gradeForm.submit();
+	toggleOrder('sortGradeForm', 'sortGradeOrder')
 }
 
 
