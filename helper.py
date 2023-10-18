@@ -20,8 +20,8 @@ v_scale = ['V-easy', 'V0-', 'V0', 'V0+', 'V0-1', 'V1-', 'V1', 'V1+', 'V1-2', 'V2
 font_scale = ['3', '4-', '4', '4+', '5-', '5', '5+', '6A', '6A+', '6B', '6B+', '6C', '6C+', '7A', '7A+', '7B', '7B+', '7C', '7C+', '8A', '8A+', '8B', '8B+', '8C', '8C+', '9A']
 
 
-grade_column = 0
-date_column = 3
+grade_column_index = 0
+date_column_index = 3
 
 def sort_by_asc(column_to_sort, tuple_list):
     sorted_tuple = sorted(tuple_list, key=lambda x: x[column_to_sort])

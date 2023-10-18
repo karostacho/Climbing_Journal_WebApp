@@ -5,7 +5,7 @@ from database.route_db import add_route_to_db, remove_route_from_db
 from database.sql_data import SqlData
 from database.user_db import check_if_user_in_db, add_user_to_db, find_user_password, find_user_id, get_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from variables import all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale, grade_column, date_column, sort_by_asc, sort_by_desc
+from helper import all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale, grade_column_index, date_column_index, sort_by_asc, sort_by_desc
 from database.password import secret_key
 from datetime import datetime
 
@@ -144,20 +144,19 @@ def journal_page():
             
         elif 'sortDateOrder' in request.form:
             #TODO try to extract method
-            #TODO date_column/grade_column change name
             if sort_date_order == "DESC":
-                routes_list = sort_by_desc(date_column, routes_list)
+                routes_list = sort_by_desc(date_column_index, routes_list)
             if sort_date_order == "ASC":
-                routes_list = sort_by_asc(date_column, routes_list)
+                routes_list = sort_by_asc(date_column_index, routes_list)
             session['sort_order'] = sort_date_order
             session['column_to_sort'] = 'date'
             session['routes_list'] = routes_list
 
         elif 'sortGradeOrder' in request.form:
             if sort_grade_order == "DESC":
-                routes_list = sort_by_desc(grade_column, routes_list)
+                routes_list = sort_by_desc(grade_column_index, routes_list)
             if sort_grade_order == "ASC":
-                routes_list = sort_by_asc(grade_column, routes_list)
+                routes_list = sort_by_asc(grade_column_index, routes_list)
             session['sort_order'] = sort_grade_order
             session['column_to_sort'] = 'grade_index'
             session['routes_list'] = routes_list
@@ -211,16 +210,16 @@ def register_page():
             add_user_to_db(user)
             new_user = get_user(email)
             if new_user:
-                return render_template('succesfull_register_page.html')
+                return render_template('successful_register_page.html')
             else:
                 flash('Something went wrong', 'error')
 
     return render_template('register_page.html')
 
 
-@app.route('/succesfull_register', methods=['GET', 'POST'])
-def succesfull_register():
-    return render_template('succesfull_register_page.html')
+@app.route('/successful_register', methods=['GET', 'POST'])
+def successful_register():
+    return render_template('successful_register_page.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
