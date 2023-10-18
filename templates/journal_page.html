@@ -29,8 +29,7 @@
     </div>
 
     <div class="button-route-section">
-        <button class="add-route-btn" id="openModalBtn">Add new route <i class="fa-solid fa-plus"
-                style="color: #ffffff;"></i></button>
+        <button class="add-route-btn" id="openModalBtn">Add new route <i class="fa-solid fa-plus"></i></button>
     </div>
 
     <div class="routes-section">
@@ -96,36 +95,36 @@
 
         <div class="modal-section">
             <div class="modal" id="addRouteWindow">
+				<div class="modal-x-btn">
                 <span class="close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></span>
-
-                <div class="add-route">
-                    <form method="POST" name="addRouteForm" onsubmit="return validationForm()">
+				</div>
+                
+                    <form  class="modal-add-route-form" method="POST" name="addRouteForm" onsubmit="return validationForm()">
                         <h2>Add new route to your journal</h2>
-                        <div class="fields-section">
-                            <div class="route-and-date-fields">
+                            <div class="modal-add-form-first-line">
                                 <div class="field">
                                     <label class="fields-name" for="route_name">Route name:</label><br>
-                                    <input class="box" type="text" placeholder="Eg. Perfecto Mundo" id="route_name"
+                                    <input class="field-input" type="text" placeholder="Eg. Perfecto Mundo" id="route_name"
                                         name="route_name" required>
                                 </div>
                                 <div class="field">
                                     <label class="fields-name" for="date">Date:</label><br>
-                                    <input class="box" type="date" id="date" name="date" class="datepicker-input"
+                                    <input class="field-input" type="date" id="date" name="date" class="datepicker-input"
                                         required>
                                 </div>
                             </div>
-                            <div class="comment-and-dropdowns">
+                            <div class="modal-add-form-second-line">
                                 <div class="comment">
-                                    <div class="field">
+                                    <div class="field-comment">
                                         <label class="fields-name" for="route_name">Comment:</label><br>
-                                        <input class="box" type="text" id="comment" name="comment"
+                                        <input class="field-input" type="text" id="comment" name="comment"
                                             placeholder="Eg. Rather soft for the grade">
                                     </div>
                                 </div>
                             </div>
                             <p>Choose the scale of your route</p>
 
-                            <div class="dropdown-section">
+                            <div class="modal-dropdown-section">
                                 <div class="grade-dropdowns">
                                     <label for="french">French</label><br>
                                     <select id="french" name="french">
@@ -189,12 +188,11 @@
                                 {% endif %}
                                 {% endwith %}
                             </div>
-
-                            <div class="submit-btn">
-                                <button class="submit-btn" type="submit" name="add" id="submitBtn">Submit</button>
-                            </div>
+							<div class="modal-submit-btn">
+								<button  type="submit" name="add" id="submitBtn">Submit</button>
+							</div>
                     </form>
-                </div>
+                
             </div>
         </div>
     </div>

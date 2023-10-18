@@ -11,7 +11,7 @@ date.setAttribute('max', currentDate);
 
 // Open modal
 openBtn.addEventListener('click', () => {
-	modal.style.display = 'block';
+	modal.style.display = 'flex';
 	openBtn.style.display = 'none';
 	date.value = currentDate;
 });
