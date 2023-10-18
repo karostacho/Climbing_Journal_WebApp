@@ -142,7 +142,7 @@ body {
 }
 
 .back_to_login_btn{
-    width: 365px;
+    width:auto;
     height: 56px;
     border-radius: 8px;
     border: 1px;
