@@ -5,7 +5,7 @@ from database.route_db import add_route_to_db, remove_route_from_db
 from database.sql_data import SqlData
 from database.user_db import check_if_user_in_db, add_user_to_db, find_user_password, find_user_id, get_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from helper import convert_rock_grades, convert_bouldering_grades, get_fortmatted_routes_list, all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale, grade_column_index, date_column_index, sort_by_asc, sort_by_desc
+from helper import convert_rock_grades, convert_bouldering_grades, get_fortmatted_routes_list, all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale, grade_column_index, date_column_index, sort_by_order
 from database.password import secret_key
 
 
@@ -101,7 +101,6 @@ def journal_page():
     selected_scale = session.get('selected_scale', "French")
     sort_order= session.get("sort_order", "DESC")
     column_to_sort = session.get("column_to_sort", "date")
-    
 
     if request.method == "GET":
         sql_data = SqlData()
@@ -121,20 +120,13 @@ def journal_page():
             routes_list = save_db_routes_list_to_session(user_id, column_to_sort, sort_order, selected_scale)
             
         elif 'sortDateOrder' in request.form:
-            #TODO try to extract method
-            if sort_date_order == "DESC":
-                routes_list = sort_by_desc(date_column_index, routes_list)
-            if sort_date_order == "ASC":
-                routes_list = sort_by_asc(date_column_index, routes_list)
+            routes_list = sort_by_order(date_column_index, routes_list, sort_date_order)
             session['sort_order'] = sort_date_order
             session['column_to_sort'] = 'date'
             session['routes_list'] = routes_list
 
         elif 'sortGradeOrder' in request.form:
-            if sort_grade_order == "DESC":
-                routes_list = sort_by_desc(grade_column_index, routes_list)
-            if sort_grade_order == "ASC":
-                routes_list = sort_by_asc(grade_column_index, routes_list)
+            routes_list = sort_by_order(grade_column_index, routes_list, sort_grade_order)
             session['sort_order'] = sort_grade_order
             session['column_to_sort'] = 'grade_index'
             session['routes_list'] = routes_list
@@ -163,7 +155,10 @@ def journal_page():
                 column_to_sort = session.get("column_to_sort", "date")
                 routes_list = save_db_routes_list_to_session(user_id, column_to_sort, sort_order, selected_scale)
  
-    return render_template("journal_page.html", routes_list=routes_list, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_date_order=sort_date_order )
+    return render_template("journal_page.html", routes_list=routes_list, french=french, uiaa=uiaa, usa=usa, 
+                           						british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, 
+                                                user_id=user_id , selected_scale=selected_scale,  sort_grade_order=sort_grade_order,
+                                                selected_sort_date_order=sort_date_order )
 
 
 @app.route('/register', methods=['GET', 'POST'])

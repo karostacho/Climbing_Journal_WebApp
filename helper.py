@@ -25,15 +25,13 @@ font_scale = ['3', '4-', '4', '4+', '5-', '5', '5+', '6A', '6A+', '6B', '6B+', '
 grade_column_index = 0
 date_column_index = 3
 
-def sort_by_asc(column_to_sort, tuple_list):
-    sorted_tuple = sorted(tuple_list, key=lambda x: x[column_to_sort])
-    return sorted_tuple
-
-
-def sort_by_desc(column_to_sort, tuple_list):
-    sorted_tuple = sorted(tuple_list, key=lambda x: x[column_to_sort], reverse=True)
-    return sorted_tuple
-
+def sort_by_order(column_to_sort, tuple_list, order):
+    if order == "ASC":
+        sorted_tuple = sorted(tuple_list, key=lambda x: x[column_to_sort])
+        return sorted_tuple
+    else:
+        sorted_tuple = sorted(tuple_list, key=lambda x: x[column_to_sort], reverse=True)
+        return sorted_tuple
 
 def format_date(date_str):
     if isinstance(date_str, str):
