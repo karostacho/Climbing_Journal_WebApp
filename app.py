@@ -5,9 +5,8 @@ from database.route_db import add_route_to_db, remove_route_from_db
 from database.sql_data import SqlData
 from database.user_db import check_if_user_in_db, add_user_to_db, find_user_password, find_user_id, get_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from helper import get_fortmatted_routes_list, all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale, grade_column_index, date_column_index, sort_by_asc, sort_by_desc
+from helper import convert_rock_grades, convert_bouldering_grades, get_fortmatted_routes_list, all_bouldering_grades, all_rock_grades, french, uiaa, usa, british, kurtyka, v_scale,font_scale, grade_column_index, date_column_index, sort_by_asc, sort_by_desc
 from database.password import secret_key
-from datetime import datetime
 
 
 app = Flask(__name__)
@@ -32,11 +31,6 @@ def find_rock_grade_index(french_grade, kurtyka_grade, uiaa_grade, usa_grade, br
         rock_grade_index = sql_data.get_index_by_grade(rock_climbing, "British", british_grade)
     return rock_grade_index
 
-def convert_rock_grades(rock_grade_index):
-    for row in all_rock_grades:
-        if row[0] == rock_grade_index:
-                rock_grades_by_index = row
-    return rock_grades_by_index
 
 def find_bouldering_grade_index(v_scale_grade, font_scale_grade):
     sql_data = SqlData()
@@ -46,11 +40,12 @@ def find_bouldering_grade_index(v_scale_grade, font_scale_grade):
         bouldering_grade_index = sql_data.get_index_by_grade(bouldering, "Font_scale", font_scale_grade)
     return bouldering_grade_index
 
-def covert_bouldering_grades(bouldering_grade_index):
-    for row in all_bouldering_grades:
-        if row[0] == bouldering_grade_index:
-            bouldering_grades_by_index = row
-    return bouldering_grades_by_index
+
+def save_db_routes_list_to_session(user_id, column_to_sort, sort_order, selected_scale):
+    sql_data = SqlData()
+    routes_list = sql_data.get_rock_routes_of_user_by(user_id, column_to_sort, sort_order, selected_scale)
+    session['routes_list'] = routes_list
+    return routes_list
 
 
 @app.route("/", methods= ["GET", "POST"])
@@ -78,10 +73,10 @@ def home_page():
             rock_grades_by_index = convert_rock_grades(rock_grade_index)
             session['current_rock_index'] = rock_grade_index
             if 'current_bouldering_index' in session and session['current_bouldering_index'] is not None:
-                bouldering_grades_by_index = covert_bouldering_grades(session['current_bouldering_index'])
+                bouldering_grades_by_index = convert_bouldering_grades(session['current_bouldering_index'])
         else:
             bouldering_grade_index = find_bouldering_grade_index(v_scale_grade, font_scale_grade)
-            bouldering_grades_by_index = covert_bouldering_grades(bouldering_grade_index)
+            bouldering_grades_by_index = convert_bouldering_grades(bouldering_grade_index)
             session['current_bouldering_index'] = bouldering_grade_index
             if 'current_rock_index' in session and session['current_rock_index'] is not None:
                 rock_grades_by_index = convert_rock_grades(session['current_rock_index'])
@@ -123,10 +118,7 @@ def journal_page():
             column_to_sort = session.get("column_to_sort")
             selected_scale = gradeFilter
             session['selected_scale'] = selected_scale
-            #TODO repeta
-            sql_data = SqlData()
-            routes_list = sql_data.get_rock_routes_of_user_by( user_id, column_to_sort, sort_order, selected_scale)
-            session['routes_list'] = routes_list
+            routes_list = save_db_routes_list_to_session(user_id, column_to_sort, sort_order, selected_scale)
             
         elif 'sortDateOrder' in request.form:
             #TODO try to extract method
@@ -150,10 +142,7 @@ def journal_page():
         elif 'deleteRoute' in request.form:
             route_id = request.form.get("deleteRoute")
             remove_route_from_db("lead_climbing_routes", route_id)
-            #TODO extract method
-            sql_data = SqlData()
-            routes_list = sql_data.get_rock_routes_of_user_by( user_id, column_to_sort, sort_order, selected_scale)
-            session['routes_list'] = routes_list
+            routes_list = save_db_routes_list_to_session(user_id, column_to_sort, sort_order, selected_scale)
         
         else:
             route_name = request.form.get("route_name")
@@ -172,10 +161,7 @@ def journal_page():
                 add_route_to_db(route, "lead_climbing_routes")
                 sort_order= session.get("sort_order", "DESC")
                 column_to_sort = session.get("column_to_sort", "date")
-                #TODO repeta
-                sql_data = SqlData()
-                routes_list = sql_data.get_rock_routes_of_user_by( user_id, column_to_sort, sort_order, selected_scale)
-                session['routes_list'] = routes_list
+                routes_list = save_db_routes_list_to_session(user_id, column_to_sort, sort_order, selected_scale)
  
     return render_template("journal_page.html", routes_list=routes_list, french=french, uiaa=uiaa, usa=usa, british=british, kurtyka=kurtyka, rock_grade_index=rock_grade_index, user_id=user_id , selected_scale=selected_scale,  sort_grade_order=sort_grade_order, selected_sort_date_order=sort_date_order )
 
