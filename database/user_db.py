@@ -34,3 +34,7 @@ def get_user(email):
     cursor.execute(f"""SELECT * from users where email = '{email}'""")
     user = cursor.fetchall()
     return user
+
+
+
+
