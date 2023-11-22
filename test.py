@@ -1,4 +1,5 @@
-from database.user_db import get_all_users
+
+from database.api_db import test
 
 
-print(get_all_users())
+test('users', 'karo@email.com', 'Karo', '123', 1)

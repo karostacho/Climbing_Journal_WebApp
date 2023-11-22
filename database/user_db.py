@@ -35,6 +35,13 @@ def get_user(email):
     user = cursor.fetchall()
     return user
 
+def delete_user(user_id):
+    connector = Connector()
+    db_connector = connector.connect_to_database()
+    cursor = db_connector.cursor()
+    cursor.execute(f"""INSERT INTO users ("id", "name", email, "password") VALUES (DEFAULT, '{user.name}','{user.e_mail}', '{user.password}')""" )
+    db_connector.commit()
+
 
 
 
