@@ -22,6 +22,18 @@ def get_data_by_id(table, id):
     cursor.execute((f'SELECT * FROM {table} WHERE "id"={id}'))
     data = get_data_with_column_names(cursor)
     return data
+
+def get_routes_of_user_by_id(user, route_id):
+    cursor = get_cursor()
+    cursor.execute((f"""SELECT * FROM lead_climbing_routes WHERE "id"='{route_id}' AND user_id = {user}"""))
+    data = get_data_with_column_names(cursor)
+    return data
+
+def get_all_routes_of_user(user_id):
+    cursor = get_cursor()
+    cursor.execute((f"""SELECT * FROM lead_climbing_routes WHERE user_id = {user_id}"""))
+    data = get_data_with_column_names(cursor)
+    return data
     
 def update_data_by_id(table, id, email, name, password):
     connector = Connector()

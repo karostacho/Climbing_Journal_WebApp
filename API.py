@@ -1,13 +1,18 @@
 from flask import Flask, jsonify, request
-from database.api_db import get_data_from_table, get_data_by_id, update_data_by_id
+from database.api_db import get_data_from_table, get_data_by_id, update_data_by_id, get_routes_of_user_by_id, get_all_routes_of_user
 from database.user_db import add_user_to_db, find_user_id, check_if_user_in_db
 from werkzeug.security import generate_password_hash
 from model.user import User
-from database.route_db import remove_data_from_db
+from model.route import Route
+from database.route_db import remove_data_from_db, add_route_to_db, find_route_id
+from app import find_rock_grade_index
+from database.sql_data import SqlData
 
 
 app = Flask(__name__)
 app.debug = True
+
+
 
 
 @app.route('/users', methods=['GET'])
@@ -89,10 +94,47 @@ def delete_user(user_id):
 			return jsonify({'error': 'Internal Server Error'}), 500
 
 
-@app.route('/routes', methods=['GET'])
-def get_routes():
-	routes = get_data_from_table('lead_climbing_routes')
-	return jsonify(routes) #500
+@app.route('/users/<int:user_id>/routes', methods=['GET'])
+def get_routes(user_id):
+	try:
+		routes = get_all_routes_of_user(user_id)
+		return jsonify(routes)
+	except:
+		return jsonify({'error':'Internal Sever Error'}), 500
+
+
+@app.route('/users/<int:user_id>/routes/<int:route_id>', methods=['GET'])
+def get_route_by_id(user_id, route_id):
+	try:
+		route = get_routes_of_user_by_id(user_id, route_id)
+		if not route:
+			return jsonify({'error':'Route not found'}), 404
+		return jsonify(route)
+	except:
+		return jsonify({'error':'Internal Sever Error'}), 500
+	
+
+
+@app.route('/users/<int:user_id>/routes', methods=['POST'])
+def create_route(user_id):
+	routes_data = request.json
+	if routes_data is None:
+		return jsonify({'error': 'No data provided'}), 400
+	comment = routes_data.get('comment')
+	date = routes_data.get('date')
+	route_name = routes_data.get('route_name')
+	grade_index = routes_data.get('grade_index')
+	if not date or not route_name or not grade_index:
+		return jsonify({'error': 'Missing required fields'}), 400
+	else:
+		try:
+			route = Route(user_id, route_name, grade_index, date, comment)
+			add_route_to_db(route, "lead_climbing_routes")
+			new_route = {'comment':comment, 'route_name': route_name, 'date': date, 'grade_index': grade_index}
+			return jsonify({'message': 'Route created successfully', 'route': new_route}), 201
+		except:
+			return jsonify({'error': 'Internal Server Error'}), 500
+
 
 
 if __name__ == "__main__":

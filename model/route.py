@@ -17,6 +17,6 @@ class Route:
             date = row[3]
             comment = row[4]
 
-            student = Route(user_id,route_name, grade_index, date, comment)
-            routes.append(student)
+            route = Route(user_id,route_name, grade_index, date, comment)
+            routes.append(route)
         return routes
