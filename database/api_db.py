@@ -35,12 +35,22 @@ def get_all_routes_of_user(user_id):
     data = get_data_with_column_names(cursor)
     return data
     
-def update_data_by_id(table, id, email, name, password):
+def update_user_by_id(id, email, name, password):
     connector = Connector()
     db_connector = connector.connect_to_database()
     cursor = db_connector.cursor()
-    cursor.execute((f'''UPDATE {table} SET email = '{email}', name = '{name}', password = '{password}' WHERE "id"={id}'''))
+    cursor.execute((f'''UPDATE users SET email = '{email}', name = '{name}', password = '{password}' WHERE "id"={id}'''))
     db_connector.commit()
+    
+def update_route_by_id(id, user_id,comment, date, grade_index, route_name):
+    connector = Connector()
+    db_connector = connector.connect_to_database()
+    cursor = db_connector.cursor()
+    cursor.execute((f'''UPDATE lead_climbing_routes SET comment = '{comment}', date = '{date}', grade_index = '{grade_index}', route_name='{route_name}' WHERE "id"={id} AND user_id ={user_id}'''))
+    db_connector.commit()
+    
+
+
     
 def test(table, email, name, password, id):
     print(f'''UPDATE {table} SET email = '{email}', name = '{name}', password = '{password}' WHERE "id"={id}''')	

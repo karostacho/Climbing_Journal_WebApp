@@ -35,7 +35,7 @@ def get_user(email):
     user = cursor.fetchall()
     return user
 
-def delete_user(user_id):
+def delete_user(user):
     connector = Connector()
     db_connector = connector.connect_to_database()
     cursor = db_connector.cursor()

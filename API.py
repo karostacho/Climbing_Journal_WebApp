@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from database.api_db import get_data_from_table, get_data_by_id, update_data_by_id, get_routes_of_user_by_id, get_all_routes_of_user
+from database.api_db import get_data_from_table, get_data_by_id, update_user_by_id, get_routes_of_user_by_id, get_all_routes_of_user, update_route_by_id
 from database.user_db import add_user_to_db, find_user_id, check_if_user_in_db
 from werkzeug.security import generate_password_hash
 from model.user import User
@@ -74,7 +74,7 @@ def update_user(user_id):
 		password = user_data.get('password')
 		try:
 			hashed_password = generate_password_hash(password)
-			update_data_by_id('users', user_id, email, name, hashed_password)
+			update_user_by_id(user_id, email, name, hashed_password)
 			updated_user = get_data_by_id('users', user_id)
 			return jsonify({'message': 'User updated successfully', 'user': updated_user})
 		except:
@@ -136,6 +136,44 @@ def create_route(user_id):
 			return jsonify({'error': 'Internal Server Error'}), 500
 
 
+@app.route('/users/<int:user_id>/routes/<int:route_id>', methods=['DELETE'])
+def delete_route(user_id, route_id):
+	user = get_data_by_id('users', user_id)
+	if not user:
+		return jsonify({'error':'User not found'}), 404
+	route = get_routes_of_user_by_id(user_id, route_id)
+	if not route:
+		return jsonify({'error':'Route not found'}), 404
+	else:
+		try:
+			remove_data_from_db('lead_climbing_routes', route_id)
+			return jsonify({'message': 'Route deleted successfully'})
+		except:
+			return jsonify({'error': 'Internal Server Error'}), 500
+
+
+@app.route('/users/<int:user_id>/routes/<int:route_id>', methods=['PUT'])
+def update_route(user_id, route_id):
+	user = get_data_by_id('users', user_id)
+	if not user:
+		return jsonify({'error':'User not found'}), 404
+	route = get_routes_of_user_by_id(user_id, route_id)
+	if not route:
+		return jsonify({'error':'Route not found'}), 404
+	else:
+		route_data = request.json
+		if route_data is None:
+			return jsonify({'error': 'No data provided'}), 400
+		comment = route_data.get('comment')
+		date = route_data.get('date')
+		route_name = route_data.get('route_name')
+		grade_index = route_data.get('grade_index')
+		try:
+			update_route_by_id(route_id, user_id,comment,date,grade_index,route_name)
+			updated_route = get_routes_of_user_by_id(user_id, route_id)
+			return jsonify({'message': 'Route updated successfully', 'route': updated_route})
+		except:
+			return jsonify({'error': 'Internal Server Error'}), 500
 
 if __name__ == "__main__":
     app.run()
