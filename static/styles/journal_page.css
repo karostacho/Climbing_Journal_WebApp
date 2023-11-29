@@ -42,39 +42,51 @@ body {
     cursor: pointer;
 }
 
+.fa-plus{
+	color:#ffffff
+}
+
 /* Modal window*/
 
 .modal {
     display: none;
     position: fixed;
     z-index: 100;
-    width: 85%;
-    height: 85%;
+    width: 85vw;
+    height: 85vh;
     background-color: white;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    padding: 20px 50px 20px 20px;
+    padding: 20px;
     overflow: auto;
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+	flex-direction: column;
 }
 
-.add-route {
+.modal-add-route-form {
     display: flex;
-    justify-content: center;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0% 5%;
+}
+
+.modal-add-form-first-line{
+	display: flex;
+	justify-content: space-between;
 }
 
 /* Title in modal window */
 
-.add-route h2 {
+.modal-add-route-form h2 {
     font-family: "Poppins";
     font-weight: 500;
     font-size: 24px;
     line-height: 20px;
     text-align: center;
-    margin-bottom: 5%;
+    
 }
 
 /* Close modal button */
@@ -107,8 +119,14 @@ body {
     text-align: left;
 }
 
-.box {
-    width: 365px;
+.field-comment{
+	float: left;
+    text-align: left;
+	width: 100%;
+}
+
+.field-input {
+	width:35vw;
     height: 42px;
     border-radius: 8px;
     border: 1px;
@@ -119,19 +137,12 @@ body {
 
 .route-and-date-fields {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    width: 905px
+    
 }
 
-.comment {
-    margin-top: 4%;
-    margin-bottom: 2%;
-    width: 100%;
-}
-
-.comment .box {
-    width: 905px;
+#comment.field-input {
+    width:100%
 }
 
 input {
@@ -144,14 +155,18 @@ input {
 
 /* Grade dropdowns */
 
-.dropdown-section {
+.modal-dropdown-section {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 905px;
-    margin-top: 4%
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
+.grade-dropdowns {
+	display: inline-block;
+	padding: 5px 10px;
+	margin-left: 1.5rem;
+	margin-right: 1.5rem;
+}
 #french,
 #kurtyka,
 #uiaa,
@@ -173,7 +188,7 @@ input {
     align-items: flex-start;
 }
 
-p {
+.modal-add-route-form p {
     font-family: "Poppins";
     font-weight: 500;
     font-size: 18px;
@@ -196,22 +211,17 @@ p {
 
 /* Submit route button*/
 
-.submit-btn {
-    margin-top: 2%;
-}
-
-.add-route button {
+.modal-submit-btn button{
     width: 365px;
     height: 56px;
     border-radius: 8px;
     padding: 17px, 30px, 17px, 30px;
-    gap: 10px;
     background-color: rgba(98, 77, 227, 1);
     color: rgba(255, 255, 255, 1);
     font-size: 18px;
     font-weight: 500;
     font-family: 'Inter';
-    line-height: 21.78px;
+    line-height: 22px;
     cursor: pointer;
 }
 
