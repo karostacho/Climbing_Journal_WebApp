@@ -96,7 +96,7 @@ def journal_page():
     gradeFilter = request.form.get("gradeFilter")
     sort_date_order = request.form.get("sortDateOrder")
     sort_grade_order = request.form.get("sortGradeOrder")
-
+    
     user_id = session.get('id')
     selected_scale = session.get('selected_scale', "French")
     sort_order= session.get("sort_order", "DESC")
@@ -113,8 +113,8 @@ def journal_page():
         routes_list = get_fortmatted_routes_list(routes_list)
         
         if 'gradeFilter' in request.form:
-            sort_order =  session.get("sort_order")
-            column_to_sort = session.get("column_to_sort")
+            sort_order =  session.get("sort_order", "DESC")
+            column_to_sort = session.get("column_to_sort", "date")
             selected_scale = gradeFilter
             session['selected_scale'] = selected_scale
             routes_list = save_db_routes_list_to_session(user_id, column_to_sort, sort_order, selected_scale)
@@ -213,6 +213,11 @@ def login_page():
 def logout():
    session.pop('loggedin', None)
    session.pop('id', None)
+   session.pop('column_to_sort', None)
+   session.pop('sort_order', None)
+   session.pop('routes_list', None)
+   session.pop('selected_scale', None)
+   
    return redirect(url_for('home_page'))
 
 
