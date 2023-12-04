@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Lead climbing journal</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/journal_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/mobile_navbar.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/navbar.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/graphic_section.css') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Inter:wght@500&family=Montserrat+Alternates:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b8d2cdc1ae.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    {% include 'mobile_navbar.html' %}
+
+    {% include 'navbar.html' %}
+
+    <div class="graphic-section">
+        <img src="{{ url_for('static',filename='photos/background_image.jpg') }}">
+        <div class="title">
+            <h1>Lead climbing journal</h1>
+        </div>
+    </div>
+
+    <div class="button-route-section">
+        <button class="add-route-btn" id="openModalBtn">Add new route <i class="fa-solid fa-plus"></i></button>
+    </div>
+
+    <div class="routes-section">
+        <div class="table-section">
+            <form method="POST">
+                <div class="grade-filter">
+                    <label for="gradeFilter">Grade Scale:</label><br>
+                    <select name="gradeFilter" id="grade-filter" name="grade-filter" onchange="this.form.submit()">
+                        <option value="" disabled selected>{{selected_scale}}</option>
+                        <option value="French">French</option>
+                        <option value="Kurtyka">Kurtyka</option>
+                        <option value="UIAA">UIAA</option>
+                        <option value="USA">USA</option>
+                        <option value="British">British</option>
+                    </select>
+                </div>
+            </form>
+            <form id="sortDateForm" method="post" style="display: inline;">
+                <input type="hidden" name="sortDateOrder" id="sortDateOrder" value="DESC">
+            </form>
+            <form id="sortGradeForm" method="post" style="display: inline;">
+                <input type="hidden" name="sortGradeOrder" id="sortGradeOrder" value="DESC">
+            </form>
+            <form id="deleteRouteForm" method="post" style="display: inline;">
+                <input type="hidden" name="deleteRoute" id="deleteRoute">
+            </form>
+            <table id="routes">
+                <thead>
+                    <tr class="headers">
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>
+                            <a class="fa-solid fa-sort" href="#" onclick="toggleGradeOrder();"></a><a> Grade</a>
+                        </th>
+                        <th>
+                            <a class="fa-solid fa-sort" href="#" onclick="toggleDatetOrder();"></a><a> Date</a>
+                        </th>
+                        <th>Comment</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in routes_list %}
+                    <tr>
+                        <td scope="row">{{ loop.index }}</td>
+                        <td scope=row>{{ row[1] }}</td>
+                        <td scope=row>{{ row[2] }}</td>
+                        <td scope=row>{{ row[3] }}</td>
+                        <td scope=row>{{ row[4] }}</td>
+                        <td scope=row>
+                            <div class="icons-container">
+                                <div class="icons">
+                                    <a href="#" onclick="deleteRoute('{{ row[5] }}');" class="fa-regular fa-trash-can fa-xl"></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="modal-section">
+            <div class="modal" id="addRouteWindow">
+				<div class="modal-x-btn">
+                <span class="close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></span>
+				</div>
+                
+                    <form  class="modal-add-route-form" method="POST" name="addRouteForm" onsubmit="return validationForm()">
+                        <h2>Add new route to your journal</h2>
+                            <div class="modal-add-form-first-line">
+                                <div class="field">
+                                    <label class="fields-name" for="route_name">Route name:</label><br>
+                                    <input class="field-input" type="text" placeholder="Eg. Perfecto Mundo" id="route_name"
+                                        name="route_name" required>
+                                </div>
+                                <div class="field">
+                                    <label class="fields-name" for="date">Date:</label><br>
+                                    <input class="field-input" type="date" id="date" name="date" class="datepicker-input"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="modal-add-form-second-line">
+                                <div class="comment">
+                                    <div class="field-comment">
+                                        <label class="fields-name" for="route_name">Comment:</label><br>
+                                        <input class="field-input" type="text" id="comment" name="comment"
+                                            placeholder="Eg. Rather soft for the grade">
+                                    </div>
+                                </div>
+                            </div>
+                            <p>Choose the scale of your route</p>
+
+                            <div class="modal-dropdown-section">
+                                <div class="grade-dropdowns">
+                                    <label for="french">French</label><br>
+                                    <select id="french" name="french">
+                                        <option value=""></option>
+                                        {% for grade in french %}
+                                        <option value="{{ grade }}">{{ grade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="grade-dropdowns">
+                                    <label for="kurtyka">Kurtyka</label><br>
+                                    <select id="kurtyka" name="kurtyka">
+                                        <option value=""> </option>
+                                        {% for grade in kurtyka %}
+                                        <option value="{{ grade }}">{{ grade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="grade-dropdowns">
+                                    <label for="uiaa">UIAA</label><br>
+                                    <select id="uiaa" name="uiaa">
+                                        <option value=""></option>
+                                        {% for grade in uiaa %}
+                                        <option value="{{ grade }}">{{ grade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="grade-dropdowns">
+                                    <label for="usa">USA</label><br>
+                                    <select id="usa" name="usa">
+                                        <option value=""></option>
+                                        {% for grade in usa %}
+                                        <option value="{{ grade }}">{{ grade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="grade-dropdowns">
+                                    <label for="british">British</label><br>
+                                    <select id="british" name="british">
+                                        <option value=""></option>
+                                        {% for grade in british %}
+                                        <option value="{{ grade }}">{{ grade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="flash-container">
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                {% for category, message in messages %}
+                                <div class="flash-message {% if category == 'success' %}success{% else %}error{% endif %}"
+                                    role="alert">
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                                {% endwith %}
+                            </div>
+							<div class="modal-submit-btn">
+								<button  type="submit" name="add" id="submitBtn">Submit</button>
+							</div>
+                    </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/java_script/journal.js"></script>
+</body>
+
+</html>

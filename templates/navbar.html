@@ -1,0 +1,57 @@
+<div class="navbar">
+    <ul>
+        <li>
+            <a href="{{ url_for('home_page') }}"><img class="logo"
+                    src="{{ url_for('static',filename='photos/logo.gif') }}" /></a>
+        </li>
+
+        <div class="navbar-wrapper">
+            <div class="pop-up-window">
+                <div class="not-logged-in-window" id="notLoggedInWindow">
+                    <span class="close-window" id="closeLoggedIn"><i class="fa-solid fa-xmark"></i></span>
+                    <h1>You are not logged in</h1>
+                    <div class="text-container">
+                        <p>
+                            Log in to your profile or sign up to add new routes and
+                            boulders to your climbing journal, and keep an eye on your
+                            progress!
+                        </p>
+                    </div>
+                    <div class="buttons">
+                        <div class="sign-up-button">
+                            <a href="{{ url_for('register_page') }}" class="sign_up">Sign up</a>
+                        </div>
+                        <div class="log-in-button">
+                            <a class="log_in" href="{{ url_for('login_page') }}">Have account? Log in</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <li class="grade-converter-tab">
+                <a class="grade-converter-tab" href="{{ url_for('home_page') }}">Grade converter</a>
+            </li>
+
+            {% if session.loggedin %}
+            <li class="journal-dropdown">
+                <button class="journal-tab">
+                    Journal <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="journal-dropdown-content">
+                    <a href="{{ url_for('journal_page') }}">Lead Climbing</a>
+                    <a href="{{ url_for('journal_page') }}">Bouldering</a>
+                </div>
+            </li>
+            <li><a class="login" href="{{ url_for('logout') }}">Log out</a></li>
+
+            {% else %}
+            <li class="journal-dropdown-inactive">
+                <button class="journal-tab-inactive" id="openNotLoggedIn">
+                    Journal <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </li>
+            <li><a class="login" href="{{ url_for('login_page') }}">Log in</a></li>
+            {% endif %}
+        </div>
+    </ul>
+</div>
